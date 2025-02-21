@@ -8,15 +8,13 @@
  */
 import { createRouter, createWebHashHistory } from 'vue-router';
 import staticRoute from './static-route.ts';
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router';
 
-const routes: RouteRecordRaw[] = [
-  ...staticRoute
-]
+const routes: RouteRecordRaw[] = [...staticRoute];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
+    history: createWebHashHistory(),
+    routes,
+});
 
-export default router
+export default router;

@@ -16,7 +16,7 @@ import { TinyVueResolver } from '@opentiny/unplugin-tiny-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 
 const config = {
-    plugins:[
+    plugins: [
         vue(),
         vueJsx(),
         tailwindcss(),
@@ -27,26 +27,25 @@ const config = {
             resolvers: [TinyVueResolver],
         }),
     ],
-    build:{
-        outDi:resolve(__dirname,'../dist'),
-        commonjsOptions:{
-            transformMixedEsModules:true
-        }
+    build: {
+        outDi: resolve(__dirname, '../dist'),
+        commonjsOptions: {
+            transformMixedEsModules: true,
+        },
     },
-    resolve:{
-        alias:[
+    resolve: {
+        alias: [
             {
-                find:"@",
-                replacement:resolve(__dirname,'../src')
+                find: '@',
+                replacement: resolve(__dirname, '../src'),
             },
             {
-                find: "assets",
-                replacement: resolve(__dirname, '../src/assets')
-            }
+                find: 'assets',
+                replacement: resolve(__dirname, '../src/assets'),
+            },
         ],
-        extensions:['.js','.ts']
+        extensions: ['.js', '.ts'],
     },
-}
-
+};
 
 export default defineConfig(config);

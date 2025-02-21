@@ -13,19 +13,19 @@ export function wrapperEnv(envConf: Record<string, string>): Record<string, any>
     const convertValue = (key: string, value: string): any => {
         // 移除换行符和包裹的引号
         // eslint-disable-next-line no-param-reassign
-        value = value.replace(/\\n/g, "\n").replace(/^['"]|['"]$/g, "");
+        value = value.replace(/\\n/g, '\n').replace(/^['"]|['"]$/g, '');
 
         // 处理布尔值
-        if (value === "true") return true;
-        if (value === "false") return false;
+        if (value === 'true') return true;
+        if (value === 'false') return false;
 
         // 处理数字
         if (!isNaN(Number(value))) return Number(value);
 
         // 尝试解析 JSON 对象
-        if (value.startsWith("[") || value.startsWith("{")) {
+        if (value.startsWith('[') || value.startsWith('{')) {
             try {
-                return JSON.parse(value.replace(/\\(["\\])/g, "$1"));
+                return JSON.parse(value.replace(/\\(["\\])/g, '$1'));
             } catch (error) {
                 console.warn(`Failed to parse JSON for ${key}:`, error);
             }
@@ -43,7 +43,6 @@ export function wrapperEnv(envConf: Record<string, string>): Record<string, any>
     return ret;
 }
 
-
 export function isReportMode(): boolean {
-    return process.env.REPORT === "true";
+    return process.env.REPORT === 'true';
 }

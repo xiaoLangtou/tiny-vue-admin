@@ -146,7 +146,7 @@ const DarkTheme = {
         'tv-color-act-primary-border-light': 'var(--tv-base-color-common-4)',
         'tv-color-act-primary-border-light-hover': 'var(--tv-base-color-common-5)',
         'tv-color-act-primary-border-light-active': 'var(--tv-base-color-common-6)',
-    }
+    },
 };
 
 export { DarkTheme };

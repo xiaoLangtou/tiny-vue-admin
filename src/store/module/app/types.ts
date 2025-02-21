@@ -24,5 +24,5 @@ export interface AppState {
     tabBar: boolean;
     [key: string]: unknown;
     step: number;
-    themeLightColors: any
+    themeLightColors: any;
 }

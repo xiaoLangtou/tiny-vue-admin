@@ -23,9 +23,9 @@ const useLoginStore = defineStore('login', {
         setUserInfo(info: any) {
             this.userInfo = info;
         },
-        loginAction(){
+        loginAction() {
             console.log('loginAction');
-        }
+        },
     },
 });
 

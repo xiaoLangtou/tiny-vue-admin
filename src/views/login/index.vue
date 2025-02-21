@@ -24,7 +24,7 @@
                             </div>
                             <a href="#" class="font-medium text no-underline hover:underline">忘记密码？</a>
                         </div>
-                        <tiny-button type="primary" style="width:100%">登录</tiny-button>
+                        <tiny-button type="primary" style="width: 100%">登录</tiny-button>
                     </tiny-form>
                 </div>
             </div>
@@ -34,16 +34,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive } from 'vue';
 
-const ruleFormRef = ref()
-
+const ruleFormRef = ref();
 
 const createData = reactive({
     username: '',
     password: '',
-    password2: ''
-})
+    password2: '',
+});
 </script>
 
 <style lang="scss" scoped>

@@ -8,7 +8,6 @@
  */
 import xltRequest from '@/service/request';
 
-
 export function login(data: any) {
     return xltRequest.post({
         url: '/login',
