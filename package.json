@@ -1,0 +1,78 @@
+{
+  "name": "tiny-vue-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config ./config/vite.config.dev.ts --mode development",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "prettier": "prettier --write .",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
+    "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@opentiny/vue": "3",
+    "@opentiny/vue-icon": "^3.21.0",
+    "@opentiny/vue-theme": "^3.21.2",
+    "@vueuse/core": "^12.7.0",
+    "axios": "^1.7.9",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "pinia": "^3.0.1",
+    "tailwindcss": "^4.0.7",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@esbuild-kit/cjs-loader": "^2.4.2",
+    "@opentiny/unplugin-tiny-vue": "^1.0.0",
+    "@tailwindcss/postcss": "^4.0.7",
+    "@tailwindcss/vite": "^4.0.7",
+    "@types/node": "^22.13.4",
+    "@types/nprogress": "^0.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/eslint-config-typescript": "^11.0.2",
+    "@vue/tsconfig": "^0.7.0",
+    "autoprefixer": "^10.4.20",
+    "commitizen": "^4.3.0",
+    "commitlint-config-cz": "^0.13.3",
+    "cz-customizable": "^7.0.0",
+    "eslint": "^8.37.0",
+    "eslint-config-alloy": "^4.9.0",
+    "eslint-plugin-vue": "^9.10.0",
+    "husky": "^8.0.3",
+    "husky-hook": "^1.3.0",
+    "postcss": "^8.5.2",
+    "prettier": "^2.8.4",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "sass": "^1.85.0",
+    "typescript": "~5.7.2",
+    "unplugin-auto-import": "^19.1.0",
+    "unplugin-vue-components": "^28.4.0",
+    "vite": "^6.1.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-imagemin": "^0.6.1",
+    "vite-svg-loader": "^5.1.0",
+    "vue-eslint-parser": "^9.1.1",
+    "vue-tsc": "^2.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  }
+}
