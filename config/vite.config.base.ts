@@ -26,11 +26,7 @@ const config = {
             resolvers: [TinyVueResolver],
         }),
         AutoImport({
-            imports: [
-                'vue',
-                'vue-router',
-                'pinia',
-            ],
+            imports: ['vue', 'vue-router', 'pinia'],
             dts: './src/types/auto-imports.d.ts',
             resolvers: [TinyVueResolver],
         }),

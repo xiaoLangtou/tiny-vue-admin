@@ -8,9 +8,9 @@
  */
 
 export interface ServiceResult<T> {
-  isSuccess: boolean;
-  errType: string | null;
-  data: T;
+    isSuccess: boolean;
+    errType: string | null;
+    data: T;
 }
 
 /**
@@ -19,9 +19,9 @@ export interface ServiceResult<T> {
  * @param isSuccess
  */
 export function handleServiceResult(data: any, isSuccess = true): ServiceResult<any> {
-  return {
-    isSuccess,
-    errType: null,
-    ...data
-  };
+    return {
+        isSuccess,
+        errType: null,
+        ...data,
+    };
 }

@@ -11,7 +11,7 @@
                         <h1>欢迎回来</h1>
                         <p class="subtitle">请使用您的账号密码登录系统</p>
                     </div>
-                    <tiny-form ref="loginFormRef" :model="account" label-position="top" :rules="loginRule" >
+                    <tiny-form ref="loginFormRef" :model="account" label-position="top" :rules="loginRule">
                         <tiny-form-item label="用户名" prop="username">
                             <tiny-input v-model="account.username"></tiny-input>
                         </tiny-form-item>

@@ -10,29 +10,13 @@
         "esModuleInterop": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": [
-                "src/*"
-            ]
+            "@/*": ["src/*"]
         },
-        "lib": [
-            "es2020",
-            "dom"
-        ],
+        "lib": ["es2020", "dom"],
         "skipLibCheck": true,
-        "types": [
-            "vite/client"
-        ],
+        "types": ["vite/client"],
         "allowJs": true
     },
-    "include": [
-        "src/**/*",
-        "src/**/*.vue",
-        "src/**/**/*.vue",
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/types/*.d.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*", "src/**/*.vue", "src/**/**/*.vue", "src/**/*.ts", "src/**/*.d.ts", "src/types/*.d.ts"],
+    "exclude": ["node_modules"]
 }
