@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 22:09:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-21 00:14:41
+ * @LastEditTime: 2025-02-22 13:27:42
  * @FilePath: config/vite.config.base.ts
  * @Description: vite基础配置
  */
@@ -21,14 +21,22 @@ const config = {
         vueJsx(),
         tailwindcss(),
         AutoComponent({
+            dts: './src/types/components.d.ts',
+            globs: ['src/components/*/index.vue'],
             resolvers: [TinyVueResolver],
         }),
         AutoImport({
+            imports: [
+                'vue',
+                'vue-router',
+                'pinia',
+            ],
+            dts: './src/types/auto-imports.d.ts',
             resolvers: [TinyVueResolver],
         }),
     ],
     build: {
-        outDi: resolve(__dirname, '../dist'),
+        outDir: resolve(__dirname, '../dist'),
         commonjsOptions: {
             transformMixedEsModules: true,
         },
@@ -44,7 +52,7 @@ const config = {
                 replacement: resolve(__dirname, '../src/assets'),
             },
         ],
-        extensions: ['.js', '.ts'],
+        extensions: ['.js', '.ts', '.vue'],
     },
 };
 

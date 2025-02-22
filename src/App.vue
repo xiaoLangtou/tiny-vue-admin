@@ -5,7 +5,7 @@
 </template>
 <script lang="ts" setup>
 import TinyThemeTool from '@opentiny/vue-theme/theme-tool';
-import { DefaultTheme } from '@/global/theme.ts';
+import { DefaultTheme } from '@/global/theme';
 
 const themeTool = new TinyThemeTool();
 themeTool.changeTheme({
