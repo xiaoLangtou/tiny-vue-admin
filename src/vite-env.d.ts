@@ -1,15 +1,6 @@
 /// <reference types="vite/client" />
 
 export {};
-declare module 'nprogress';
-declare module '@opentiny/vue-locale';
-declare module '@opentiny/vue';
-declare module '@opentiny/vue-icon';
-declare module '@opentiny/vue-theme/theme-tool.js';
-declare module '@opentiny/vue-theme/theme';
-declare module 'echarts4';
-declare module 'query-string';
-declare const BUILD_TOOLS: string;
 
 declare module '*.vue' {
     import { DefineComponent } from 'vue';
@@ -24,13 +15,7 @@ declare module 'vue/types/vue' {
     }
 }
 
-interface ImportMetaEnv {
-    readonly VITE_API_BASE_URL: string;
-}
 
-declare interface NodeRequire {
-    context: any;
-}
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {

@@ -8,12 +8,18 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    IconView: typeof import('./../components/icon-view/index.vue')['default']
+    Menu: typeof import('./../components/menu/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ThemeToggle: typeof import('./../components/theme-toggle/index.vue')['default']
     TinyButton: typeof import('@opentiny/vue')['Button']
     TinyCheckbox: typeof import('@opentiny/vue')['Checkbox']
+    TinyContainer: typeof import('@opentiny/vue')['Container']
     TinyForm: typeof import('@opentiny/vue')['Form']
     TinyFormItem: typeof import('@opentiny/vue')['FormItem']
     TinyInput: typeof import('@opentiny/vue')['Input']
+    TinySwitch: typeof import('@opentiny/vue')['Switch']
+    TinyTreeMenu: typeof import('@opentiny/vue')['TreeMenu']
   }
 }

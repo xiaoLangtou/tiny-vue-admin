@@ -2,8 +2,13 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 17:12:23
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-17 17:12:54
+ * @LastEditTime: 2025-02-22 19:39:34
  * @FilePath: src/tailwindcss.css
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+

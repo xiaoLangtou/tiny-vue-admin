@@ -1,22 +1,75 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
-        "module": "ES2020",
+        "target": "ESNext",
+        // 使用 ESNext 来支持现代 JavaScript 特性
+        "module": "ESNext",
+        // 动态导入 (import()) 需要 ESNext
         "moduleResolution": "bundler",
-        "strict": false,
+        // 让 TypeScript 使用 Vite 的解析方式
+        "strict": true,
+        // 启用严格模式，帮助发现潜在问题
         "jsx": "preserve",
+        // 保持 JSX 原样
         "sourceMap": true,
+        // 生成源映射文件，有助于调试
         "resolveJsonModule": true,
+        // 允许导入 JSON 模块
         "esModuleInterop": true,
+        // 使 CommonJS 模块兼容 ES 模块
         "baseUrl": ".",
+        // 基本路径是项目根目录
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": [
+                "src/*"
+            ],
+            // 明确指定路径别名
+            "@types/*": [
+                "src/types/*"
+            ]
+            // 额外的类型别名，便于引用
         },
-        "lib": ["es2020", "dom"],
+        "lib": [
+            "ESNext",
+            // 使用最新的 ECMAScript 特性
+            "DOM",
+            // 浏览器环境的 DOM 支持
+            "DOM.Iterable"
+            // 支持 DOM 元素的迭代
+        ],
         "skipLibCheck": true,
-        "types": ["vite/client"],
-        "allowJs": true
+        // 跳过库文件检查，提高编译性能
+        "types": [
+            "vite/client",
+            "node"
+        ],
+        // 添加 Vite 和 Node 类型支持
+        "allowJs": false,
+        // 不允许 JavaScript 文件，确保项目使用 TypeScript
+        "declaration": false,
+        // 为 TypeScript 文件生成 .d.ts 声明文件
+        "declarationMap": true,
+        // 生成声明文件的映射，方便调试
+        "incremental": true,
+        // 启用增量编译，提升开发体验
+        "noEmit": false,
+        // 隐式any
+        "noImplicitAny": true
     },
-    "include": ["src/**/*", "src/**/*.vue", "src/**/**/*.vue", "src/**/*.ts", "src/**/*.d.ts", "src/types/*.d.ts"],
-    "exclude": ["node_modules"]
+    "include": [
+        "src/**/*",
+        // 包括所有源代码
+        "src/**/*.vue",
+        // 包括所有 Vue 组件
+        "src/**/*.ts",
+        // 包括所有 TypeScript 文件
+        "src/**/*.d.ts",
+        // 包括所有声明文件
+        "src/types/*.d.ts",
+        // 包括自定义类型声明
+        "src/types/global.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+        // 排除第三方依赖
+    ]
 }

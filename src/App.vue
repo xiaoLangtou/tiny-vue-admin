@@ -19,6 +19,6 @@ themeTool.changeTheme({
 .app {
     width: 100vw;
     height: 100vh;
-    background-color: var(--p-gray-50);
+    background-color: #ffffff;
 }
 </style>

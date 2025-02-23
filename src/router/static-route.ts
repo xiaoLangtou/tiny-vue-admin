@@ -2,12 +2,13 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:44:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-18 17:13:19
+ * @LastEditTime: 2025-02-22 16:47:42
  * @FilePath: src/router/static-route.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
+import type { RouteRecordRaw } from 'vue-router';
 
-export default [
+const staticRoutes: RouteRecordRaw[] = [
     {
         path: '/',
         redirect: '/main',
@@ -15,7 +16,7 @@ export default [
     {
         path: '/main',
         name: 'main',
-        component: () => import('@/views/main/index.vue'),
+        component: () => import('@/layout/index.vue'),
     },
     {
         path: '/login',
@@ -42,3 +43,5 @@ export default [
         redirect: '/404',
     },
 ];
+
+export default staticRoutes;

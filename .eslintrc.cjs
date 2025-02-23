@@ -4,7 +4,7 @@ module.exports = {
         es2021: true,
         node: true,
     },
-    extends: ['alloy',"alloy/vue","alloy/typescript"],
+    extends: ['alloy', 'alloy/vue', 'alloy/typescript', './.eslintrc-auto-import.json'],
     parser: 'vue-eslint-parser',
     parserOptions: {
         parser: {
@@ -17,9 +17,11 @@ module.exports = {
     rules: {
         // 函数参数最多4个
         'max-params': ['error', 4],
-         '@typescript-eslint/prefer-optional-chain': 'off',
+        '@typescript-eslint/prefer-optional-chain': 'off',
         '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/explicit-member-accessibility': 'off',
         'vue/no-duplicate-attr-inheritance': 'off',
+
         'vue/no-duplicate-attributes': [
             'error',
             {

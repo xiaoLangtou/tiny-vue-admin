@@ -2,12 +2,12 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 17:14:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-21 00:19:24
+ * @LastEditTime: 2025-02-22 17:53:08
  * @FilePath: tailwind.config.js
  * @Description: tailwindcss 配置文件
  */
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     theme: {
         extend: {
@@ -106,5 +106,4 @@ module.exports = {
             },
         },
     },
-    plugins: [],
 };
