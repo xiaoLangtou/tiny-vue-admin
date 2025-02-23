@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 14:54:39
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-22 15:27:02
+ * @LastEditTime: 2025-02-23 17:15:00
  * @FilePath: src/router/guard/permission.ts
  * @Description: 登录状态校验
  */
@@ -11,6 +11,7 @@ import NProgress from 'nprogress';
 
 import { useLoginStore } from '@/store';
 import { Modal } from '@opentiny/vue';
+import { useMessage } from '@/hooks/useMessage';
 
 export default function setupPermissionGuard(router: Router) {
     router.beforeEach(async (to, from, next) => {
@@ -23,7 +24,7 @@ export default function setupPermissionGuard(router: Router) {
                 return;
             }
             await nextTick();
-            Modal.message({ message: '请先登录', status: 'error' });
+            useMessage().error('请先登录');
             await nextTick();
             next({
                 name: 'Login',

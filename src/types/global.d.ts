@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 11:08:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 14:28:12
+ * @LastEditTime: 2025-02-23 17:13:20
  * @FilePath: src/types/global.d.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -32,3 +32,4 @@ declare interface ImportMetaEnv {
 declare interface NodeRequire {
     context: any;
 }
+

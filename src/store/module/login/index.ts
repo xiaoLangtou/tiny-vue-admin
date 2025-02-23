@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 15:10:13
+ * @LastEditTime: 2025-02-23 16:32:58
  * @FilePath: src/store/module/login/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -16,6 +16,7 @@ import { Modal } from '@opentiny/vue';
 import { to } from '@/utils/result-handler';
 import router from '@/router';
 import { TLoginState } from '@/store/module/login/types';
+import { useMessage } from '@/hooks/useMessage';
 
 const useLoginStore = defineStore('login', {
     persist: [
@@ -79,10 +80,8 @@ const useLoginStore = defineStore('login', {
                 userInfo,
             });
             await router.replace('/');
-            Modal.message({
-                message: '欢迎回来',
-                status: 'success',
-            });
+
+            useMessage().success('欢迎回来')
         },
         async getAuthMenuList() {
             const result = await to(getUserMenu());
