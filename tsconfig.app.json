@@ -19,13 +19,9 @@
         "baseUrl": ".",
         // 基本路径是项目根目录
         "paths": {
-            "@/*": [
-                "src/*"
-            ],
+            "@/*": ["src/*"],
             // 明确指定路径别名
-            "@types/*": [
-                "src/types/*"
-            ]
+            "@types/*": ["src/types/*"]
             // 额外的类型别名，便于引用
         },
         "lib": [
@@ -38,10 +34,7 @@
         ],
         "skipLibCheck": true,
         // 跳过库文件检查，提高编译性能
-        "types": [
-            "vite/client",
-            "node"
-        ],
+        "types": ["vite/client", "node"],
         // 添加 Vite 和 Node 类型支持
         "allowJs": false,
         // 不允许 JavaScript 文件，确保项目使用 TypeScript

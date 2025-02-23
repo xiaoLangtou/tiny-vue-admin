@@ -40,7 +40,7 @@ const toggleTheme = (value: string) => {
 </script>
 
 <template>
-    <div class="inline-flex bg-gray-100 p-1 rounded-full ">
+    <div class="inline-flex bg-gray-100 p-1 rounded-full">
         <button
             v-for="option in ['light', 'dark']"
             :key="option"
@@ -50,7 +50,7 @@ const toggleTheme = (value: string) => {
             ]"
             @click="toggleTheme(option)"
         >
-            <Sun  v-if="option === 'light'" class="h-4 w-4" />
+            <Sun v-if="option === 'light'" class="h-4 w-4" />
             <Moon v-if="option === 'dark'" class="h-4 w-4" />
             {{ option.charAt(0).toUpperCase() + option.slice(1) }}
         </button>
