@@ -81,7 +81,7 @@ const useLoginStore = defineStore('login', {
             });
             await router.replace('/');
 
-            useMessage().success('欢迎回来')
+            useMessage().success('欢迎回来');
         },
         async getAuthMenuList() {
             const result = await to(getUserMenu());

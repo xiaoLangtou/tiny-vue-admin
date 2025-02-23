@@ -101,7 +101,6 @@ export function useMessage() {
             return Modal.alert({ message: title, status: 'loading' });
         }
 
-
         /**
          * 显示一个确认对话框
          *
