@@ -2,11 +2,12 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:44:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-22 16:47:42
+ * @LastEditTime: 2025-02-23 15:27:49
  * @FilePath: src/router/static-route.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 import type { RouteRecordRaw } from 'vue-router';
+import Layout from '@/layout/index.vue';
 
 const staticRoutes: RouteRecordRaw[] = [
     {
@@ -14,9 +15,10 @@ const staticRoutes: RouteRecordRaw[] = [
         redirect: '/main',
     },
     {
+        name: 'root',
         path: '/main',
-        name: 'main',
-        component: () => import('@/layout/index.vue'),
+        component: Layout,
+        children: [],
     },
     {
         path: '/login',
@@ -37,10 +39,6 @@ const staticRoutes: RouteRecordRaw[] = [
         path: '/503',
         name: '503',
         component: () => import('@/views/error-page/service-unavailable.vue'),
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        redirect: '/404',
     },
 ];
 

@@ -26,13 +26,8 @@
 
                 <!-- 操作按钮 -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                    <Button label="返回首页" icon="pi pi-home" class="p-button-primary px-6" @click="goHome" />
-                    <Button
-                        label="联系支持"
-                        icon="pi pi-envelope"
-                        class="p-button-outlined px-6"
-                        @click="contactSupport"
-                    />
+                    <TinyButton type="primary" @click="goHome">返回首页</TinyButton>
+                    <TinyButton @click="contactSupport">联系支持 </TinyButton>
                 </div>
             </div>
         </div>

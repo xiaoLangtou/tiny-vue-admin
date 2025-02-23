@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 11:29:18
+ * @LastEditTime: 2025-02-23 14:45:02
  * @FilePath: src/store/module/menu/menu.ts
  * @Description: 路由相关的store
  */
@@ -11,7 +11,6 @@ import { defineStore } from 'pinia';
 import { getUserMenu } from '@/service/module/login';
 import { to } from '@/utils/result-handler';
 import { MenuOptions } from '@/service/interface/menu';
-import { data } from 'autoprefixer';
 
 const useMenuStore = defineStore('menu', {
     state: () => {
@@ -26,7 +25,7 @@ const useMenuStore = defineStore('menu', {
             if (!result.ok) return;
             this.menuList = result.value.data;
             this.flatMeuList = this.flattenMenu(this.menuList);
-            return data;
+            return result.value.data;
         },
         flattenMenu(menuList: MenuOptions[]): MenuOptions[] {
             const result: MenuOptions[] = [];

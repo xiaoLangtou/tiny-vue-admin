@@ -19,6 +19,7 @@ declare module 'vue' {
     TinyForm: typeof import('@opentiny/vue')['Form']
     TinyFormItem: typeof import('@opentiny/vue')['FormItem']
     TinyInput: typeof import('@opentiny/vue')['Input']
+    TinyLayout: typeof import('@opentiny/vue')['Layout']
     TinySwitch: typeof import('@opentiny/vue')['Switch']
     TinyTreeMenu: typeof import('@opentiny/vue')['TreeMenu']
   }

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 20:21:41
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 12:49:31
+ * @LastEditTime: 2025-02-23 13:44:34
  * @FilePath: src/components/menu/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -43,7 +43,6 @@ let routerTitle = [] as any;
 const filterRawMenuData = (data: MenuOptions[]) => {
     const menus: MenuOptions[] = [];
     data.forEach((item) => {
-        console.log(item.meta.icon);
         const url = item.path!;
         routerTitle.push({
             label: item.meta?.title,
@@ -63,8 +62,8 @@ const filterRawMenuData = (data: MenuOptions[]) => {
 };
 
 const currentChange = (node: any) => {
-    if (node.children.length>0) return;
-    router.push({path:node.path});
+    if (node.children.length > 0) return;
+    router.push({ path: node.path });
 };
 
 const menuTreeData = computed(() => {
@@ -74,5 +73,3 @@ const menuTreeData = computed(() => {
     return filterRawMenuData(rawMenuList.value);
 });
 </script>
-
-<style scoped lang="scss"></style>

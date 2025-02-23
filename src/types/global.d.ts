@@ -2,12 +2,14 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 11:08:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 11:12:57
+ * @LastEditTime: 2025-02-23 14:28:12
  * @FilePath: src/types/global.d.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
-declare module 'nprogress';
 
+export {};
+
+declare module 'nprogress';
 declare module '@opentiny/vue-locale';
 declare module '@opentiny/vue';
 declare module '@opentiny/vue-icon';
@@ -31,4 +33,3 @@ declare interface NodeRequire {
     context: any;
 }
 
-export {};

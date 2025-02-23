@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 11:13:56
+ * @LastEditTime: 2025-02-23 15:10:13
  * @FilePath: src/store/module/login/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -11,7 +11,7 @@ import { defineStore } from 'pinia';
 import { IAccount } from '@/service/interface/login';
 import { getUserInfo, getUserMenu, login } from '@/service/module/login';
 // @ts-ignore
-import * as md5 from 'md5';
+import md5 from 'md5';
 import { Modal } from '@opentiny/vue';
 import { to } from '@/utils/result-handler';
 import router from '@/router';
