@@ -1,9 +1,9 @@
 <template>
     <div class="layout">
-        <tiny-container :aside-width="250" :pattern="pattern">
+        <tiny-container :aside-width="asideWidth" :pattern="pattern">
             <template #header>
-                <tiny-layout>
-                    <NavBar />
+                <tiny-layout class="w-full h-full px-3 box-border">
+                    <LayoutHeader />
                 </tiny-layout>
             </template>
             <template #aside>
@@ -27,7 +27,12 @@
 
 <script lang="ts" setup>
 // 初始化默认主题
-import { LayoutAside, LayoutPage } from './components';
+import { LayoutAside, LayoutPage, LayoutHeader } from './components';
+import { useMenuStore } from '@/store/module';
+
+const menuStore = useMenuStore();
+
+const asideWidth = computed(() => (menuStore.isCollapsed ? 80 : 220));
 
 const pattern = ref('fashion');
 </script>
@@ -59,7 +64,6 @@ const pattern = ref('fashion');
     z-index: 100;
     background: #fff;
     border-left: 1px solid #ccc;
-    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .layout :deep(.tiny-container .tiny-container__main) {

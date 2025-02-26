@@ -2,45 +2,8 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 19:49:00
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 14:04:10
+ * @LastEditTime: 2025-02-25 11:33:42
  * @FilePath: src/assets/styles/var.scss
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
-.tiny-tree {
-    --tv-Tree-node-content-hover-bg-color: none;
-}
 
-.tiny-tree-menu {
-    --tv-TreeMenu-node-body-text-color: theme('colors.primary.950');
-    --tv-TreeMenu-node-selected-bg-color: theme('colors.primary.100');
-    padding: 0 10px;
-    background-color: var(--tv-TreeMenu-background-color);
-
-
-    &:before {
-        border: none;
-    }
-
-
-    .tiny-tree-node__content {
-        padding: 5px 0;
-        border-radius: 5px;
-
-        &:before {
-            border-left: none;
-        }
-    }
-
-    .tiny-tree-node {
-        &.is-current {
-            span {
-                color: theme('colors.primary.600');
-            }
-        }
-
-        &.is-expanded .has-child {
-            color: theme('colors.primary.600');
-        }
-
-    }
-}

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 14:45:02
+ * @LastEditTime: 2025-02-25 17:36:49
  * @FilePath: src/store/module/menu/menu.ts
  * @Description: 路由相关的store
  */
@@ -17,9 +17,13 @@ const useMenuStore = defineStore('menu', {
         return {
             menuList: [] as MenuOptions[], // 树形菜单
             flatMeuList: [] as MenuOptions[], // 平铺菜单
+            isCollapsed: false,
         };
     },
     actions: {
+        setCollapsed(partial: Partial<{ isCollapsed: boolean; [key: string]: any }>) {
+            this.$patch(partial);
+        },
         async getAuthMenuList() {
             const result = await to(getUserMenu());
             if (!result.ok) return;

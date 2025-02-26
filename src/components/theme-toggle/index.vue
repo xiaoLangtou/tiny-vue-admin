@@ -3,20 +3,6 @@ import { Sun, Moon } from 'lucide-vue-next';
 
 const theme = ref('light');
 
-// 初始化主题
-// onMounted(() => {
-//     // 从 localStorage 获取保存的主题
-//     const savedTheme = localStorage.getItem('theme');
-//     if (savedTheme) {
-//         theme.value = savedTheme;
-//         applyTheme(savedTheme);
-//     } else {
-//         // 如果没有保存的主题，检查系统主题
-//         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-//         theme.value = prefersDark ? 'dark' : 'light';
-//         applyTheme(theme.value);
-//     }
-// });
 
 // 监听主题变化
 watch(theme, (newTheme) => {
@@ -45,7 +31,7 @@ const toggleTheme = (value: string) => {
             v-for="option in ['light', 'dark']"
             :key="option"
             :class="[
-                'px-1.5 py-1 rounded-full text-sm font-medium inline-flex items-center gap-1 transition-all duration-300',
+                'px-1 py-0.5 rounded-full text-sm font-medium inline-flex items-center gap-1 transition-all duration-300',
                 theme === option ? 'bg-white  text-primary shadow-sm' : 'hover:text-primary/80',
             ]"
             @click="toggleTheme(option)"

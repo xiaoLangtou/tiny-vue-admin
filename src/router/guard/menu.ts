@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 16:28:30
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 15:31:37
+ * @LastEditTime: 2025-02-25 15:29:43
  * @FilePath: src/router/guard/menu.ts
  * @Description: 菜单路由守卫
  */
@@ -12,7 +12,6 @@ import type { Router, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import { useMenuStore } from '@/store/module';
 import { MenuOptions } from '@/service/interface/menu';
-import NotFound from '@/views/error-page/not-found.vue';
 
 // 导入当前项目中views下的所有路由文件
 const views = import.meta.glob('../../views/**/*.vue');
