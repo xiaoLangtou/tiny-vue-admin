@@ -29,7 +29,7 @@ defineOptions({
 <style scoped lang="scss">
 .tiny-breadcrumb {
     --tv-Breadcrumb-separator-icon-color: none;
-    --tv-Breadcrumb-text-color:theme('colors.gray.400');
+    --tv-Breadcrumb-text-color: theme('colors.gray.400');
     :deep(.tiny-breadcrumb__inner) {
         &:hover {
             text-decoration: none;
