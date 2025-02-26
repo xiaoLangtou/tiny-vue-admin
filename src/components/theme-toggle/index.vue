@@ -3,7 +3,6 @@ import { Sun, Moon } from 'lucide-vue-next';
 
 const theme = ref('light');
 
-
 // 监听主题变化
 watch(theme, (newTheme) => {
     applyTheme(newTheme);

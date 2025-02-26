@@ -22,9 +22,9 @@
             <template #default="slotScope">
                 <template v-if="isCollapsed">
                     <tiny-dropdown :menu-options="menuOptions">
-                       <div style="width: 100%">
-                           <icon-view :model-value="slotScope.node.data.meta.icon"></icon-view>
-                       </div>
+                        <div style="width: 100%">
+                            <icon-view :model-value="slotScope.node.data.meta.icon"></icon-view>
+                        </div>
                     </tiny-dropdown>
                 </template>
                 <div
