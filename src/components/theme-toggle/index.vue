@@ -1,69 +1,43 @@
 <script setup lang="ts">
-import { Sun, Moon } from 'lucide-vue-next';
+import { Moon, Sun } from 'lucide-vue-next';
+import { useAppStore } from '@/store';
+import { ThemeType } from '@/store/module/app/types';
+import { isDark } from '@/store/module/app';
 
-const theme = ref('light');
+const appStore = useAppStore();
 
-// 监听主题变化
-watch(theme, (newTheme) => {
-    applyTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-});
+const theme = ref(appStore.theme);
+console.log(theme);
 
-// 应用主题
-const applyTheme = (newTheme: string) => {
-    if (newTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-};
-
-// 切换选项
-const toggleTheme = (value: string) => {
-    theme.value = value;
+const toggleTheme = (_theme: ThemeType) => {
+    appStore.toggleTheme(_theme);
+    theme.value = _theme;
 };
 </script>
 
 <template>
-    <div class="inline-flex bg-gray-100 p-1 rounded-full">
+    <div class="inline-flex p-1 rounded-full bg-gray-50 dark:bg-gray-800">
         <button
             v-for="option in ['light', 'dark']"
             :key="option"
             :class="[
-                'px-1 py-0.5 rounded-full text-sm font-medium inline-flex items-center gap-1 transition-all duration-300',
-                theme === option ? 'bg-white  text-primary shadow-sm' : 'hover:text-primary/80',
+                'pl-3 pr-4 py-1 rounded-full inline-flex items-center justify-center transition-all duration-300',
+                theme === option
+                    ? 'bg-primary text-white shadow-md dark:bg-primary dark:text-white' // 当前选中状态
+                    : 'text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600', // 未选中状态
             ]"
-            @click="toggleTheme(option)"
+            @click="toggleTheme(option as unknown as ThemeType)"
         >
             <Sun v-if="option === 'light'" class="h-4 w-4" />
             <Moon v-if="option === 'dark'" class="h-4 w-4" />
-            {{ option.charAt(0).toUpperCase() + option.slice(1) }}
         </button>
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .transition-all {
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
-}
-
-/* 暗色模式样式 */
-:root.dark {
-    color-scheme: dark;
-}
-
-/* 主要颜色变量 */
-:root {
-    --primary: #0284c7;
-}
-
-.text-primary {
-    color: var(--primary);
-}
-
-.shadow-sm {
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 </style>

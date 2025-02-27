@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2024-12-03 15:33:16
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-22 14:05:57
+ * @LastEditTime: 2025-02-27 09:13:41
  * @FilePath: src/service/request/alova/alova.ts
  * @Description: 配置 alova.js 实例
  */
@@ -16,8 +16,9 @@ import { handleServiceResult } from '@/service/request/config/handle';
 import { useLoginStore } from '@/store';
 import router from '@/router';
 import { LOGIN_URL } from '@/global/constants';
-import { Modal } from '@opentiny/vue';
+import { message } from 'ant-design-vue';
 
+const [messageApi] = message.useMessage();
 // 基础 alova 配置
 
 const alovaOptions = {
@@ -37,7 +38,7 @@ const { onAuthRequired, onResponseRefreshToken } = createClientTokenAuthenticati
                 useLoginStore().setToken(responseData.data.accessToken);
             }
         } catch (e) {
-            Modal.message({ message: (e as any).message, status: 'error' });
+            messageApi.error((e as any).message);
             throw e;
         }
     },
@@ -77,15 +78,12 @@ const alovaInstance = createAlova({
                 await Promise.reject(message);
                 return handleServiceResult(responseData, false);
             } catch (err: any) {
-                Modal.message({
-                    message: err.message ? err.message : typeof err === 'object' ? JSON.stringify(err) : err,
-                    status: 'error',
-                });
+                messageApi.error(err.message ? err.message : typeof err === 'object' ? JSON.stringify(err) : err);
                 throw err;
             }
         },
         onError(error) {
-            Modal.message({ message: `Request failed: ${error.message}`, status: 'error' });
+            messageApi.error(`Request failed: ${error.message}`).then((r) => {});
         },
     }),
 });

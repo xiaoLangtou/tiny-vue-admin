@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 15:32:17
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 14:53:35
+ * @LastEditTime: 2025-02-26 14:33:48
  * @FilePath: src/service/interface/menu.ts
  * @Description: 菜单相关的类型
  */
@@ -20,15 +20,15 @@ export interface MetaProps {
 }
 
 export interface MenuOptions {
-    id?: number;
+    id: number;
     path: string;
     name: string;
-    component?: string;
+    component: string;
     redirect?: string;
     meta: MetaProps;
     menuType?: string;
     children?: MenuOptions[];
-    parentId: string;
+    parentId?: string;
 
     [key: string]: any;
 }

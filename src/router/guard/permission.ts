@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 14:54:39
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 17:15:00
+ * @LastEditTime: 2025-02-27 09:23:54
  * @FilePath: src/router/guard/permission.ts
  * @Description: 登录状态校验
  */
@@ -10,8 +10,9 @@ import type { LocationQueryRaw, Router } from 'vue-router';
 import NProgress from 'nprogress';
 
 import { useLoginStore } from '@/store';
-import { Modal } from '@opentiny/vue';
-import { useMessage } from '@/hooks/useMessage';
+import { message } from 'ant-design-vue';
+
+const [messageApi] = message.useMessage();
 
 export default function setupPermissionGuard(router: Router) {
     router.beforeEach(async (to, from, next) => {
@@ -24,7 +25,7 @@ export default function setupPermissionGuard(router: Router) {
                 return;
             }
             await nextTick();
-            useMessage().error('请先登录');
+            messageApi.error('请先登录');
             await nextTick();
             next({
                 name: 'Login',

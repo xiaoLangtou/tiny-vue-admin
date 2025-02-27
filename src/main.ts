@@ -8,6 +8,7 @@ import './tailwindcss.css';
 import './assets/styles/base.css';
 import './assets/styles/index.scss';
 import 'normalize.css';
+import 'ant-design-vue/dist/reset.css';
 
 const app = createApp(App);
 app.use(pinia);

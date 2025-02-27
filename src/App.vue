@@ -1,24 +1,30 @@
 <template>
     <div class="app">
-        <router-view />
+        <a-config-provider :theme="themeConfig">
+            <a-app>
+                <router-view />
+            </a-app>
+        </a-config-provider>
     </div>
 </template>
 <script lang="ts" setup>
-import TinyThemeTool from '@opentiny/vue-theme/theme-tool';
-import { DefaultTheme } from '@/global/theme';
+import { useAppStore } from '@/store';
 
-const themeTool = new TinyThemeTool();
-themeTool.changeTheme({
-    name: DefaultTheme.name,
-    data: {
-        ...DefaultTheme.data,
+const appStore = useAppStore();
+const { themeConfig } = storeToRefs(appStore);
+
+const theme = ref(themeConfig.value);
+watch(
+    () => theme.value,
+    (newVal) => {
+        console.log(newVal);
     },
-});
+    { immediate: true },
+);
 </script>
 <style lang="scss">
 .app {
     width: 100vw;
     height: 100vh;
-    background-color: #ffffff;
 }
 </style>

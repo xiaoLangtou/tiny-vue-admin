@@ -11,23 +11,28 @@
                         <h1>欢迎回来</h1>
                         <p class="subtitle">请使用您的账号密码登录系统</p>
                     </div>
-                    <tiny-form ref="loginFormRef" :model="account" label-position="top" :rules="loginRule">
-                        <tiny-form-item label="用户名" prop="username">
-                            <tiny-input v-model="account.username"></tiny-input>
-                        </tiny-form-item>
-                        <tiny-form-item label="密码" prop="password">
-                            <tiny-input v-model="account.password" type="password" show-password></tiny-input>
-                        </tiny-form-item>
+                    <a-form ref="loginFormRef" :model="account" :rules="loginRule" layout="vertical">
+                        <a-form-item label="用户名" name="username">
+                            <a-input v-model:value="account.username" />
+                        </a-form-item>
+
+                        <a-form-item label="密码" name="password">
+                            <a-input-password v-model:value="account.password" />
+                        </a-form-item>
+
                         <div class="flex w-full items-center justify-between mb-4">
                             <div class="flex align-items-center">
-                                <tiny-checkbox v-model="checked" name="tiny-checkbox">记住我</tiny-checkbox>
+                                <a-checkbox v-model:checked="checked">记住我</a-checkbox>
                             </div>
                             <a href="#" class="font-medium text no-underline hover:underline">忘记密码？</a>
                         </div>
-                        <tiny-button :loading="submitLoading" style="width: 100%" type="primary" @click="handleLogin"
-                            >{{ submitLoading ? '登陆中' : '登录' }}
-                        </tiny-button>
-                    </tiny-form>
+
+                        <a-form-item>
+                            <a-button type="primary" :loading="submitLoading" style="width: 100%" @click="handleLogin">
+                                {{ submitLoading ? '登陆中' : '登录' }}
+                            </a-button>
+                        </a-form-item>
+                    </a-form>
                 </div>
             </div>
         </div>
@@ -38,6 +43,7 @@
 import { ref, reactive } from 'vue';
 import { useLoginStore } from '@/store';
 import { IAccount } from '@/service/interface/login';
+import type { Rule } from 'ant-design-vue/es/form';
 
 const loginStore = useLoginStore();
 const loginFormRef = ref();
@@ -48,20 +54,19 @@ const account = reactive<IAccount>({
     password: '',
 });
 
-const loginRule = reactive({
+const loginRule = reactive<Record<string, Rule[]>>({
     username: [{ required: true, message: '请填写用户名', trigger: 'blur' }],
     password: [{ required: true, message: '请填写密码', trigger: 'blur' }],
 });
 
 const handleLogin = () => {
-    loginFormRef.value?.validate((valid: any) => {
-        console.log(valid);
-        if (valid) {
+    loginFormRef.value
+        ?.validate()
+        .then(() => {
+            console.log('account', account);
             loginStore.loginAction(account);
-        } else {
-            return false;
-        }
-    });
+        })
+        .catch(() => {});
 };
 </script>
 

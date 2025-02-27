@@ -2,107 +2,105 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 17:14:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-22 17:53:08
+ * @LastEditTime: 2025-02-27 11:24:52
  * @FilePath: tailwind.config.js
  * @Description: tailwindcss 配置文件
  */
 /** @type {import('tailwindcss').Config} */
 export default {
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
                 primary: {
-                    50: '#f7f7fe',
-                    100: '#dadafc',
-                    200: '#bcbdf9',
-                    300: '#9ea0f6',
-                    400: '#8183f4',
-                    500: '#6366f1',
-                    600: '#5457cd',
-                    700: '#4547a9',
-                    800: '#363885',
-                    900: '#282960',
-                    950: '#191a3c',
-                },
-                emerald: {
-                    50: '#ecfdf5',
-                    100: '#d1fae5',
-                    200: '#a7f3d0',
-                    300: '#6ee7b7',
-                    400: '#34d399',
-                    500: '#10b981',
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065f46',
-                    900: '#064e3b',
-                    950: '#022c22',
+                    DEFAULT: '#6366f1', // 主色
+                    light: '#f0f3ff', // 主色浅色背景
+                    dark: '#575ad0', // 主色深色
+                    hover: '#9197ff', // 主色悬浮
+                    active: '#4c49cc', // 主色激活态
+                    text: '#6366f1', // 主色文本
+                    textHover: '#9197ff', // 主色文本悬浮
+                    textActive: '#4c49cc', // 主色文本激活
                 },
                 success: {
-                    DEFAULT: '#10b981',
-                    light: '#ecfdf5',
-                },
-                error: {
-                    DEFAULT: '#ef4444',
-                    light: '#fef2f2',
+                    DEFAULT: '#52c41a', // 成功色
+                    light: '#f6ffed', // 成功色浅色背景
+                    dark: '#49aa19', // 成功色深色
+                    hover: '#95de64', // 成功色悬浮
+                    active: '#389e0d', // 成功色激活态
+                    text: '#52c41a', // 成功色文本
+                    textHover: '#73d13d', // 成功色文本悬浮
+                    textActive: '#389e0d', // 成功色文本激活
                 },
                 warning: {
-                    DEFAULT: '#f59e0b',
-                    light: '#fffbeb',
+                    DEFAULT: '#faad14', // 警戒色
+                    light: '#fffbe6', // 警戒色浅色背景
+                    dark: '#d89614', // 警戒色深色
+                    hover: '#ffd666', // 警戒色悬浮
+                    active: '#d48806', // 警戒色激活态
+                    text: '#faad14', // 警戒色文本
+                    textHover: '#ffc53d', // 警戒色文本悬浮
+                    textActive: '#d48806', // 警戒色文本激活
+                },
+                error: {
+                    DEFAULT: '#ff4d4f', // 错误色
+                    light: '#fff2f0', // 错误色浅色背景
+                    dark: '#dc4446', // 错误色深色
+                    hover: '#ff7875', // 错误色悬浮
+                    active: '#d9363e', // 错误色激活态
+                    text: '#ff4d4f', // 错误色文本
+                    textHover: '#ff7875', // 错误色文本悬浮
+                    textActive: '#d9363e', // 错误色文本激活
                 },
                 info: {
-                    DEFAULT: '#0ea5e9',
-                    light: '#f0f9ff',
+                    DEFAULT: '#6366f1', // 信息色
+                    light: '#f0f3ff', // 信息色浅色背景
+                    dark: '#4d50b4', // 信息色深色
+                    hover: '#bac0ff', // 信息色悬浮
+                    active: '#40428e', // 信息色激活态
+                    text: '#6366f1', // 信息色文本
+                    textHover: '#9197ff', // 信息色文本悬浮
+                    textActive: '#4c49cc', // 信息色文本激活
                 },
-                surface: {
-                    0: '#ffffff',
-                    50: '#f8fafc',
-                    100: '#f1f5f9',
-                    200: '#e2e8f0',
-                    300: '#cbd5e1',
-                    400: '#94a3b8',
-                    500: '#64748b',
-                    600: '#475569',
-                    700: '#334155',
-                    800: '#1e293b',
-                    900: '#0f172a',
-                    950: '#020617',
+                text: {
+                    DEFAULT: 'rgba(0, 0, 0, 0.88)', // 一级文本色
+                    secondary: 'rgba(0, 0, 0, 0.65)', // 二级文本色
+                    tertiary: 'rgba(0, 0, 0, 0.45)', // 三级文本色
+                    quaternary: 'rgba(0, 0, 0, 0.25)', // 四级文本色
+                    dark: 'rgba(255, 255, 255, 0.85)', // 暗模式下的文本色
+                    darkSecondary: 'rgba(255, 255, 255, 0.65)', // 暗模式下的二级文本色
+                    darkTertiary: 'rgba(255, 255, 255, 0.45)', // 暗模式下的三级文本色
+                    darkQuaternary: 'rgba(255, 255, 255, 0.25)', // 暗模式下的四级文本色
                 },
-            },
-            borderRadius: {
-                none: '0',
-                xs: '2px',
-                sm: '4px',
-                md: '6px',
-                lg: '8px',
-                xl: '12px',
-            },
-            boxShadow: {
-                select: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-                popover: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-                modal: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                navigation: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-            },
-            spacing: {
-                xs: '0.375rem', // 6px
-                sm: '0.5rem', // 8px
-                md: '0.75rem', // 12px
-                lg: '1rem', // 16px
-                xl: '1.25rem', // 20px
-            },
-            fontSize: {
-                xs: '0.75rem', // 12px
-                sm: '0.875rem', // 14px
-                base: '1rem', // 16px
-                lg: '1.125rem', // 18px
-                xl: '1.25rem', // 20px
-            },
-            transitionDuration: {
-                DEFAULT: '200ms',
-                150: '150ms',
-            },
-            opacity: {
-                disabled: '0.6',
+                border: {
+                    DEFAULT: '#d9d9d9', // 一级边框色
+                    secondary: '#f0f0f0', // 二级边框色
+                    dark: '#424242', // 暗模式边框色
+                    darkSecondary: '#303030', // 暗模式二级边框色
+                },
+                fill: {
+                    DEFAULT: 'rgba(0, 0, 0, 0.15)', // 一级填充色
+                    secondary: 'rgba(0, 0, 0, 0.06)', // 二级填充色
+                    tertiary: 'rgba(0, 0, 0, 0.04)', // 三级填充色
+                    quaternary: 'rgba(0, 0, 0, 0.02)', // 四级填充色
+                    dark: 'rgba(255, 255, 255, 0.18)', // 暗模式下的一级填充色
+                    darkSecondary: 'rgba(255, 255, 255, 0.12)', // 暗模式下的二级填充色
+                    darkTertiary: 'rgba(255, 255, 255, 0.08)', // 暗模式下的三级填充色
+                    darkQuaternary: 'rgba(255, 255, 255, 0.04)', // 暗模式下的四级填充色
+                },
+                bg: {
+                    container: '#ffffff', // 组件容器背景色
+                    elevated: '#ffffff', // 浮层容器背景色
+                    layout: '#f5f5f5', // 布局背景色
+                    spotlight: 'rgba(0, 0, 0, 0.85)', // 引起注意的背景色
+                    mask: 'rgba(0, 0, 0, 0.45)', // 浮层的背景蒙层颜色
+                    darkContainer: '#141414', // 暗模式下的组件容器背景色
+                    darkElevated: '#1f1f1f', // 暗模式下的浮层容器背景色
+                    darkLayout: 'rgb(15 23 42)!important', // 暗模式下的布局背景色
+                    darkSpotlight: '#424242', // 暗模式下的引起注意的背景色
+                    darkMask: 'rgba(0, 0, 0, 0.45)', // 暗模式下的浮层的背景蒙层颜色
+                },
             },
         },
     },
