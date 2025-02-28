@@ -1,6 +1,6 @@
 <template>
     <div class="login-container flex items-center justify-center">
-        <div class="login-card w-full flex overflow-hidden">
+        <div class="login-card w-full flex overflow-hidden dark:bg-bg-darkContainer">
             <div class="login-left flex items-center justify-center overflow-hidden relative">
                 <img src="@/assets/images/login-bg.svg" alt="Welcome Illustration" class="illustration" />
             </div>
@@ -24,11 +24,11 @@
                             <div class="flex align-items-center">
                                 <a-checkbox v-model:checked="checked">记住我</a-checkbox>
                             </div>
-                            <a href="#" class="font-medium text no-underline hover:underline">忘记密码？</a>
+                            <a href="#" class="font-medium text-primary dark:text-primary-text no-underline hover:underline hover:text-primary-hover dark:hover:text-primary-textHover">忘记密码？</a>
                         </div>
 
                         <a-form-item>
-                            <a-button type="primary" :loading="submitLoading" style="width: 100%" @click="handleLogin">
+                            <a-button type="primary" :loading="submitLoading" class="w-full dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-primary-hover" @click="handleLogin">
                                 {{ submitLoading ? '登陆中' : '登录' }}
                             </a-button>
                         </a-form-item>

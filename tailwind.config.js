@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 17:14:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 11:24:52
+ * @LastEditTime: 2025-02-28 16:38:07
  * @FilePath: tailwind.config.js
  * @Description: tailwindcss 配置文件
  */
@@ -95,7 +95,7 @@ export default {
                     layout: '#f5f5f5', // 布局背景色
                     spotlight: 'rgba(0, 0, 0, 0.85)', // 引起注意的背景色
                     mask: 'rgba(0, 0, 0, 0.45)', // 浮层的背景蒙层颜色
-                    darkContainer: '#141414', // 暗模式下的组件容器背景色
+                    darkContainer: 'rgb(30 41 59)', // 暗模式下的组件容器背景色
                     darkElevated: '#1f1f1f', // 暗模式下的浮层容器背景色
                     darkLayout: 'rgb(15 23 42)!important', // 暗模式下的布局背景色
                     darkSpotlight: '#424242', // 暗模式下的引起注意的背景色
