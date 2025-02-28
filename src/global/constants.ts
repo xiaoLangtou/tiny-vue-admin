@@ -11,4 +11,3 @@
 export const GLOBAl_STORAGE_PREFIX = 'xlt_';
 
 export const LOGIN_URL = '/login';
-

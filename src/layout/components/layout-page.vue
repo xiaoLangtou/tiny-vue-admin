@@ -16,6 +16,9 @@
     </div>
 </template>
 
+<script setup lang="ts">
+import { FadeInLeft } from '@/components';
+</script>
 <style lang="scss" scoped>
 .page-container {
     --page-footer-height: 48px;
@@ -24,6 +27,3 @@
     @apply w-full overflow-auto p-4;
 }
 </style>
-<script setup lang="ts">
-import { FadeInLeft } from '@/components';
-</script>

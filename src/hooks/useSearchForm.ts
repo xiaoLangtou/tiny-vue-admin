@@ -18,13 +18,7 @@ interface UseSearchFormOptions {
 }
 
 export function useSearchForm(options: UseSearchFormOptions) {
-    const {
-        fields,
-        onSearch,
-        onReset,
-        collapseLimit = 3,
-        showCollapse = true,
-    } = options;
+    const { fields, onSearch, onReset, collapseLimit = 3, showCollapse = true } = options;
 
     const formRef = ref<FormInstance>();
     const formState = reactive<Record<string, any>>({});

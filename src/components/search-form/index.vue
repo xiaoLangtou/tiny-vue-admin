@@ -63,7 +63,7 @@ type SearchFormSlots = {
     [K in SearchField['name']]: (props: { field: SearchField }) => any;
 } & {
     actions: () => any;
-}
+};
 
 const props = defineProps<{
     fields: SearchField[];

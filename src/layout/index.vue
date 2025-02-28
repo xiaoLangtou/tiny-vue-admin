@@ -12,7 +12,9 @@
             <a-layout-content>
                 <layout-page></layout-page>
             </a-layout-content>
-            <a-layout-footer style="text-align: center" class="!pt-3 !pb-3"> Ant Design ©2018 Created by Ant UED</a-layout-footer>
+            <a-layout-footer style="text-align: center" class="!pt-3 !pb-3">
+                Ant Design ©2018 Created by Ant UED</a-layout-footer
+            >
         </a-layout>
     </a-layout>
 </template>

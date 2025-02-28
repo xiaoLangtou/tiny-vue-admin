@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import "animate.css"
+import 'animate.css';
 </script>
 
 <style>
