@@ -96,7 +96,3 @@ defineExpose({
     formState,
 });
 </script>
-
-<style scoped lang="scss">
-
-</style>

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-18 17:56:50
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-28 16:36:03
+ * @LastEditTime: 2025-03-01 01:10:15
  * @FilePath: src/views/login/login.scss
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -164,56 +164,6 @@
     }
 }
 
-/* Dark Mode Adjustments */
-@media (prefers-color-scheme: dark) {
-    .login-container {
-        padding: 2rem;
-        background-color: var(--bg-dark);
-    }
-
-    .login-card {
-        background: var(--ant-color-primary-bg);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .login-header h1 {
-        color: var(--ant-color-text-dark);
-    }
-
-    .subtitle {
-        color: var(--ant-color-text-dark-tertiary);
-    }
-
-    .form-group :deep(.p-inputtext),
-    .form-group :deep(.p-password input) {
-        background: var(--bg-dark);
-        border-color: var(--border-dark);
-        color: var(--ant-color-text-dark);
-    }
-
-    .form-group :deep(.p-inputtext):hover,
-    .form-group :deep(.p-password input):hover {
-        background: var(--bg-dark);
-        border-color: var(--border-dark-hover);
-    }
-
-    .form-group :deep(.p-inputtext):focus,
-    .form-group :deep(.p-password input):focus {
-        border-color: #6366f1;
-        background: var(--bg-dark);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    :deep(.p-button) {
-        background: #6366f1;
-        color: white;
-        border: none;
-
-        &:hover {
-            background: #4f46e5;
-        }
-    }
-}
 
 @media (max-width: 1024px) {
     .login-left {

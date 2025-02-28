@@ -80,7 +80,8 @@ import {
     Upload,
     ChevronDown,
     ScanSearch,
-    ScanEye, Expand,
+    ScanEye,
+    Expand,
 } from 'lucide-vue-next';
 
 const emit =
