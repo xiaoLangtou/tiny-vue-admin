@@ -2,12 +2,12 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-27 23:49:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-28 10:12:54
+ * @LastEditTime: 2025-02-28 16:45:41
  * @FilePath: src/components/search-form/index.vue
  * @Description: 搜索表单
  -->
 <template>
-    <div class="xlt-search-box">
+    <div class="xlt-container">
         <a-form
             ref="formRef"
             name="advanced_search"
@@ -98,8 +98,5 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-.xlt-search-box {
-    --xlt-search-box-bg: theme('colors.bg.darkLayout');
-    @apply bg-white dark:bg-[var(--xlt-search-box-bg)] pt-2 pl-2 pr-2 pb-2 rounded-lg;
-}
+
 </style>
