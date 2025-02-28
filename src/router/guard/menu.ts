@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 16:28:30
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-25 15:29:43
+ * @LastEditTime: 2025-02-27 23:47:13
  * @FilePath: src/router/guard/menu.ts
  * @Description: 菜单路由守卫
  */
@@ -19,7 +19,6 @@ const views = import.meta.glob('../../views/**/*.vue');
 const toRoutes = (menus: MenuOptions[]) => {
     const router: RouteRecordRaw[] = [];
     menus.forEach((menu) => {
-        console.log(menu);
         const path = menu.component
             ? `../../views${menu.component}${menu.component.includes('.vue') ? '' : '.vue'}`
             : '';
@@ -58,22 +57,24 @@ export const setupMenuGuard = (router: Router) => {
         await nextTick();
         const menuStore = useMenuStore();
         if (menuStore.menuList.length) {
-            console.log(router.getRoutes());
             next();
+            NProgress.done();
             return;
         }
         const data = await menuStore.getAuthMenuList();
         if (!data || data.length <= 0) {
             next({ name: '403' });
+            NProgress.done();
             return;
         }
         const routes = toRoutes(data);
-        routes.forEach((route) => {
-            if (!router.hasRoute(route.name)) {
+        routes.forEach((route: RouteRecordRaw) => {
+            if (route.name && !router.hasRoute(route.name)) {
                 router.addRoute('root', route);
             }
         });
 
         next({ ...to, replace: true });
+        NProgress.done();
     });
 };

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 20:21:41
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 11:26:56
+ * @LastEditTime: 2025-02-27 20:19:51
  * @FilePath: src/components/menu/index.vue
  * @Description: 修改菜单样式
  -->
@@ -12,6 +12,7 @@
         v-model:selectedKeys="state.selectedKeys"
         mode="inline"
         :items="menuTreeData"
+        @click="handleCurrentMenu"
     ></a-menu>
 </template>
 
@@ -65,7 +66,13 @@ const filterRawMenuData = (data: MenuOptions[]) => {
             },
         };
         if (item.children?.length) {
-            _menuItem.children = filterRawMenuData(item.children);
+            let _children = filterRawMenuData(item.children);
+            // 这里根据sortOrder对菜单进行排序
+            _children.sort((a, b) => {
+                return a.meta.sortOrder - b.meta.sortOrder;
+            });
+
+            _menuItem.children = _children;
         }
 
         menus.push(_menuItem);
@@ -74,6 +81,14 @@ const filterRawMenuData = (data: MenuOptions[]) => {
 };
 
 const menuTreeData = computed(() => filterRawMenuData(rawMenuList.value));
+
+const handleCurrentMenu = ({ item }: { item: IMenuOptions }) => {
+    const { path } = item.meta;
+    console.log(path);
+    if (path) {
+        router.push(path);
+    }
+};
 </script>
 
 <style lang="scss">

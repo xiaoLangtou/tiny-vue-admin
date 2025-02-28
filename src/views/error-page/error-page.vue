@@ -34,7 +34,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { defineProps, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import NotFound from '@/assets/images/404.svg';
@@ -68,7 +68,7 @@ const router = useRouter();
 
 // 根据错误类型计算图标背景颜色
 const iconBgColor = computed(() => {
-    const colors = {
+    const colors: Record<string, string> = {
         error: NotFound,
         forbidden: Forbidden,
         unavailable: ServiceUnavailable,
@@ -78,7 +78,7 @@ const iconBgColor = computed(() => {
 
 // 根据错误类型计算图标颜色
 const iconTextColor = computed(() => {
-    const colors = {
+    const colors: Record<string, string> = {
         error: 'text-red-600',
         forbidden: 'text-yellow-600',
         unavailable: 'text-blue-600',

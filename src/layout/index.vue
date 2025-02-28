@@ -9,17 +9,17 @@
             <a-layout-header class="!bg-white dark:!bg-bg-darkLayout shadow dark:shadow-gray-700 !ps-0.5 !pe-0.5">
                 <layout-header></layout-header>
             </a-layout-header>
-            <a-layout-content style="margin: 0 16px">
+            <a-layout-content>
                 <layout-page></layout-page>
             </a-layout-content>
-            <a-layout-footer style="text-align: center"> Ant Design ©2018 Created by Ant UED</a-layout-footer>
+            <a-layout-footer style="text-align: center" class="!pt-3 !pb-3"> Ant Design ©2018 Created by Ant UED</a-layout-footer>
         </a-layout>
     </a-layout>
 </template>
 
 <script lang="ts" setup>
 // 初始化默认主题
-import { LayoutAside, LayoutPage, LayoutHeader } from './components';
+import { LayoutAside, LayoutHeader, LayoutPage } from './components';
 import { useMenuStore } from '@/store/module';
 import { useAppStore } from '@/store';
 

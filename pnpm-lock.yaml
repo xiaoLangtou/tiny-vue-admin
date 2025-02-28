@@ -17,6 +17,9 @@ importers:
       alova:
         specifier: ^3.2.8
         version: 3.2.8
+      animate.css:
+        specifier: ^4.1.1
+        version: 4.1.1
       ant-design-vue:
         specifier: 4.x
         version: 4.2.6(vue@3.5.13(typescript@5.7.3))
@@ -1286,6 +1289,9 @@ packages:
   alova@3.2.8:
     resolution: {integrity: sha512-BCNcyBiRxvsAhSWsN65C9DHOX8lv6H7IdK4Aa8GHQOE0sYm/FAsCUJswBGfYUdHwrVrT9LJgiIFfk5LMz3BWyQ==}
     engines: {node: '>= 18.0.0'}
+
+  animate.css@4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
 
   ansi-escapes@3.2.0:
     resolution: {integrity: sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==}
@@ -5693,6 +5699,8 @@ snapshots:
     dependencies:
       '@alova/shared': 1.1.2
       rate-limiter-flexible: 5.0.5
+
+  animate.css@4.1.1: {}
 
   ansi-escapes@3.2.0: {}
 

@@ -16,6 +16,7 @@
         "@ant-design/icons-vue": "^7.0.1",
         "@vueuse/core": "^12.7.0",
         "alova": "^3.2.8",
+        "animate.css": "^4.1.1",
         "ant-design-vue": "4.x",
         "axios": "^1.7.9",
         "lucide-vue-next": "^0.475.0",

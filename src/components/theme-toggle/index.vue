@@ -5,14 +5,15 @@ import { ThemeType } from '@/store/module/app/types';
 import { isDark } from '@/store/module/app';
 
 const appStore = useAppStore();
-
-const theme = ref(appStore.theme);
-console.log(theme);
+const { theme } = storeToRefs(appStore);
 
 const toggleTheme = (_theme: ThemeType) => {
     appStore.toggleTheme(_theme);
-    theme.value = _theme;
 };
+
+defineOptions({
+    name: 'ThemeToggle',
+});
 </script>
 
 <template>
