@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 22:09:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 09:25:10
+ * @LastEditTime: 2025-03-01 11:39:52
  * @FilePath: config/vite.config.base.ts
  * @Description: vite基础配置
  */
@@ -20,7 +20,7 @@ const config = {
         vueJsx(),
         AutoComponent({
             dts: './src/types/components.d.ts',
-            globs: ['src/components/*/index.vue'],
+            globs: ['src/components/**/**/index.vue'],
             resolvers: [
                 AntDesignVueResolver({
                     importStyle: false,

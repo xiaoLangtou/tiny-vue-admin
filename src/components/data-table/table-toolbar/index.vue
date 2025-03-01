@@ -20,70 +20,64 @@
                 @search="handleQuickSearch"
             />
             <a-button
-                type="primary"
                 :icon="h(showAdvancedSearch? ScanEye({ size: 18 }, {} as any) :ScanSearch({ size: 18 }, {} as any))"
-                class="action-button !text-white hover:!bg-primary-hover"
+                class="action-button"
                 @click="toggleAdvancedSearch"
             ></a-button>
-            <a-tooltip title="刷新">
-                <a-button
-                    type="text"
-                    :icon="h(RotateCw({ size: 18 }, {} as any))"
-                    class="action-button"
-                    @click="emit('refresh')"
-                />
+            <a-tooltip v-if="showRefresh" title="刷新">
+                <a-button :icon="h(RotateCw({ size: 18 }, {} as any))" class="action-button" @click="emit('refresh')" />
             </a-tooltip>
-            <a-tooltip title="全屏">
+            <a-tooltip v-if="showFullscreen" title="全屏">
                 <a-button
-                    type="text"
                     :icon="h(Expand({ size: 18 }, {} as any))"
                     class="action-button"
                     @click="emit('fullscreen')"
                 />
             </a-tooltip>
-            <a-tooltip title="列设置">
+            <a-tooltip v-if="showColumnSetting" title="列设置">
                 <a-button
-                    type="text"
                     :icon="h(Settings({ size: 18 }, {} as any))"
                     class="action-button"
                     @click="emit('columnSetting')"
                 />
             </a-tooltip>
-            <a-tooltip title="导入">
-                <a-button
-                    type="text"
-                    :icon="h(Upload({ size: 18 }, {} as any))"
-                    class="action-button"
-                    @click="emit('import')"
-                />
+            <a-tooltip v-if="showImport" title="导入">
+                <a-button :icon="h(Upload({ size: 18 }, {} as any))" class="action-button" @click="emit('import')" />
             </a-tooltip>
-            <a-tooltip title="导出">
-                <a-button
-                    type="text"
-                    :icon="h(Download({ size: 18 }, {} as any))"
-                    class="action-button"
-                    @click="emit('export')"
-                />
+            <a-tooltip v-if="showExport" title="导出">
+                <a-button :icon="h(Download({ size: 18 }, {} as any))" class="action-button" @click="emit('export')" />
             </a-tooltip>
+            <slot name="toolbar"></slot>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { h, ref } from 'vue';
-import {
-    Download,
-    Minimize,
-    Plus,
-    RotateCw,
-    Settings,
-    Upload,
-    ChevronDown,
-    ScanSearch,
-    ScanEye,
-    Expand,
-} from 'lucide-vue-next';
+import { Download, Minimize, Plus, RotateCw, Settings, Upload, ScanSearch, ScanEye, Expand } from 'lucide-vue-next';
 
+const props = defineProps({
+    showRefresh: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    showColumnSetting: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    showImport: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showExport: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showFullscreen: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+});
 const emit =
     defineEmits<
         (
@@ -139,7 +133,7 @@ defineOptions({
     }
 
     .right-section {
-        @apply flex items-center gap-1;
+        @apply flex items-center gap-2;
 
         .action-button {
             flex: 0 0 30px;

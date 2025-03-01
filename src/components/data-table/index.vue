@@ -5,7 +5,7 @@
             @add="$emit('add')"
             @refresh="$emit('refresh')"
             @fullscreen="toggle"
-            @column-setting="$emit('columnSetting')"
+            @column-setting="showColumnSetting = true"
             @import="$emit('import')"
             @export="$emit('export')"
             @toggle-advanced-search="(value) => $emit('toggleAdvancedSearch', value)"
@@ -20,8 +20,9 @@
         <fullscreen ref="antTable" :is-fullscreen="isFullscreen" :exit-fullscreen="exit">
             <a-table
                 v-bind="$attrs"
+                class="xlt-table"
                 :dataSource="dataSource"
-                :columns="columns"
+                :columns="visibleColumns"
                 :pagination="pagination"
                 :loading="loading"
                 :rowKey="rowKey"
@@ -34,16 +35,24 @@
                 </template>
             </a-table>
         </fullscreen>
+
+        <!-- 列设置抽屉 -->
+        <column-setting
+            v-model:visible="showColumnSetting"
+            :columns="columns"
+            @columns-change="handleColumnsChange"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { Shrink } from 'lucide-vue-next';
 import type { TableProps, TablePaginationConfig } from 'ant-design-vue';
 
 // 导入表格工具栏组件
-import TableToolbar from '../table-toolbar/index.vue';
+import TableToolbar from '@/components/data-table/table-toolbar/index.vue';
+import ColumnSetting from '@/components/data-table/column-setting/index.vue';
 import type { MaybeElementRef } from '@vueuse/core';
 
 const props = withDefaults(defineProps<DataTableProps>(), {
@@ -85,6 +94,26 @@ interface DataTableProps {
     rowSelection?: TableProps['rowSelection'];
 }
 
+// 列设置相关状态
+const showColumnSetting = ref(false);
+const columnsConfig = ref<Record<string, boolean>>({});
+
+// 计算可见列
+const visibleColumns = computed(() => {
+    return props.columns.map(column => ({
+        ...column,
+        visible: columnsConfig.value[column.dataIndex] ?? true
+    })).filter(column => column.visible);
+});
+
+// 处理列配置变化
+const handleColumnsChange = (columns: any[]) => {
+    columnsConfig.value = columns.reduce((acc, column) => {
+        acc[column.dataIndex] = column.visible;
+        return acc;
+    }, {});
+};
+
 // 处理表格变化事件
 const handleTableChange = (pagination: TablePaginationConfig, filters: any, sorter: any) => {
     emit('change', pagination, filters, sorter);
@@ -104,9 +133,7 @@ const rowSelection = computed(() => {
 });
 
 const el = useTemplateRef('antTable');
-const { isFullscreen, enter, exit, toggle } = useFullscreen(el as unknown as MaybeElementRef);
-
-console.log(isFullscreen.value, enter());
+const { isFullscreen, exit, toggle } = useFullscreen(el as unknown as MaybeElementRef);
 </script>
 
 <style lang="scss" scoped>

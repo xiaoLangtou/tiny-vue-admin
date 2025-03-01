@@ -2,14 +2,14 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 15:14:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-28 20:15:24
+ * @LastEditTime: 2025-03-01 11:40:22
  * @FilePath: src/views/admin/api/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
 <template>
     <div class="xlt-base-container">
         <fade-down>
-            <search-form
+            <SearchForm
                 v-show="showSearchForm"
                 :fields="fields"
                 :collapse-limit="3"
@@ -31,7 +31,7 @@
                     <a-button style="margin: 0 8px" @click="handleReset">重置</a-button>
                     <a-button type="primary" @click="handleExport">导出</a-button>
                 </template>
-            </search-form>
+            </SearchForm>
         </fade-down>
         <div class="xlt-container">
             <!--表格-->
@@ -52,7 +52,6 @@
 <script setup lang="ts">
 import { useSearchForm } from '@/hooks/useSearchForm';
 import type { TablePaginationConfig } from 'ant-design-vue';
-import { DataTable } from '@/components';
 import FadeDown from '@/components/transition/fade-down.vue';
 // 定义搜索字段
 const fields = [

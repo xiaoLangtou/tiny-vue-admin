@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-27 23:57:51
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 23:58:16
+ * @LastEditTime: 2025-03-01 11:28:36
  * @FilePath: src/store/module/app/colors.ts
  * @Description:颜色配置集中管理文件
  */
