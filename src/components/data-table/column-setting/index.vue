@@ -5,13 +5,14 @@
             <a-button @click="handleCancel">取消</a-button>
             <a-button type="primary" @click="handleConfirm">确定</a-button>
         </template>
+
         <a-tabs v-model:activeKey="activeKey">
             <a-tab-pane key="base" tab="基础设置">
                 <a-alert message="点击图标按钮设置个性化列！" type="info" show-icon class="mb-4" />
 
                 <!-- 列列表 -->
                 <div class="column-setting">
-                    <div v-for="(item, index) in columnList" :key="index" class="column-item">
+                    <div v-for="(item, index) in columnList" :key="item.key" class="column-item">
                         <div class="left-section">
                             <span>{{ item.title }}</span>
                         </div>
@@ -21,7 +22,7 @@
                                     <component
                                         :is="item.visible ? Eye : EyeOff"
                                         class="w-4 h-4 cursor-pointer"
-                                        @click="toggleVisibility(item)"
+                                        @click="toggleVisibility(index)"
                                     />
                                 </span>
                             </a-tooltip>
@@ -31,7 +32,7 @@
                                     <component
                                         :is="getFixedIcon(item)"
                                         class="w-4 h-4 cursor-pointer"
-                                        @click="toggleFixed(item)"
+                                        @click="toggleFixed(index)"
                                     />
                                 </span>
                             </a-tooltip>
@@ -39,6 +40,7 @@
                     </div>
                 </div>
             </a-tab-pane>
+
             <a-tab-pane key="other" tab="其他设置" force-render>
                 <a-alert message="点击图标按钮设置个性化列！" type="info" show-icon class="mb-4" />
 
@@ -64,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, reactive } from 'vue';
 import { AlignEndVertical, AlignStartVertical, Eye, EyeOff, Pin } from 'lucide-vue-next';
 
 interface ColumnItem {
@@ -72,7 +74,7 @@ interface ColumnItem {
     key: string;
     visible: boolean;
     required?: boolean;
-    fixed?: string;
+    fixed?: 'left' | 'right';
 }
 
 interface IPersonalizedSetting {
@@ -103,9 +105,10 @@ const props = defineProps({
         default: 2,
     },
 });
+
 const emit = defineEmits<{
     (e: 'update:visible', value: boolean): void;
-    (e: 'columnsChange', columns: ColumnItem[]): void;
+    (e: 'columnsChange', columns: ColumnItem[], heightFull: 1 | 2, showBorder: 1 | 2): void;
 }>();
 
 const open = computed({
@@ -115,7 +118,6 @@ const open = computed({
 
 const activeKey = ref('base');
 const columnList = ref<ColumnItem[]>([]);
-// eslint-disable-next-line vue/no-setup-props-destructure
 const settingConfig = reactive<IPersonalizedSetting>({
     columns: [],
     heightFull: props.heightFull,
@@ -123,7 +125,7 @@ const settingConfig = reactive<IPersonalizedSetting>({
 });
 
 // 固定列图标
-const fixedIcons: Record<string, any> = {
+const fixedIcons = {
     left: AlignStartVertical,
     right: AlignEndVertical,
     default: Pin,
@@ -139,28 +141,24 @@ const initColumnList = () => {
 
 // 获取固定列的提示信息
 const getFixedTooltip = (item: ColumnItem) => {
-    switch (item.fixed) {
-        case 'left':
-            return '固定在左侧';
-        case 'right':
-            return '固定在右侧';
-        default:
-            return '不固定';
-    }
+    return item.fixed === 'left' ? '固定在左侧' : item.fixed === 'right' ? '固定在右侧' : '不固定';
 };
 
 // 获取固定列的图标
 const getFixedIcon = (item: ColumnItem) => fixedIcons[item.fixed ?? 'default'];
 
 // 切换列的显示/隐藏
-const toggleVisibility = (item: ColumnItem) => {
-    item.visible = !item.visible;
+const toggleVisibility = (index: number) => {
+    columnList.value[index].visible = !columnList.value[index].visible;
+    columnList.value = [...columnList.value]; // 触发响应式
 };
 
 // 切换列的固定状态
-const toggleFixed = (item: ColumnItem) => {
-    const nextFixed = item.fixed === 'left' ? 'right' : item.fixed === 'right' ? 'default' : 'left';
-    item.fixed = nextFixed;
+const toggleFixed = (index: number) => {
+    const fixedStates: (ColumnItem['fixed'] | undefined)[] = ['left', 'right', undefined];
+    const currentIndex = fixedStates.indexOf(columnList.value[index].fixed);
+    columnList.value[index].fixed = fixedStates[(currentIndex + 1) % fixedStates.length];
+    columnList.value = [...columnList.value]; // 触发响应式
 };
 
 // 重置列配置
@@ -169,8 +167,8 @@ const handleReset = () => {
         ...col,
         visible: col.visible ?? true,
     }));
-    handleConfirm();
-    open.value = false;
+    settingConfig.heightFull = props.heightFull;
+    settingConfig.showBorder = props.showBorder;
 };
 
 // 取消配置
@@ -178,18 +176,13 @@ const handleCancel = () => {
     open.value = false;
 };
 
-// 确认配置并触发 columnsChange 事件
+// 确认配置并触发事件
 const handleConfirm = () => {
     open.value = false;
     emit('columnsChange', columnList.value, settingConfig.heightFull, settingConfig.showBorder);
 };
 
-// 处理拖拽结束
-const handleDragChange = () => {
-    emit('columnsChange', columnList.value);
-};
-
-// 监听visible变化，初始化列数据
+// 监听 `visible` 变化，初始化数据
 watch(
     () => props.visible,
     (newVal) => {
@@ -200,16 +193,8 @@ watch(
 
 <style lang="scss" scoped>
 .column-setting {
-    .reset-section {
-        @apply flex justify-end mb-4;
-    }
-
     .column-item {
         @apply flex items-center justify-between p-2 bg-bg-container dark:bg-bg-darkContainer rounded mb-2;
-
-        .left-section {
-            @apply flex items-center gap-2;
-        }
     }
 }
 </style>

@@ -30,7 +30,7 @@
                 :rowSelection="rowSelection"
                 @change="handleTableChange"
             >
-                <template v-for="(_, name) in $slots" #[name]="slotData">
+                <template v-for="(_, name) in slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData"></slot>
                 </template>
             </a-table>
@@ -65,7 +65,7 @@ import { ref, computed, watch } from 'vue';
 import { useThrottle, useFullscreen } from '@vueuse/core';
 import TableToolbar from '@/components/data-table/table-toolbar/index.vue';
 import ColumnSetting from '@/components/data-table/column-setting/index.vue';
-import type { TableProps, TablePaginationConfig } from 'ant-design-vue';
+import { TableProps, TablePaginationConfig, TableColumnType,FilterDropdownProps } from 'ant-design-vue';
 import type { MaybeElementRef } from '@vueuse/core';
 import { StorageUtil } from '@/utils/storage';
 
@@ -98,6 +98,27 @@ const emit = defineEmits<{
     (e: 'update:selectedRowKeys', selectedRowKeys: any[]): void;
     (e: 'toggleAdvancedSearch', value: boolean): void;
 }>();
+
+defineSlots<{
+    // 表格相关的插槽
+    title: (currentPageData: any[]) => void;
+    footer: (currentPageData: any[]) => void;
+    bodyCell: (props: { text: any; record: Record<string, any>; index: number; column: any; value: any }) => void;
+    customFilterDropdown: (props: { customFilterDropdown: FilterDropdownProps }) => void;
+    customFilterIcon: (props: { filtered: any; column: TableColumnType }) => void;
+    emptyText: () => void;
+    expandIcon: (props: { expanded: any; onExpand: any; record: any }) => void;
+    expandedRowRender: (props: { record: Record<string, any>; index: number; indent: any; expanded: boolean }) => void;
+    expandColumnTitle: () => void;
+    headerCell: (props: { title: string; column: TableColumnType }) => void;
+    summary: () => void;
+
+    [propsName: string]: (props: { record: Record<string, any>; index: number; column: TableColumnType }) => void;
+}>();
+
+const slots = useSlots();
+
+console.log(slots);
 
 defineOptions({
     name: 'DataTable',
@@ -147,7 +168,7 @@ const openColumnSetting = () => {
 };
 
 // **处理列变更**
-const handleColumnsChange = (columns: any[], _heightFull = 1, showBorder = 1) => {
+const handleColumnsChange = (columns: any[], _heightFull: 1 | 2 = 1, showBorder: 1 | 2 = 1) => {
     bordered.value = showBorder;
     heightFull.value = _heightFull;
     initColumns(columns);
