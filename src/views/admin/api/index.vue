@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 15:14:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-01 11:40:22
+ * @LastEditTime: 2025-03-02 14:17:40
  * @FilePath: src/views/admin/api/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -44,6 +44,7 @@
                 @add="handleAdd"
                 @refresh="handleRefresh"
                 @toggle-advanced-search="handleToggleAdvancedSearch"
+                @page-change="handlePageChange"
             />
         </div>
     </div>
@@ -104,20 +105,36 @@ const columns = [
         dataIndex: 'address',
         key: 'address',
     },
+    { title: 'Column 1', dataIndex: 'address', key: '1' },
+    { title: 'Column 2', dataIndex: 'address', key: '2' },
+    { title: 'Column 3', dataIndex: 'address', key: '3' },
+    { title: 'Column 4', dataIndex: 'address', key: '4' },
+    { title: 'Column 5', dataIndex: 'address', key: '5' },
+    { title: 'Column 6', dataIndex: 'address', key: '6' },
+    { title: 'Column 7', dataIndex: 'address', key: '7' },
+    { title: 'Column 8', dataIndex: 'address', key: '8' },
+    {
+        title: 'Action',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+    },
 ];
 
 // 表格数据和状态
 const loading = ref(false);
 const dataSource = ref([]);
 const pagination = ref<TablePaginationConfig>({
-    total: 0,
+    total: 100,
     current: 1,
     pageSize: 10,
 });
 
 // 处理表格变化事件
-const handleTableChange = (pag: TablePaginationConfig) => {
-    pagination.value = pag;
+const handlePageChange = (page: { current: number; size: number }) => {
+    console.log('页码变化：', page);
+    pagination.value.current = page.current;
+    pagination.value.pageSize = page.size;
     fetchData();
 };
 
@@ -137,21 +154,18 @@ const handleRefresh = () => {
 const fetchData = () => {
     loading.value = true;
     // 模拟接口请求
+    const data: any[] = [];
+    for (let i = 0; i < 100; i++) {
+        data.push({
+            key: i.toString(),
+            name: `Edrward ${i}`,
+            age: 32,
+            address: `London Park no. ${i}`,
+        });
+    }
+
     setTimeout(() => {
-        dataSource.value = [
-            {
-                id: 1,
-                name: '张三',
-                age: 32,
-                address: '北京市朝阳区',
-            },
-            {
-                id: 2,
-                name: '李四',
-                age: 42,
-                address: '上海市浦东新区',
-            },
-        ];
+        dataSource.value = data;
         loading.value = false;
     }, 1000);
 };

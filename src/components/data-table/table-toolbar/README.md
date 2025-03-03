@@ -31,32 +31,32 @@ import { TableToolbar } from '@/components';
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| showRefresh | 是否显示刷新按钮 | boolean | true |
-| showColumnSetting | 是否显示列设置按钮 | boolean | true |
-| showImport | 是否显示导入按钮 | boolean | false |
-| showExport | 是否显示导出按钮 | boolean | false |
-| showFullscreen | 是否显示全屏按钮 | boolean | false |
+| 属性名            | 说明               | 类型    | 默认值 |
+| ----------------- | ------------------ | ------- | ------ |
+| showRefresh       | 是否显示刷新按钮   | boolean | true   |
+| showColumnSetting | 是否显示列设置按钮 | boolean | true   |
+| showImport        | 是否显示导入按钮   | boolean | false  |
+| showExport        | 是否显示导出按钮   | boolean | false  |
+| showFullscreen    | 是否显示全屏按钮   | boolean | false  |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| add | 点击新增按钮时触发 | - |
-| refresh | 点击刷新按钮时触发 | - |
-| fullscreen | 点击全屏按钮时触发 | - |
-| column-setting | 点击列设置按钮时触发 | - |
-| import | 点击导入按钮时触发 | - |
-| export | 点击导出按钮时触发 | - |
-| quick-search | 快捷搜索时触发 | value: string |
-| toggle-advanced-search | 切换高级搜索时触发 | visible: boolean |
+| 事件名                 | 说明                 | 回调参数         |
+| ---------------------- | -------------------- | ---------------- |
+| add                    | 点击新增按钮时触发   | -                |
+| refresh                | 点击刷新按钮时触发   | -                |
+| fullscreen             | 点击全屏按钮时触发   | -                |
+| column-setting         | 点击列设置按钮时触发 | -                |
+| import                 | 点击导入按钮时触发   | -                |
+| export                 | 点击导出按钮时触发   | -                |
+| quick-search           | 快捷搜索时触发       | value: string    |
+| toggle-advanced-search | 切换高级搜索时触发   | visible: boolean |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| buttons | 自定义按钮区域，显示在新增按钮后面 |
+| 插槽名  | 说明                                   |
+| ------- | -------------------------------------- |
+| buttons | 自定义按钮区域，显示在新增按钮后面     |
 | toolbar | 自定义工具栏区域，显示在右侧功能区最后 |
 
 ## 代码示例
@@ -85,10 +85,7 @@ const handleRefresh = () => {
 
 ```vue
 <template>
-    <table-toolbar
-        @quick-search="handleQuickSearch"
-        @toggle-advanced-search="handleToggleAdvancedSearch"
-    />
+    <table-toolbar @quick-search="handleQuickSearch" @toggle-advanced-search="handleToggleAdvancedSearch" />
 </template>
 
 <script setup lang="ts">
@@ -148,11 +145,7 @@ const handleBatchDelete = () => {
 <template>
     <div class="page-container">
         <!-- 搜索表单 -->
-        <search-form
-            v-if="showAdvancedSearch"
-            :fields="searchFields"
-            @search="handleSearch"
-        />
+        <search-form v-if="showAdvancedSearch" :fields="searchFields" @search="handleSearch" />
 
         <!-- 表格工具栏 -->
         <table-toolbar
@@ -164,12 +157,7 @@ const handleBatchDelete = () => {
             @toggle-advanced-search="handleToggleAdvancedSearch"
         >
             <template #buttons>
-                <a-button
-                    :disabled="!selectedRows.length"
-                    @click="handleBatchDelete"
-                >
-                    批量删除
-                </a-button>
+                <a-button :disabled="!selectedRows.length" @click="handleBatchDelete"> 批量删除 </a-button>
             </template>
         </table-toolbar>
 

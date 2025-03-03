@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <loading :visible="loading" />
-        <a-config-provider :theme="themeConfig">
+        <a-config-provider :theme="themeConfig" :locale="locale === 'en' ? enUS : zhCN">
             <a-app>
                 <router-view />
             </a-app>
@@ -12,11 +12,14 @@
 import { useAppStore } from '@/store';
 import { isDark } from '@/store/module/app';
 import Loading from '@/components/loading/index.vue';
+import enUS from 'ant-design-vue/es/locale/en_US';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
 
 const appStore = useAppStore();
 const { themeConfig, theme } = storeToRefs(appStore);
 const loading = ref(true);
 
+const locale = ref(zhCN.locale);
 // 初始化主题
 const initTheme = () => {
     const currentTheme = isDark.value ? 'dark' : 'light';

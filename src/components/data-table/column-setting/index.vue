@@ -1,104 +1,201 @@
 <template>
-    <a-drawer
-        :visible="visible"
-        title="列设置"
-        placement="right"
-        width="300"
-        @close="handleClose"
-    >
-        <div class="column-setting">
-            <!-- 重置按钮 -->
-            <div class="reset-section">
-                <a-button type="link" @click="handleReset">重置</a-button>
-            </div>
+    <custom-modal v-model:open="open" modal-title="个性化设置">
+        <template #footer>
+            <a-button @click="handleReset">重置</a-button>
+            <a-button @click="handleCancel">取消</a-button>
+            <a-button type="primary" @click="handleConfirm">确定</a-button>
+        </template>
+        <a-tabs v-model:activeKey="activeKey">
+            <a-tab-pane key="base" tab="基础设置">
+                <a-alert message="点击图标按钮设置个性化列！" type="info" show-icon class="mb-4" />
 
-            <!-- 列拖拽排序区域 -->
-            <VueDraggable
-                v-model="localColumns"
-                item-key="dataIndex"
-                handle=".drag-handle"
-                class="column-list"
-                @end="handleDragEnd"
-            >
-                <template #item="{ element }">
-                    <div class="column-item">
+                <!-- 列列表 -->
+                <div class="column-setting">
+                    <div v-for="(item, index) in columnList" :key="index" class="column-item">
                         <div class="left-section">
-                            <GripVertical class="drag-handle" />
-                            <a-checkbox
-                                v-model:checked="element.visible"
-                                @change="handleColumnVisibleChange"
-                            >
-                                {{ element.title }}
-                            </a-checkbox>
+                            <span>{{ item.title }}</span>
+                        </div>
+                        <div class="right-section flex items-center justify-center gap-4">
+                            <a-tooltip :title="item.visible ? '显示' : '隐藏'">
+                                <span>
+                                    <component
+                                        :is="item.visible ? Eye : EyeOff"
+                                        class="w-4 h-4 cursor-pointer"
+                                        @click="toggleVisibility(item)"
+                                    />
+                                </span>
+                            </a-tooltip>
+
+                            <a-tooltip :title="getFixedTooltip(item)">
+                                <span>
+                                    <component
+                                        :is="getFixedIcon(item)"
+                                        class="w-4 h-4 cursor-pointer"
+                                        @click="toggleFixed(item)"
+                                    />
+                                </span>
+                            </a-tooltip>
                         </div>
                     </div>
-                </template>
-            </VueDraggable>
-        </div>
-    </a-drawer>
+                </div>
+            </a-tab-pane>
+            <a-tab-pane key="other" tab="其他设置" force-render>
+                <a-alert message="点击图标按钮设置个性化列！" type="info" show-icon class="mb-4" />
+
+                <div class="flex flex-col gap-4">
+                    <div class="other-setting flex items-center gap-3">
+                        <span class="setting-label w-24">高度是否铺满</span>
+                        <a-radio-group v-model:value="settingConfig.heightFull">
+                            <a-radio :value="1">是</a-radio>
+                            <a-radio :value="2">否</a-radio>
+                        </a-radio-group>
+                    </div>
+                    <div class="other-setting flex items-center gap-3">
+                        <span class="setting-label w-24">显示边框</span>
+                        <a-radio-group v-model:value="settingConfig.showBorder">
+                            <a-radio :value="1">是</a-radio>
+                            <a-radio :value="2">否</a-radio>
+                        </a-radio-group>
+                    </div>
+                </div>
+            </a-tab-pane>
+        </a-tabs>
+    </custom-modal>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { GripVertical } from 'lucide-vue-next';
-import { VueDraggable } from 'vue-draggable-plus';
+import { computed, ref, watch } from 'vue';
+import { AlignEndVertical, AlignStartVertical, Eye, EyeOff, Pin } from 'lucide-vue-next';
 
 interface ColumnItem {
     title: string;
-    dataIndex: string;
-    visible?: boolean
-    [key: string]: any;
+    key: string;
+    visible: boolean;
+    required?: boolean;
+    fixed?: string;
 }
 
-const props = defineProps<{
-    visible: boolean;
+interface IPersonalizedSetting {
     columns: ColumnItem[];
-}>();
+    heightFull: 1 | 2;
+    showBorder: 1 | 2;
+}
 
+const props = defineProps({
+    columns: {
+        type: Array as PropType<ColumnItem[]>,
+        default: () => [],
+    },
+    visible: {
+        type: Boolean,
+        default: false,
+    },
+    defaultColumns: {
+        type: Array as PropType<ColumnItem[]>,
+        default: () => [],
+    },
+    heightFull: {
+        type: Number as PropType<1 | 2>,
+        default: 1,
+    },
+    showBorder: {
+        type: Number as PropType<1 | 2>,
+        default: 2,
+    },
+});
 const emit = defineEmits<{
-    (e: 'update:visible', visible: boolean): void;
+    (e: 'update:visible', value: boolean): void;
     (e: 'columnsChange', columns: ColumnItem[]): void;
 }>();
 
+const open = computed({
+    get: () => props.visible,
+    set: (value) => emit('update:visible', value),
+});
 
-// 本地列配置
-const localColumns = ref<ColumnItem[]>([]);
+const activeKey = ref('base');
+const columnList = ref<ColumnItem[]>([]);
+// eslint-disable-next-line vue/no-setup-props-destructure
+const settingConfig = reactive<IPersonalizedSetting>({
+    columns: [],
+    heightFull: props.heightFull,
+    showBorder: props.showBorder,
+});
 
-// 监听columns变化
-watch(
-    () => props.columns,
-    (newColumns) => {
-        localColumns.value = newColumns.map((column) => ({
-            ...column,
-            visible: column.visible ?? true,
-        }));
-    },
-    { immediate: true }
-);
-
-// 处理关闭
-const handleClose = () => {
-    emit('update:visible', false);
+// 固定列图标
+const fixedIcons: Record<string, any> = {
+    left: AlignStartVertical,
+    right: AlignEndVertical,
+    default: Pin,
 };
 
-// 处理重置
-const handleReset = () => {
-    localColumns.value = props.columns.map((column) => ({
-        ...column,
-        visible: true,
+// 初始化列列表
+const initColumnList = () => {
+    columnList.value = props.columns.map((col) => ({
+        ...col,
+        visible: col.visible ?? true,
     }));
-    emit('columnsChange', localColumns.value);
 };
 
-// 处理列显示状态变化
-const handleColumnVisibleChange = () => {
-    emit('columnsChange', localColumns.value);
+// 获取固定列的提示信息
+const getFixedTooltip = (item: ColumnItem) => {
+    switch (item.fixed) {
+        case 'left':
+            return '固定在左侧';
+        case 'right':
+            return '固定在右侧';
+        default:
+            return '不固定';
+    }
+};
+
+// 获取固定列的图标
+const getFixedIcon = (item: ColumnItem) => fixedIcons[item.fixed ?? 'default'];
+
+// 切换列的显示/隐藏
+const toggleVisibility = (item: ColumnItem) => {
+    item.visible = !item.visible;
+};
+
+// 切换列的固定状态
+const toggleFixed = (item: ColumnItem) => {
+    const nextFixed = item.fixed === 'left' ? 'right' : item.fixed === 'right' ? 'default' : 'left';
+    item.fixed = nextFixed;
+};
+
+// 重置列配置
+const handleReset = () => {
+    columnList.value = props.defaultColumns.map((col) => ({
+        ...col,
+        visible: col.visible ?? true,
+    }));
+    handleConfirm();
+    open.value = false;
+};
+
+// 取消配置
+const handleCancel = () => {
+    open.value = false;
+};
+
+// 确认配置并触发 columnsChange 事件
+const handleConfirm = () => {
+    open.value = false;
+    emit('columnsChange', columnList.value, settingConfig.heightFull, settingConfig.showBorder);
 };
 
 // 处理拖拽结束
-const handleDragEnd = () => {
-    emit('columnsChange', localColumns.value);
+const handleDragChange = () => {
+    emit('columnsChange', columnList.value);
 };
+
+// 监听visible变化，初始化列数据
+watch(
+    () => props.visible,
+    (newVal) => {
+        if (newVal) initColumnList();
+    },
+);
 </script>
 
 <style lang="scss" scoped>
@@ -107,20 +204,11 @@ const handleDragEnd = () => {
         @apply flex justify-end mb-4;
     }
 
-    .column-list {
-        @apply space-y-2;
-    }
-
     .column-item {
-        @apply flex items-center justify-between p-2 bg-bg-container dark:bg-bg-darkContainer rounded;
-        @apply border border-border dark:border-border-dark;
+        @apply flex items-center justify-between p-2 bg-bg-container dark:bg-bg-darkContainer rounded mb-2;
 
         .left-section {
             @apply flex items-center gap-2;
-
-            .drag-handle {
-                @apply cursor-move text-text-secondary dark:text-text-darkSecondary;
-            }
         }
     }
 }
