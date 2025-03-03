@@ -12,7 +12,7 @@
             <slot name="footer"></slot>
         </template>
         <template #title>
-            <div  ref="modalRef" class="w-full cursor-move">{{modalTitle}}</div>
+            <div ref="modalRef" class="w-full cursor-move">{{ modalTitle }}</div>
         </template>
         <template #cancelText>
             <slot name="cancelText"></slot>
@@ -36,14 +36,14 @@
 
 <script setup lang="ts">
 import { CSSProperties } from 'vue';
-import {X} from "lucide-vue-next"
+import { X } from 'lucide-vue-next';
 
 defineProps({
     modalTitle: {
         type: String as PropType<string>,
         default: '标题',
     },
-})
+});
 const modalRef = ref<HTMLElement>();
 const { x, y, isDragging } = useDraggable(modalRef);
 
@@ -92,7 +92,7 @@ const transformStyle = computed<CSSProperties>(() => {
 </script>
 
 <style scoped lang="scss">
- :deep(.ant-modal .ant-modal-close){
-     @apply text-white dark:text-black;
- }
+:deep(.ant-modal .ant-modal-close) {
+    @apply text-white dark:text-black;
+}
 </style>

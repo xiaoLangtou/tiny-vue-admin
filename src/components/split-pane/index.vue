@@ -210,7 +210,6 @@ onMounted(() => {
         display: flex;
         justify-content: center;
         align-items: center;
-
     }
 
     &__collapse-trigger {
