@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-25 17:36:49
+ * @LastEditTime: 2025-03-04 15:14:47
  * @FilePath: src/store/module/menu/menu.ts
  * @Description: 路由相关的store
  */
@@ -17,6 +17,10 @@ const useMenuStore = defineStore('menu', {
         return {
             menuList: [] as MenuOptions[], // 树形菜单
             flatMeuList: [] as MenuOptions[], // 平铺菜单
+            // 所有的顶级菜单
+            topMenuList: [] as MenuOptions[],
+            // 所有的子集菜单
+            subMenuList: new Map<string, MenuOptions[]>(),
             isCollapsed: false,
         };
     },
@@ -29,6 +33,7 @@ const useMenuStore = defineStore('menu', {
             if (!result.ok) return;
             this.menuList = result.value.data;
             this.flatMeuList = this.flattenMenu(this.menuList);
+            this.filterMenu(this.menuList);
             return result.value.data;
         },
         flattenMenu(menuList: MenuOptions[]): MenuOptions[] {
@@ -43,6 +48,24 @@ const useMenuStore = defineStore('menu', {
                 }
             }
             return result;
+        },
+        filterMenu(menuList: MenuOptions[]) {
+            const topMenuList: MenuOptions[] = [];
+            const subMenuList = new Map();
+
+            menuList.forEach((item) => {
+                // eslint-disable-next-line eqeqeq
+                if (item.parentId !== undefined && item.parentId == '-1') {
+                    const topMenu = { ...item, isChildren: item.children?.length, children: [] };
+                    topMenuList.push(topMenu);
+                    if (item.children && item.children.length > 0) {
+                        subMenuList.set(item.id, item.children);
+                    }
+                }
+            });
+
+            this.subMenuList = subMenuList;
+            this.topMenuList = topMenuList;
         },
     },
 });

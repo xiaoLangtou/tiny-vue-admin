@@ -21,6 +21,13 @@ module.exports = {
         '@typescript-eslint/no-require-imports': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
         'vue/no-duplicate-attr-inheritance': 'off',
+        'vue/no-ref-object-reactivity-loss': 1,
+        'vue/block-order': [
+            'error',
+            {
+                order: [['template', 'script'], 'style'],
+            },
+        ],
 
         'vue/no-duplicate-attributes': [
             'error',
@@ -35,5 +42,12 @@ module.exports = {
                 skipComments: true,
             },
         ],
+        // 已弃用规则关闭掉
+        'vue/no-setup-props-destructure': 'off',
+        'vue/component-tags-order': 'off',
+        'vue/no-invalid-model-keys': 'off',
+        'vue/no-ref-object-destructure': 'off',
+        'vue/script-setup-uses-vars': 'off',
+        'vue/v-on-function-call': 'off',
     },
 };

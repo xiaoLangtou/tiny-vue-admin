@@ -1,22 +1,24 @@
 <template>
     <div class="data-table-container">
-        <!-- 表格工具栏 -->
-        <table-toolbar
-            @add="$emit('add')"
-            @refresh="$emit('refresh')"
-            @fullscreen="toggle"
-            @column-setting="openColumnSetting"
-            @import="$emit('import')"
-            @export="$emit('export')"
-            @toggle-advanced-search="(value) => $emit('toggleAdvancedSearch', value)"
-        >
-            <template #buttons>
-                <slot name="toolbar-buttons"></slot>
-            </template>
-        </table-toolbar>
+        <TeleportFullscreen :is-fullscreen="isFullscreen">
+            <!-- 表格工具栏 -->
+            <table-toolbar
+                :is-fullscreen="isFullscreen"
+                @add="$emit('add')"
+                @refresh="$emit('refresh')"
+                @fullscreen="toggleFullscreen"
+                @column-setting="openColumnSetting"
+                @import="$emit('import')"
+                @export="$emit('export')"
+                @toggle-advanced-search="(value) => $emit('toggleAdvancedSearch', value)"
+            >
+                <template #buttons>
+                    <slot name="toolbar-buttons"></slot>
+                </template>
+            </table-toolbar>
 
-        <!-- 全屏表格 -->
-        <fullscreen ref="antTable" :is-fullscreen="isFullscreen" :exit-fullscreen="exit">
+            <!-- 全屏表格 -->
+
             <a-table
                 v-bind="$attrs"
                 class="xlt-table"
@@ -46,28 +48,26 @@
                     @show-size-change="handleSizeChange"
                 />
             </div>
-        </fullscreen>
 
-        <!-- 列设置 -->
-        <column-setting
-            v-model:visible="showColumnSetting"
-            :columns="settingColumns"
-            :height-full="heightFull"
-            :show-border="bordered"
-            :default-columns="columns"
-            @columns-change="handleColumnsChange"
-        />
+            <!-- 列设置 -->
+            <column-setting
+                v-model:visible="showColumnSetting"
+                :columns="settingColumns"
+                :height-full="heightFull"
+                :show-border="bordered"
+                :default-columns="columns"
+                @columns-change="handleColumnsChange"
+            />
+        </TeleportFullscreen>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { useThrottle, useFullscreen } from '@vueuse/core';
 import TableToolbar from '@/components/data-table/table-toolbar/index.vue';
 import ColumnSetting from '@/components/data-table/column-setting/index.vue';
-import { TableProps, TablePaginationConfig, TableColumnType,FilterDropdownProps } from 'ant-design-vue';
-import type { MaybeElementRef } from '@vueuse/core';
+import { TableProps, TablePaginationConfig, TableColumnType, FilterDropdownProps } from 'ant-design-vue';
 import { StorageUtil } from '@/utils/storage';
+import TeleportFullscreen from '../fullscreen/teleport.vue';
 
 // **定义组件属性**
 interface DataTableProps {
@@ -100,25 +100,37 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-    // 表格相关的插槽
-    title: (currentPageData: any[]) => void;
-    footer: (currentPageData: any[]) => void;
+    // 静态插槽
+    title: (props: { currentPageData: any[] }) => void;
+    footer: (props: { currentPageData: any[] }) => void;
     bodyCell: (props: { text: any; record: Record<string, any>; index: number; column: any; value: any }) => void;
     customFilterDropdown: (props: { customFilterDropdown: FilterDropdownProps }) => void;
     customFilterIcon: (props: { filtered: any; column: TableColumnType }) => void;
     emptyText: () => void;
     expandIcon: (props: { expanded: any; onExpand: any; record: any }) => void;
-    expandedRowRender: (props: { record: Record<string, any>; index: number; indent: any; expanded: boolean }) => void;
+    expandedRowRender: (props: { record: Record<string, any>; index: number; indent: any; expanded: any }) => void;
     expandColumnTitle: () => void;
     headerCell: (props: { title: string; column: TableColumnType }) => void;
     summary: () => void;
 
-    [propsName: string]: (props: { record: Record<string, any>; index: number; column: TableColumnType }) => void;
+    // 动态插槽（改为与静态插槽一致的类型）
+    [key: string]: (props: {
+        record: Record<string, any>;
+        index: number;
+        column: TableColumnType;
+        currentPageData: any[];
+        text: any;
+        customFilterDropdown: FilterDropdownProps;
+        filtered: any;
+        expanded: boolean;
+        onExpand: string;
+        indent: any;
+        customFilterIcon: FilterDropdownProps;
+        value: any;
+        title: string;
+    }) => void;
 }>();
-
 const slots = useSlots();
-
-console.log(slots);
 
 defineOptions({
     name: 'DataTable',
@@ -240,9 +252,10 @@ watch(
     { immediate: true },
 );
 
-// **全屏功能**
-const el = ref<HTMLElement | null>(null);
-const { isFullscreen, exit, toggle } = useFullscreen(el as MaybeElementRef);
+const isFullscreen = ref(false);
+const toggleFullscreen = () => {
+    isFullscreen.value = !isFullscreen.value;
+};
 </script>
 
 <style lang="scss" scoped>

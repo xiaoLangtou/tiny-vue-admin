@@ -1,41 +1,35 @@
+<!--
+ * @Author: weipc 755197142@qq.com
+ * @Date: 2025-03-04 09:26:58
+ * @LastEditors: weipc 755197142@qq.com
+ * @LastEditTime: 2025-03-04 14:33:49
+ * @FilePath: src/layout/index.vue
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ -->
 <template>
-    <a-layout style="min-height: 100vh">
-        <a-layout-sider :collapsed="menuStore.isCollapsed" class="!bg-white dark:!bg-bg-darkLayout" :width="230">
-            <suspense>
-                <layout-aside></layout-aside>
-            </suspense>
-        </a-layout-sider>
-        <a-layout>
-            <a-layout-header class="!bg-white dark:!bg-bg-darkLayout shadow dark:shadow-gray-700 !ps-0.5 !pe-0.5">
-                <layout-header></layout-header>
-            </a-layout-header>
-            <a-layout-content>
-                <layout-page></layout-page>
-            </a-layout-content>
-            <a-layout-footer style="text-align: center" class="!pt-3 !pb-3">
-                Ant Design ©2018 Created by Ant UED</a-layout-footer
-            >
-        </a-layout>
-    </a-layout>
+    <default-layout v-if="layout === 'side'" @setting="handleSetting"></default-layout>
+    <top-menu-layout v-if="layout === 'top'" @setting="handleSetting"></top-menu-layout>
+    <mix-layout v-if="layout === 'mix'" @setting="handleSetting"></mix-layout>
+
+    <!--配置弹窗-->
+    <setting-drawer ref="settingDrawerRef"></setting-drawer>
 </template>
 
-<script lang="ts" setup>
-// 初始化默认主题
-import { LayoutAside, LayoutHeader, LayoutPage } from './components';
-import { useMenuStore } from '@/store/module';
+<script setup lang="ts">
+import { DefaultLayout, TopMenuLayout, SettingDrawer, MixLayout } from './components';
 import { useAppStore } from '@/store';
 
-const menuStore = useMenuStore();
 const appStore = useAppStore();
 
-const asideWidth = computed(() => (menuStore.isCollapsed ? 80 : 220));
+const settingDrawerRef = useTemplateRef('settingDrawerRef');
 
-const pattern = ref('fashion');
+const layout = computed(() => {
+    return appStore.layoutSetting.layout;
+});
+
+const handleSetting = () => {
+    settingDrawerRef.value?.open();
+};
 </script>
 
-<style scoped lang="scss">
-.layout {
-    width: 100%;
-    height: 100%;
-}
-</style>
+<style scoped lang="scss"></style>

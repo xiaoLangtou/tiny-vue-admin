@@ -7,7 +7,7 @@
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
 <template>
-    <div :class="isFullscreen ? 'fullscreen-container' : ''">
+    <div  class="fullscreen-container">
         <!-- 全屏按钮 -->
         <div v-if="isFullscreen" class="exit-btn">
             <a-button
@@ -37,7 +37,17 @@ const props = defineProps({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.fullscreen-fade-enter-active,
+.fullscreen-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fullscreen-fade-enter-from,
+.fullscreen-fade-leave-to {
+    opacity: 0;
+}
+
 .fullscreen-container {
     position: relative;
     width: 100%;

@@ -151,7 +151,6 @@ onMounted(() => {
     height: 100%;
     position: relative;
     background: var(--color-bg-2);
-    z-index: 1000;
 
     .container {
         display: flex;

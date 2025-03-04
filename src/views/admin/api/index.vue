@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 15:14:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-02 14:17:40
+ * @LastEditTime: 2025-03-03 16:34:50
  * @FilePath: src/views/admin/api/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -40,12 +40,12 @@
                 :dataSource="dataSource"
                 :loading="loading"
                 :pagination="pagination"
-                @change="handleTableChange"
                 @add="handleAdd"
                 @refresh="handleRefresh"
                 @toggle-advanced-search="handleToggleAdvancedSearch"
                 @page-change="handlePageChange"
-            />
+            >
+            </data-table>
         </div>
     </div>
 </template>
@@ -155,7 +155,7 @@ const fetchData = () => {
     loading.value = true;
     // 模拟接口请求
     const data: any[] = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
         data.push({
             key: i.toString(),
             name: `Edrward ${i}`,

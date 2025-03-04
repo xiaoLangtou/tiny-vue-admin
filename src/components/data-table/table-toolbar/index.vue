@@ -29,7 +29,7 @@
             </a-tooltip>
             <a-tooltip v-if="showFullscreen" title="全屏">
                 <a-button
-                    :icon="h(Expand({ size: 18 }, {} as any))"
+                    :icon="h(isFullscreen?Shrink({ size: 18 }, {} as any) :Expand({ size: 18 }, {} as any))"
                     class="action-button"
                     @click="emit('fullscreen')"
                 />
@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { h, ref } from 'vue';
-import { Download, Minimize, Plus, RotateCw, Settings, Upload, ScanSearch, ScanEye, Expand } from 'lucide-vue-next';
+import { Download, Shrink, Plus, RotateCw, Settings, Upload, ScanSearch, ScanEye, Expand } from 'lucide-vue-next';
 
 const props = defineProps({
     showRefresh: {
@@ -74,6 +74,10 @@ const props = defineProps({
         default: false,
     },
     showFullscreen: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    isFullscreen: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

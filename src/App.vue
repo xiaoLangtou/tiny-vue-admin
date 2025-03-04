@@ -1,5 +1,5 @@
 <template>
-    <div class="app">
+    <div ref="appRef" class="app">
         <loading :visible="loading" />
         <a-config-provider :theme="themeConfig" :locale="locale === 'en' ? enUS : zhCN">
             <a-app>

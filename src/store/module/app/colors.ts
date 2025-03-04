@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-27 23:57:51
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-01 11:28:36
+ * @LastEditTime: 2025-03-03 11:55:29
  * @FilePath: src/store/module/app/colors.ts
  * @Description:颜色配置集中管理文件
  */
@@ -28,11 +28,4 @@ export const menuDarkColors = {
     colorItemTextSelected: '#fff',
 };
 
-export const menuLightColors = {
-    colorItemBg: 'rgb(255, 255, 255)',
-    colorSubItemBg: 'rgb(235, 235, 235)',
-    menuSubMenuBg: 'rgb(235, 235, 235)',
-    colorItemBgSelected: '#1677ff',
-    colorItemBgHover: 'rgb(240, 240, 240)',
-    colorItemTextSelected: '#000',
-};
+export const menuLightColors = {};

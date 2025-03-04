@@ -19,6 +19,7 @@
         "animate.css": "^4.1.1",
         "ant-design-vue": "4.x",
         "axios": "^1.7.9",
+        "components": "link:@/components",
         "lucide-vue-next": "^0.475.0",
         "md5": "^2.3.0",
         "normalize.css": "^8.0.1",

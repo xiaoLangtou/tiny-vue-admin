@@ -21,6 +21,9 @@ export const isDark = useDark({
     attribute: 'class',
     valueDark: 'dark',
     valueLight: 'light',
+    onChanged(dark: boolean) {
+        document.documentElement.setAttribute('class', dark ? 'dark' : 'light');
+    },
 });
 export const toggleDark = useToggle(isDark);
 
@@ -40,6 +43,7 @@ const useAppStore = defineStore('app', () => {
             colorBgContainer: lightThemeColors.colorBgContainer,
             colorBgLayout: lightThemeColors.colorBgLayout,
             colorPrimary: globalSetting.colorPrimary,
+            borderRadius: globalSetting.borderRadius,
         },
         components: {},
     });
@@ -58,7 +62,21 @@ const useAppStore = defineStore('app', () => {
     // 更新菜单组件的颜色
     const setMenuStyles = (theme: ThemeType) => {
         if (!themeConfig.components) return;
-        themeConfig.components.Menu = theme === 'dark' ? menuDarkColors : menuLightColors;
+        themeConfig.components.Menu =
+            theme === 'dark'
+                ? {
+                      ...menuDarkColors,
+                      colorItemBgSelected: themeConfig.token?.colorPrimary,
+                  }
+                : menuLightColors;
+    };
+
+    const toggleColorPrimary = (color: string) => {
+        layoutSetting.colorPrimary = color;
+        if (themeConfig.token) {
+            themeConfig.token.colorPrimary = color;
+        }
+        setMenuStyles(layoutSetting.theme);
     };
 
     // 切换主题
@@ -85,6 +103,17 @@ const useAppStore = defineStore('app', () => {
         themeConfig.algorithm = algorithms; // 更新主题算法
     };
 
+    // 切换导航模式
+    const toggleLayout = (layout: string) => {
+        layoutSetting.layout = layout;
+    };
+
+    // 切换页面圆角
+    const toggleBorderRadius = (radius: number) => {
+        layoutSetting.borderRadius = radius;
+        themeConfig.token!.borderRadius = radius;
+    };
+
     // 监听 dark 模式变化
     watch(
         () => isDark.value,
@@ -101,6 +130,10 @@ const useAppStore = defineStore('app', () => {
         themeConfig,
         toggleTheme,
         toggleCompact,
+        toggleColorPrimary,
+        toggleDark,
+        toggleBorderRadius,
+        toggleLayout
     };
 });
 

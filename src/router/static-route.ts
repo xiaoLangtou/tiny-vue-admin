@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:44:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-23 15:27:49
+ * @LastEditTime: 2025-03-04 09:35:25
  * @FilePath: src/router/static-route.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */

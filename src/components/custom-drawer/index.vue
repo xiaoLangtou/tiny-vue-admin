@@ -6,14 +6,22 @@
  * @Description: 自定义抽屉组件
 -->
 <template>
-    <a-drawer v-bind="drawerProps" :open="open" :afterOpenChange="afterOpenChange" @close="handleClose">
+    <a-drawer v-bind="drawerProps" :open="open" mask mask-closable  :get-container="false" :afterOpenChange="afterOpenChange" @close="handleClose">
         <!-- 额外操作按钮 -->
         <template #extra>
             <slot name="extra">
                 <a-space>
-                    <a-button v-if="showCancelButton" @click="handleCancel">取消</a-button>
-                    <a-button v-if="showConfirmButton" type="primary" :loading="confirmLoading" @click="handleConfirm"
-                        >确定
+                    <a-button v-if="showCancelButton" @click="handleCancel">
+                        <template v-if="cancelButtonIcon" #icon>
+                            <component :is="cancelButtonIcon"></component>
+                        </template>
+                        {{ cancelButtonText }}
+                    </a-button>
+                    <a-button v-if="showConfirmButton" type="primary" :loading="confirmLoading" @click="handleConfirm">
+                        <template v-if="cancelButtonIcon" #icon>
+                            <component :is="cancelButtonIcon"></component>
+                        </template>
+                        {{ confirmButtonText }}
                     </a-button>
                 </a-space>
             </slot>
@@ -30,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import { h } from 'vue';
 import { DrawerProps } from 'ant-design-vue';
 
 const props = withDefaults(defineProps<Props>(), {
@@ -39,6 +48,10 @@ const props = withDefaults(defineProps<Props>(), {
     showCancelButton: true,
     width: 500,
     placement: 'right',
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    confirmButtonIcon: '',
+    cancelButtonIcon: '',
 });
 
 const emit = defineEmits<
@@ -70,6 +83,18 @@ interface Props extends Partial<DrawerProps> {
     showConfirmButton?: boolean;
     /** 是否显示取消按钮 */
     showCancelButton?: boolean;
+
+    /** 确认按钮文本 */
+    confirmButtonText?: string;
+
+    /** 取消按钮文本 */
+    cancelButtonText?: string;
+
+    /** 确认按钮图标 */
+    confirmButtonIcon?: string;
+
+    /** 取消按钮图标 */
+    cancelButtonIcon?: string;
 }
 
 // 抽屉属性

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:23:21
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-02 13:58:41
+ * @LastEditTime: 2025-03-03 14:48:51
  * @FilePath: src/assets/styles/common.scss
  * @Description: 自定义公共样式
  */
@@ -26,4 +26,15 @@
     .ant-table{
         @apply dark:bg-[var(--xlt-table-bg)];
     }
+}
+
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+}
+
+::view-transition-image-pair(root) {
+    isolation: auto;
 }

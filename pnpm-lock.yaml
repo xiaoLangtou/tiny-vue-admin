@@ -26,6 +26,9 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.7.9
+      components:
+        specifier: link:@/components
+        version: link:@/components
       lucide-vue-next:
         specifier: ^0.475.0
         version: 0.475.0(vue@3.5.13(typescript@5.7.3))

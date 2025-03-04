@@ -11,38 +11,16 @@ export default {
     // 网站Logo路径
     logo: '/logo.svg', // 侧边栏或页面顶部的 logo 图片路径
 
-    // 侧边栏是否折叠
-    collapsed: false, // 默认侧边栏是展开的，设置为 true 时侧边栏会收起
-
-    // 控制抽屉模式（一般用于弹出框等）
-    drawerVisible: false, // 控制抽屉组件的显示与隐藏
-
     // 布局模式，支持 'mix', 'side', 'top' 等
-    layout: 'mix', // 设定布局方式，'mix' 是顶部 + 侧边栏混合布局
-
+    layout: 'side', // 设定布局方式， mix:组合布局（头部菜单+侧边栏菜单）side:侧边栏布局（侧边栏菜单）top:顶部布局（顶部菜单）
     // 内容区域宽度，支持 'Fluid' 和 'Fixed'
     contentWidth: 'Fluid', // 'Fluid' 表示内容宽度自适应，'Fixed' 为固定宽度
 
-    // 是否固定头部
-    fixedHeader: false, // 设置为 true 时，页面的头部会固定在顶部，滚动时不动
-
-    // 是否固定侧边栏
-    fixedSider: true, // 设置为 true 时，侧边栏会固定，滚动时不动
-
-    // 是否启用分割菜单
-    splitMenus: false, // 设置为 true 时，侧边栏会将菜单项分割为多列
-
-    // 是否显示头部
-    header: true, // 设置为 false 时，页面顶部的导航栏将被隐藏
-
-    // 是否显示菜单
-    menu: true, // 设置为 false 时，侧边栏菜单会被隐藏
+    // 圆角系数  0,3,6,9,12,16
+    borderRadius: 6,
 
     // 是否启用水印
     watermark: true, // 设置为 true 时，页面会显示水印
-
-    // 是否显示菜单头部
-    menuHeader: true, // 设置为 false 时，侧边栏顶部的菜单标题将被隐藏
 
     // 是否显示页脚
     footer: false, // 设置为 true 时，页面底部会显示页脚内容
@@ -65,14 +43,8 @@ export default {
     // 是否启用手风琴模式，多个菜单项可以展开/收起
     accordionMode: false, // 设置为 true 时，侧边栏的菜单将启用手风琴模式，即一次只展开一个菜单项
 
-    // 左侧菜单是否折叠
-    leftCollapsed: true, // 设置为 true 时，左侧的菜单会被折叠，只显示图标
-
     // 是否启用紧凑算法来压缩布局
     compactAlgorithm: false, // 设置为 true 时，启用紧凑算法，减小组件和元素之间的间距
-
-    // 头部的高度，单位为像素
-    headerHeight: 48, // 控制头部的高度，可以根据需要调整
 
     // 网站的版权信息
     copyright: 'Antdv Pro Team 2023', // 网站底部显示的版权信息
