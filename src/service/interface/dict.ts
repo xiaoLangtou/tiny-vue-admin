@@ -32,4 +32,3 @@ export type TDictListResult = ServiceResult<IDictType[]>;
 export type TDictDetailResult = ServiceResult<IDictType>;
 export type TDictDataListResult = ServiceResult<ResPage<IDictData>>;
 export type TDictDataDetailResult = ServiceResult<IDictData>;
-

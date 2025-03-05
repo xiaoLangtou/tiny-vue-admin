@@ -13,6 +13,6 @@ export const useAntdToken = createSharedComposable(() => {
     const { token: antdToken } = theme.useToken();
     const token = computed(() => antdToken.value); // 让 token 依赖 antdToken
     return {
-        token
+        token,
     };
 });

@@ -8,14 +8,20 @@
  */
 
 import xltRequest from '@/service/request/alova';
-import { TDictListResult,IDictType,TDictDetailResult,TDictDataListResult,IDictData } from "@/service/interface/dict";
+import {
+    TDictListResult,
+    IDictType,
+    TDictDetailResult,
+    TDictDataListResult,
+    IDictData,
+} from '@/service/interface/dict';
 
 /**
  * @description 获取字典列表
  * @param {string}  name 字典名称或者字典编码
  */
 export const getDictList = (name?: string) => {
-    return xltRequest.Get<TDictListResult>("/dict/list", { params: { name } });
+    return xltRequest.Get<TDictListResult>('/dict/list', { params: { name } });
 };
 
 /**
@@ -27,7 +33,7 @@ export const getDictList = (name?: string) => {
  * @param {string}  data.systemFlag 系统标识
  */
 export const addDict = (data: IDictType) => {
-    return xltRequest.Post("/dict/add", data);
+    return xltRequest.Post('/dict/add', data);
 };
 
 /**
@@ -40,7 +46,7 @@ export const addDict = (data: IDictType) => {
  * @param {string}  data.id 字典ID
  */
 export const updateDict = (data: IDictType) => {
-    return xltRequest.Post("/dict/update", data);
+    return xltRequest.Post('/dict/update', data);
 };
 
 /**
@@ -66,12 +72,12 @@ export const getDictDetail = (id: any) => {
  * @param {number} size 每页条数
  */
 export const getDictDataList = (typeId: number, current: number, size: number) => {
-    return xltRequest.Get<TDictDataListResult>("/dict/data/list", {
+    return xltRequest.Get<TDictDataListResult>('/dict/data/list', {
         params: {
             typeId,
             current,
-            size
-        }
+            size,
+        },
     });
 };
 
@@ -85,7 +91,7 @@ export const getDictDataList = (typeId: number, current: number, size: number) =
  * @param {number}  data.dictTypeId 字典类型ID
  */
 export const addDictData = (data: IDictData) => {
-    return xltRequest.Post("/dict/data/add", data);
+    return xltRequest.Post('/dict/data/add', data);
 };
 
 /**
@@ -99,7 +105,7 @@ export const addDictData = (data: IDictData) => {
  * @param {number}  data.id 字典数据ID
  */
 export const updateDictData = (data: IDictData) => {
-    return xltRequest.Post("/dict/data/update", data);
+    return xltRequest.Post('/dict/data/update', data);
 };
 
 /**
@@ -133,7 +139,7 @@ export const getDictDataListByType = (dictType: string) => {
 export const getDictDataObjByType = (dictType: string) => {
     return xltRequest.Get<TDictDataListResult>(`/dict/data/type-detail`, {
         params: {
-            type: dictType
-        }
+            type: dictType,
+        },
     });
 };

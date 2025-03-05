@@ -1,11 +1,7 @@
 <template>
     <div>
         <!-- 搜索表单 -->
-        <search-form
-            :fields="searchFields"
-            @search="handleSearch"
-            @reset="handleReset"
-        >
+        <search-form :fields="searchFields" @search="handleSearch" @reset="handleReset">
             <template #actions>
                 <a-button type="primary" @click="handleAdd">
                     <template #icon>
@@ -45,14 +41,14 @@
         </data-table>
     </div>
     <!-- 新增/修改字典的弹窗 -->
-<!--    <dict-data-add ref="addDialog" @close="getList" />-->
+    <!--    <dict-data-add ref="addDialog" @close="getList" />-->
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 // import DictDataAdd from './dict-data-add.vue';
-import { IDictData,IDictType } from '@/service/interface/dict';
+import { IDictData, IDictType } from '@/service/interface/dict';
 import { getDictDataList, removeDictData } from '@/service/apis/dict';
 import { message } from 'ant-design-vue';
 import type { TablePaginationConfig } from 'ant-design-vue';
@@ -90,7 +86,7 @@ const pagination = reactive<TablePaginationConfig>({
 // 监听字典类型变化
 watch(
     () => props.dictType,
-    () => getList()
+    () => getList(),
 );
 
 // 获取列表数据
@@ -98,12 +94,7 @@ const getList = async (params = {}) => {
     if (!props.dictType?.id) return;
     loading.value = true;
     try {
-        const { data } = await getDictDataList(
-            Number(props.dictType.id),
-            pagination.current,
-            pagination.pageSize,
-
-        );
+        const { data } = await getDictDataList(Number(props.dictType.id), pagination.current, pagination.pageSize);
         tableData.value = data.records || [];
         pagination.total = data.pager?.total || 0;
     } catch (error) {

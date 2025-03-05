@@ -16,4 +16,3 @@ export interface AppState {
     themeConfig: ThemeConfig;
     layoutSetting: ILayoutSetting;
 }
-
