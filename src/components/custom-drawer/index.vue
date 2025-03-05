@@ -6,7 +6,15 @@
  * @Description: 自定义抽屉组件
 -->
 <template>
-    <a-drawer v-bind="drawerProps" :open="open" mask mask-closable  :get-container="false" :afterOpenChange="afterOpenChange" @close="handleClose">
+    <a-drawer
+        v-bind="drawerProps"
+        :open="open"
+        mask
+        mask-closable
+        :get-container="getContainer"
+        :afterOpenChange="afterOpenChange"
+        @close="handleClose"
+    >
         <!-- 额外操作按钮 -->
         <template #extra>
             <slot name="extra">
@@ -52,6 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
     cancelButtonText: '取消',
     confirmButtonIcon: '',
     cancelButtonIcon: '',
+    getContainer: false,
 });
 
 const emit = defineEmits<

@@ -11,4 +11,4 @@ export { default as LayoutPage } from './layout-page/layout-page.vue';
 export { default as DefaultLayout } from './default-layout/index.vue';
 export { default as TopMenuLayout } from './top-menu-layout/index.vue';
 export { default as SettingDrawer } from './header-right-bar/setting-drawer.vue';
-export {default as MixLayout} from './mix-layout/index.vue'
+export { default as MixLayout } from './mix-layout/index.vue';

@@ -9,7 +9,7 @@
 <template>
     <div class="aside-logo flex items-center justify-center gap-2">
         <img src="../../../assets/images/logo.svg" alt="" />
-        <h2 v-if="appStore.layoutSetting.layout === 'mix'|| !menuStore.isCollapsed " class="aside-title">
+        <h2 v-if="appStore.layoutSetting.layout === 'mix' || !menuStore.isCollapsed" class="aside-title">
             {{ globalSetting.title }}
         </h2>
     </div>

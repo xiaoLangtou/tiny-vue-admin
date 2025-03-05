@@ -2,13 +2,13 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-04 15:14:47
+ * @LastEditTime: 2025-03-05 10:58:46
  * @FilePath: src/store/module/menu/menu.ts
  * @Description: 路由相关的store
  */
 
 import { defineStore } from 'pinia';
-import { getUserMenu } from '@/service/module/login';
+import { getUserMenu } from '@/service/apis/login';
 import { to } from '@/utils/result-handler';
 import { MenuOptions } from '@/service/interface/menu';
 

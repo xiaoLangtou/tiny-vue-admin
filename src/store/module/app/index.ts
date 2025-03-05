@@ -133,7 +133,7 @@ const useAppStore = defineStore('app', () => {
         toggleColorPrimary,
         toggleDark,
         toggleBorderRadius,
-        toggleLayout
+        toggleLayout,
     };
 });
 

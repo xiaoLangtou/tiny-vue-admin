@@ -2,14 +2,14 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 09:13:41
+ * @LastEditTime: 2025-03-05 10:58:46
  * @FilePath: src/store/module/login/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 
 import { defineStore } from 'pinia';
 import { IAccount } from '@/service/interface/login';
-import { getUserInfo, getUserMenu, login } from '@/service/module/login';
+import { getUserInfo, getUserMenu, login } from '@/service/apis/login';
 // @ts-ignore
 import md5 from 'md5';
 import { to } from '@/utils/result-handler';

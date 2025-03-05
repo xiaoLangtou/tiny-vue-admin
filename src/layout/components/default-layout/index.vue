@@ -1,6 +1,10 @@
 <template>
     <a-layout class="min-h-screen">
-        <a-layout-sider :collapsed="menuStore.isCollapsed" class="layout-sider !bg-white dark:!bg-bg-darkLayout" :width="230">
+        <a-layout-sider
+            :collapsed="menuStore.isCollapsed"
+            class="layout-sider !bg-white dark:!bg-bg-darkLayout"
+            :width="230"
+        >
             <suspense>
                 <div class="layout-aside shadow dark:shadow-gray-700 flex flex-col h-full">
                     <div class="flex-1 overflow-hidden">
@@ -43,10 +47,7 @@
                             class="fold-btn p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                             @click="toggleMenuStyle"
                         >
-                            <component
-                                :is="menu.isCollapsed ? PanelTopClose : PanelTopOpen"
-                                :size="20"
-                            />
+                            <component :is="menu.isCollapsed ? PanelTopClose : PanelTopOpen" :size="20" />
                         </button>
                         <Breadcrumb></Breadcrumb>
                     </div>
@@ -101,8 +102,8 @@ defineOptions({
     @apply h-full;
 }
 
-.fold-btn{
-    svg{
+.fold-btn {
+    svg {
         transform: rotate(90deg);
     }
 }

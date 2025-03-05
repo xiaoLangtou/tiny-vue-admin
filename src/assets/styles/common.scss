@@ -2,28 +2,29 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:23:21
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-03 14:48:51
+ * @LastEditTime: 2025-03-04 16:49:36
  * @FilePath: src/assets/styles/common.scss
  * @Description: 自定义公共样式
  */
 
 .xlt-container {
     --xlt-search-box-bg: theme('colors.bg.darkLayout');
-    @apply bg-white dark:bg-[var(--xlt-search-box-bg)] pt-4 pl-2 pr-2 pb-4 rounded-lg;
+    @apply bg-white dark:bg-[var(--xlt-search-box-bg)] pl-2 pr-2 rounded-lg;
 }
 
 .xlt-base-container {
     @apply flex flex-col gap-3;
 }
 
-.xlt-pagination{
+.xlt-pagination {
     @apply flex justify-end mt-3;
 }
 
 
-.xlt-table{
+.xlt-table {
     --xlt-table-bg: theme('colors.bg.darkLayout');
-    .ant-table{
+
+    .ant-table {
         @apply dark:bg-[var(--xlt-table-bg)];
     }
 }

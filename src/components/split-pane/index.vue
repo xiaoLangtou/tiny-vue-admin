@@ -13,7 +13,7 @@
     >
         <div class="container" :style="sideStyle">
             <div ref="sideRef" class="ca-split-panel__side">
-                <div class="ca-split-panel__content">
+                <div class="ca-split-panel__content w-full">
                     <slot name="left"></slot>
                 </div>
             </div>

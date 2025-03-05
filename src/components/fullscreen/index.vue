@@ -7,7 +7,7 @@
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
 <template>
-    <div  class="fullscreen-container">
+    <div class="fullscreen-container">
         <!-- 全屏按钮 -->
         <div v-if="isFullscreen" class="exit-btn">
             <a-button

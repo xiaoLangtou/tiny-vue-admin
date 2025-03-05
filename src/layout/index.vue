@@ -31,5 +31,3 @@ const handleSetting = () => {
     settingDrawerRef.value?.open();
 };
 </script>
-
-<style scoped lang="scss"></style>

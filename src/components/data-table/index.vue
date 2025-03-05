@@ -3,6 +3,7 @@
         <TeleportFullscreen :is-fullscreen="isFullscreen">
             <!-- 表格工具栏 -->
             <table-toolbar
+                v-if="isToolbar"
                 :is-fullscreen="isFullscreen"
                 @add="$emit('add')"
                 @refresh="$emit('refresh')"
@@ -79,6 +80,7 @@ interface DataTableProps {
     rowSelection?: TableProps['rowSelection'];
     locale?: boolean;
     localeName?: string;
+    isToolbar: boolean;
 }
 
 const props = withDefaults(defineProps<DataTableProps>(), {
@@ -89,6 +91,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     rowKey: 'id',
     locale: false,
     localeName: '',
+    isToolbar: true,
 });
 
 const emit = defineEmits<{

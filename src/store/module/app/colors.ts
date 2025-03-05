@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-27 23:57:51
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-03 11:55:29
+ * @LastEditTime: 2025-03-05 10:08:38
  * @FilePath: src/store/module/app/colors.ts
  * @Description:颜色配置集中管理文件
  */
@@ -10,7 +10,7 @@
 export const lightThemeColors = {
     colorBgContainer: '#fff',
     colorBgLayout: 'rgb(249 250 251)',
-    colorPrimary: '#1677ff', // 主色
+    colorPrimary: '#6366f1', // 主色
 };
 
 export const darkThemeColors = {
