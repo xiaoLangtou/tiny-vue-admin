@@ -1,4 +1,3 @@
-
 import { FormRule } from './types';
 import { REG_USER_NAME, REG_PHONE, REG_PWD, REG_EMAIL, REG_CODE_SIX, REG_CODE_FOUR, REG_URL } from '@/utils/reg';
 

@@ -35,7 +35,7 @@
         ],
         "skipLibCheck": true,
         // 跳过库文件检查，提高编译性能
-        "types": ["vite/client", "node","ant-design-vue/typings/global.d.ts"],
+        "types": ["vite/client", "node", "ant-design-vue/typings/global.d.ts"],
         // 添加 Vite 和 Node 类型支持
         "allowJs": false,
 

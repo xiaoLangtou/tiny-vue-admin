@@ -73,7 +73,7 @@ export function useMenu() {
     } = {}) => {
         if (isTopMenu) {
             // 顶部菜单模式下，只返回顶级菜单项，不包含子菜单
-            return filterRawMenuData(topMenuList.value.map(item => ({ ...item, children: [] })));
+            return filterRawMenuData(topMenuList.value.map((item) => ({ ...item, children: [] })));
         } else if (isMixMenu) {
             // 混合模式下，根据传入的mixMenuList显示对应的子菜单
             return filterRawMenuData(mixMenuList);

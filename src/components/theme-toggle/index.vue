@@ -8,7 +8,6 @@ const appStore = useAppStore();
 const { theme } = storeToRefs(appStore);
 const colorPrimary = computed(() => appStore.themeConfig.token?.colorPrimary);
 
-console.log('theme', colorPrimary.value);
 /**
  * 切换主题并应用动画过渡效果。
  *

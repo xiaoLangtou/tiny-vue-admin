@@ -10,7 +10,7 @@
             @mouseleave="mouseEvent(true)"
         >
             <suspense>
-                <div class="layout-aside  flex flex-col h-full">
+                <div class="layout-aside flex flex-col h-full">
                     <div class="flex-1 overflow-hidden">
                         <div
                             class="aside-top pt-6 pb-6 pl-2 pr-2 flex items-center"

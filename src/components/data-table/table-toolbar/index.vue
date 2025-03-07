@@ -60,18 +60,21 @@ import { Download, Expand, Plus, RotateCw, ScanEye, ScanSearch, Settings, Shrink
 import { tableToolbarProps, TableToolbarProps } from '../types';
 
 const props = defineProps(tableToolbarProps);
-const emit = defineEmits<(
-    e:
-        | 'add'
-        | 'refresh'
-        | 'fullscreen'
-        | 'columnSetting'
-        | 'import'
-        | 'export'
-        | 'quickSearch'
-        | 'toggleAdvancedSearch',
-    ...args: any[]
-) => void>();
+const emit =
+    defineEmits<
+        (
+            e:
+                | 'add'
+                | 'refresh'
+                | 'fullscreen'
+                | 'columnSetting'
+                | 'import'
+                | 'export'
+                | 'quickSearch'
+                | 'toggleAdvancedSearch',
+            ...args: any[]
+        ) => void
+    >();
 
 const searchValue = ref('');
 

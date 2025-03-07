@@ -66,7 +66,7 @@ const { tableConfig, pagination } = useTableConfig({
     controlsCustomRender: ({ record }) => {
         return (
             <div class="flex-center gap-8px">
-                <Button primary type="link"   size="small" onClick={() => handleEdit(record)}>
+                <Button primary type="link" size="small" onClick={() => handleEdit(record)}>
                     修改
                 </Button>
                 <Popconfirm onConfirm={() => handleDelete(record)} title="确认删除?">

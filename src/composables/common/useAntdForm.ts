@@ -11,19 +11,17 @@ import { FormInstance } from 'ant-design-vue';
 export const useAntdForm = () => {
     const formRef = ref<FormInstance | null>(null);
 
-
     const validate = async () => {
-        await  formRef.value?.validate();
+        await formRef.value?.validate();
     };
 
     const resetFields = () => {
         formRef.value?.resetFields();
     };
 
-
     return {
         formRef,
         validate,
         resetFields,
-    }
+    };
 };

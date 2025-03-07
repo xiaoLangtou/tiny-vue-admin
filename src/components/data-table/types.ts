@@ -15,7 +15,7 @@ export interface TableToolbarProps {
     showImport?: boolean;
     showExport?: boolean;
     showFullscreen?: boolean;
-    showSearch?:boolean;
+    showSearch?: boolean;
     isFullscreen?: boolean;
     addBtnText?: string;
 }
@@ -55,7 +55,6 @@ export const tableToolbarProps = {
         default: '新增',
     },
 } as const;
-
 
 // **DataTable 组件 Props**
 export interface DataTableProps extends TableProps, TableToolbarProps {

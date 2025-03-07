@@ -7,5 +7,4 @@
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 
-
-export  type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
+export type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;

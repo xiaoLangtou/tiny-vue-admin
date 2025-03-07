@@ -16,7 +16,7 @@ import { handleServiceResult } from '@/service/request/config/handle';
 import { useLoginStore } from '@/store';
 import router from '@/router';
 import { LOGIN_URL } from '@/global/constants';
-import  {message} from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
 // 基础 alova 配置
 const alovaOptions = {

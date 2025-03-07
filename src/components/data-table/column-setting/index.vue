@@ -51,7 +51,7 @@
                             :checked="settingConfig.heightFull"
                             :checked-value="1"
                             :un-checked-value="2"
-                            @update:checked="(value) => settingConfig.heightFull = value"
+                            @update:checked="(value) => (settingConfig.heightFull = value)"
                         />
                     </div>
                     <div class="other-setting flex items-center gap-3">
@@ -60,7 +60,7 @@
                             :checked="settingConfig.showBorder"
                             :checked-value="1"
                             :un-checked-value="2"
-                            @update:checked="(value) => settingConfig.showBorder = value"
+                            @update:checked="(value) => (settingConfig.showBorder = value)"
                         />
                     </div>
                 </div>
@@ -103,8 +103,6 @@ const emit = defineEmits<{
     (e: 'columnsChange', columns: ColumnItem[], heightFull: 1 | 2, showBorder: 1 | 2): void;
 }>();
 
-
-
 interface ColumnItem {
     title: string;
     key: string;
@@ -141,7 +139,7 @@ const fixedIcons = {
 
 // 初始化列列表
 const initColumnList = () => {
-    console.log(props.columns)
+    console.log(props.columns);
     columnList.value = props.columns.map((col) => ({
         ...col,
         visible: col.visible ?? true,

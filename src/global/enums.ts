@@ -65,7 +65,6 @@ export enum HTTP_METHOD {
     CONNECT = 'CONNECT', // 建立隧道连接
 }
 
-
 export enum MenuLayoutMode {
     DEFAULT = 'default',
     TOP = 'top',
@@ -83,6 +82,3 @@ export const HttpMethodCN: Record<HTTP_METHOD, string> = {
     [HTTP_METHOD.TRACE]: '追踪',
     [HTTP_METHOD.CONNECT]: '连接',
 };
-
-
-
