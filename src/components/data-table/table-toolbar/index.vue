@@ -2,13 +2,14 @@
     <div class="table-toolbar">
         <!-- 左侧按钮区 -->
         <div class="left-section">
-            <a-button type="primary" class="add-button" @click="emit('add')">
-                <template #icon>
-                    <Plus class="w-4 h-4" />
-                </template>
-                新增
-            </a-button>
-            <slot name="buttons"></slot>
+            <slot name="buttons">
+                <a-button type="primary" class="add-button" @click="emit('add')">
+                    <template #icon>
+                        <Plus class="w-4 h-4" />
+                    </template>
+                    {{ addBtnText }}
+                </a-button>
+            </slot>
         </div>
 
         <!-- 右侧功能区 -->
@@ -20,6 +21,7 @@
                 @search="handleQuickSearch"
             />
             <a-button
+                v-if="showSearch"
                 :icon="h(showAdvancedSearch? ScanEye({ size: 18 }, {} as any) :ScanSearch({ size: 18 }, {} as any))"
                 class="action-button"
                 @click="toggleAdvancedSearch"
@@ -54,51 +56,29 @@
 
 <script setup lang="ts">
 import { h, ref } from 'vue';
-import { Download, Shrink, Plus, RotateCw, Settings, Upload, ScanSearch, ScanEye, Expand } from 'lucide-vue-next';
+import { Download, Expand, Plus, RotateCw, ScanEye, ScanSearch, Settings, Shrink, Upload } from 'lucide-vue-next';
+import { tableToolbarProps, TableToolbarProps } from '../types';
 
-const props = defineProps({
-    showRefresh: {
-        type: Boolean as PropType<boolean>,
-        default: true,
-    },
-    showColumnSetting: {
-        type: Boolean as PropType<boolean>,
-        default: true,
-    },
-    showImport: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-    },
-    showExport: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-    },
-    showFullscreen: {
-        type: Boolean as PropType<boolean>,
-        default: true,
-    },
-    isFullscreen: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-    },
-});
-const emit =
-    defineEmits<
-        (
-            e:
-                | 'add'
-                | 'refresh'
-                | 'fullscreen'
-                | 'columnSetting'
-                | 'import'
-                | 'export'
-                | 'quickSearch'
-                | 'toggleAdvancedSearch',
-            ...args: any[]
-        ) => void
-    >();
+const props = defineProps(tableToolbarProps);
+const emit = defineEmits<(
+    e:
+        | 'add'
+        | 'refresh'
+        | 'fullscreen'
+        | 'columnSetting'
+        | 'import'
+        | 'export'
+        | 'quickSearch'
+        | 'toggleAdvancedSearch',
+    ...args: any[]
+) => void>();
 
 const searchValue = ref('');
+
+const handleSearch = () => {
+    emit('quickSearch', searchValue.value);
+};
+
 const showAdvancedSearch = ref(false);
 
 const handleQuickSearch = (value: string) => {
@@ -112,6 +92,7 @@ const toggleAdvancedSearch = () => {
 
 defineOptions({
     name: 'TableToolbar',
+    inheritAttrs: true, // 确保继承 attrs
 });
 </script>
 

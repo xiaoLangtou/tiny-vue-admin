@@ -2,8 +2,8 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 16:58:53
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-04 17:04:03
- * @FilePath: src/service/module/dict.ts
+ * @LastEditTime: 2025-03-06 00:42:54
+ * @FilePath: src/service/apis/dict.ts
  * @Description: 字典管理相关接口
  */
 
@@ -71,7 +71,15 @@ export const getDictDetail = (id: any) => {
  * @param {number} current 当前页
  * @param {number} size 每页条数
  */
-export const getDictDataList = (typeId: number, current: number, size: number) => {
+export const getDictDataList = ({
+    typeId,
+    current,
+    size,
+}: {
+    typeId: number;
+    current: number | undefined;
+    size: number | undefined;
+}) => {
     return xltRequest.Get<TDictDataListResult>('/dict/data/list', {
         params: {
             typeId,

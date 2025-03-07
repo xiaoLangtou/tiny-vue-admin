@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 15:14:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-03 16:34:50
+ * @LastEditTime: 2025-03-06 12:53:48
  * @FilePath: src/views/admin/api/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSearchForm } from '@/hooks/useSearchForm';
+import { useSearchForm } from '@/composables/common/useSearchForm';
 import type { TablePaginationConfig } from 'ant-design-vue';
 import FadeDown from '@/components/transition/fade-down.vue';
 // 定义搜索字段

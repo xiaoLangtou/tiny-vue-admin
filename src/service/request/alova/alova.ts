@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2024-12-03 15:33:16
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 09:13:41
+ * @LastEditTime: 2025-03-06 16:18:32
  * @FilePath: src/service/request/alova/alova.ts
  * @Description: 配置 alova.js 实例
  */
@@ -16,11 +16,9 @@ import { handleServiceResult } from '@/service/request/config/handle';
 import { useLoginStore } from '@/store';
 import router from '@/router';
 import { LOGIN_URL } from '@/global/constants';
-import { message } from 'ant-design-vue';
+import  {message} from 'ant-design-vue';
 
-const [messageApi] = message.useMessage();
 // 基础 alova 配置
-
 const alovaOptions = {
     baseURL: import.meta.env.VITE_API_URL as string, // API 基础 URL
     timeout: ResultEnum.TIMEOUT as number, // 超时时间
@@ -38,7 +36,7 @@ const { onAuthRequired, onResponseRefreshToken } = createClientTokenAuthenticati
                 useLoginStore().setToken(responseData.data.accessToken);
             }
         } catch (e) {
-            messageApi.error((e as any).message);
+            message.error((e as any).message);
             throw e;
         }
     },
@@ -57,6 +55,31 @@ const alovaInstance = createAlova({
     responded: onResponseRefreshToken({
         async onSuccess(response, method) {
             const responseClone = response.clone();
+            // 判断是否是服务器断开导致的 500
+            if (responseClone.status === 500) {
+                const contentType = responseClone.headers.get('content-type') || '';
+
+                if (!contentType.includes('application/json')) {
+                    // ❌ 服务器崩溃或断开，跳转登录页
+                    useLoginStore().setToken('');
+                    message.error('服务器错误，请稍后重试');
+                    await router.replace(LOGIN_URL);
+                    // eslint-disable-next-line prefer-promise-reject-errors
+                    return Promise.reject('服务器错误');
+                }
+
+                // ✅ 后端接口内部 500，解析 JSON 并提示错误
+                try {
+                    const responseData = await responseClone.json();
+                    message.error(responseData.message || '请求错误');
+                    return Promise.reject(responseData.message || '接口错误');
+                } catch (err) {
+                    message.error('解析错误');
+                    // eslint-disable-next-line prefer-promise-reject-errors
+                    return Promise.reject('解析错误');
+                }
+            }
+
             try {
                 const responseData = await (method.meta?.isBlob ? responseClone.blob() : responseClone.json());
 
@@ -65,25 +88,26 @@ const alovaInstance = createAlova({
                     return handleServiceResult(responseData);
                 }
 
-                // 处理非成功状态
-                const message = responseData.message || response.statusText;
+                // 其他错误处理
+                const errorMessage = responseData.message || response.statusText;
 
-                // token 过期处理
+                // Token 过期处理
                 if (responseClone.status === ResultEnum.OVERDUE) {
-                    console.warn('Token expired, redirecting to login...');
                     useLoginStore().setToken('');
                     await router.replace(LOGIN_URL);
                 }
 
-                await Promise.reject(message);
-                return handleServiceResult(responseData, false);
+                message.error(errorMessage);
+                return Promise.reject(errorMessage);
             } catch (err: any) {
-                messageApi.error(err.message ? err.message : typeof err === 'object' ? JSON.stringify(err) : err);
+                // 解析错误处理
+                const errMsg = err.message || (typeof err === 'object' ? JSON.stringify(err) : err);
+                message.error(errMsg);
                 throw err;
             }
         },
         onError(error) {
-            messageApi.error(`Request failed: ${error.message}`).then((r) => {});
+            message.error(`请求失败: ${error.message}`);
         },
     }),
 });

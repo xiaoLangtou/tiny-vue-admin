@@ -10,7 +10,8 @@
         "prettier": "prettier --write .",
         "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
         "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "p": "plop"
     },
     "dependencies": {
         "@ant-design/icons-vue": "^7.0.1",
@@ -19,13 +20,13 @@
         "animate.css": "^4.1.1",
         "ant-design-vue": "4.x",
         "axios": "^1.7.9",
-        "components": "link:@/components",
         "lucide-vue-next": "^0.475.0",
         "md5": "^2.3.0",
         "normalize.css": "^8.0.1",
         "nprogress": "^0.2.0",
         "pinia": "^3.0.1",
         "pinia-plugin-persistedstate": "^4.2.0",
+        "query-string": "^9.1.1",
         "vue": "^3.5.13",
         "vue-draggable-next": "^2.2.1",
         "vue-draggable-plus": "^0.6.0",
@@ -54,6 +55,7 @@
         "eslint-plugin-vue": "^9.10.0",
         "husky": "^8.0.3",
         "husky-hook": "^1.3.0",
+        "plop": "^4.0.1",
         "postcss": "^8.4.41",
         "prettier": "^2.8.4",
         "rollup-plugin-visualizer": "^5.14.0",

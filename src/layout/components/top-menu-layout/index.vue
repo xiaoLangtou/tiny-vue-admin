@@ -8,7 +8,7 @@
                 <div class="flex items-center gap-4">
                     <Logo class="w-40 flex-shrink-0"></Logo>
                     <suspense>
-                        <Menu mode="horizontal" class="!bg-transparent border-0"></Menu>
+                        <Menu mode="horizontal" :items="menuItems" class="!bg-transparent border-0"></Menu>
                     </suspense>
                 </div>
                 <header-right-bar @setting="() => emit('setting')"></header-right-bar>
@@ -39,9 +39,11 @@ import { LayoutPage } from '@/layout/components';
 import Logo from '@/layout/components/logo/index.vue';
 import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
 import { Breadcrumb } from '@/components';
-
+import { useMenu } from '@/composables/business/useMenu';
 const emit = defineEmits(['setting']);
+const { getMenuTreeData } = useMenu();
 
+const menuItems = computed(() => getMenuTreeData());
 defineOptions({
     name: 'TopMenuLayout',
 });

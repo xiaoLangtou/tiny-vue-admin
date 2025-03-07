@@ -9,6 +9,7 @@
         "strict": true,
         // 启用严格模式，帮助发现潜在问题
         "jsx": "preserve",
+        "jsxImportSource": "vue",
         // 保持 JSX 原样
         "sourceMap": true,
         // 生成源映射文件，有助于调试
@@ -34,13 +35,10 @@
         ],
         "skipLibCheck": true,
         // 跳过库文件检查，提高编译性能
-        "types": ["vite/client", "node"],
+        "types": ["vite/client", "node","ant-design-vue/typings/global.d.ts"],
         // 添加 Vite 和 Node 类型支持
         "allowJs": false,
-        // 不允许 JavaScript 文件，确保项目使用 TypeScript
-        "declaration": false,
-        // 为 TypeScript 文件生成 .d.ts 声明文件
-        "declarationMap": true,
+
         // 生成声明文件的映射，方便调试
         "incremental": true,
         // 启用增量编译，提升开发体验

@@ -3,14 +3,33 @@
         <a-layout-sider
             :collapsed="menuStore.isCollapsed"
             class="layout-sider !bg-white dark:!bg-bg-darkLayout"
+            :class="checked ? '!absolute z-[99]' : ''"
             :width="230"
+            :collapsed-width="collapsedWidth"
+            @mouseenter="mouseEvent(false)"
+            @mouseleave="mouseEvent(true)"
         >
             <suspense>
-                <div class="layout-aside shadow dark:shadow-gray-700 flex flex-col h-full">
+                <div class="layout-aside  flex flex-col h-full">
                     <div class="flex-1 overflow-hidden">
-                        <logo class="flex-shrink-0"></logo>
-                        <div class="aside-menu overflow-y-auto flex-1">
-                            <Menu></Menu>
+                        <div
+                            class="aside-top pt-6 pb-6 pl-2 pr-2 flex items-center"
+                            :class="!menuStore.isCollapsed ? 'justify-between' : 'justify-center'"
+                        >
+                            <logo class="flex-shrink-0"></logo>
+                            <a-switch
+                                v-if="!menuStore.isCollapsed"
+                                v-model:checked="checked"
+                                @change="handleCheckChange"
+                            ></a-switch>
+                        </div>
+                        <div class="aside-menu overflow-y-auto flex-1 p-2">
+                            <user-info></user-info>
+                            <Menu
+                                v-model:openKeys="menuOpenKeys"
+                                v-model:selectedKeys="menuSelectedKeys"
+                                :items="menuItems"
+                            ></Menu>
                         </div>
                     </div>
                     <back-in-out-left>
@@ -39,15 +58,16 @@
             </suspense>
         </a-layout-sider>
 
-        <a-layout class="layout-content">
-            <a-layout-header class="layout-header !bg-white dark:!bg-bg-darkLayout shadow dark:shadow-gray-700 !px-4">
+        <a-layout class="layout-content" :style="{ 'margin-left': checked ? `${collapsedWidth}px` : '' }">
+            <a-layout-header class="layout-header !bg-bg-layout dark:!bg-bg-darkContainer dark:shadow-gray-700 !px-4">
                 <div class="flex items-center justify-between w-full h-full">
                     <div class="flex items-center gap-3">
                         <button
+                            v-if="!checked"
                             class="fold-btn p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                             @click="toggleMenuStyle"
                         >
-                            <component :is="menu.isCollapsed ? PanelTopClose : PanelTopOpen" :size="20" />
+                            <component :is="menuStore.isCollapsed ? PanelTopClose : PanelTopOpen" :size="20" />
                         </button>
                         <Breadcrumb></Breadcrumb>
                     </div>
@@ -74,15 +94,33 @@ import { ArrowLeft, CircleHelp, PanelTopClose, PanelTopOpen } from 'lucide-vue-n
 import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
 import { BackInOutLeft, Breadcrumb } from '@/components';
 import Logo from '@/layout/components/logo/index.vue';
+import { useMenu } from '@/composables/business/useMenu';
+import UserInfo from './user-info.vue';
 
 const emit = defineEmits(['setting']);
+const menuStore = useMenuStore();
 
-const menu = useMenuStore();
+const { getMenuTreeData } = useMenu();
+
+const menuItems = computed(() => getMenuTreeData());
+const menuOpenKeys = ref<string[]>([]);
+const menuSelectedKeys = ref<string[]>([]);
 
 const toggleMenuStyle = () => {
-    menu.setCollapsed({ isCollapsed: !menu.isCollapsed });
+    menuStore.setCollapsed({ isCollapsed: !menuStore.isCollapsed });
 };
-const menuStore = useMenuStore();
+
+const checked = ref<boolean>(false);
+const collapsedWidth = ref<number>(80);
+const handleCheckChange = () => {
+    menuStore.setCollapsed({ isCollapsed: !!checked.value });
+};
+
+const mouseEvent = (action: boolean) => {
+    if (checked.value) {
+        menuStore.setCollapsed({ isCollapsed: action });
+    }
+};
 
 defineOptions({
     name: 'DefaultLayout',
@@ -91,6 +129,8 @@ defineOptions({
 
 <style scoped lang="scss">
 .layout-sider {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
     @apply transition-all duration-300;
 }
 
@@ -99,7 +139,7 @@ defineOptions({
 }
 
 .aside-menu {
-    @apply h-full;
+    height: calc(100vh - 4rem - 80px);
 }
 
 .fold-btn {

@@ -20,6 +20,7 @@ module.exports = {
         '@typescript-eslint/prefer-optional-chain': 'off',
         '@typescript-eslint/no-require-imports': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
+        '@typescript-eslint/unified-signatures': 'off',
         'vue/no-duplicate-attr-inheritance': 'off',
         'vue/no-ref-object-reactivity-loss': 1,
         'vue/block-order': [

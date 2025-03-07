@@ -15,6 +15,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply bg-gray-50 dark:bg-[var(--bg-dark)] transition-colors duration-300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .login-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-container {
+    padding: 0;
+  }
 }
 
 .login-card {
@@ -22,16 +37,34 @@
   border-radius: 24px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   @apply shadow-slate-100 dark:shadow-slate-500 dark:bg-bg-darkContainer dark:border-border-dark;
-  max-width: 1100px;
-  padding: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
   position: relative;
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  overflow: hidden;
+  transition: all 0.3s ease;
   /* Add a subtle shadow to distinguish it from container */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .login-card:hover {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05), 0 8px 16px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 640px) {
+  .login-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-card {
+    border-radius: 0;
+    padding: 1rem;
+  }
 }
 
 .login-card:hover {
@@ -44,6 +77,10 @@
   background: linear-gradient(135deg, var(--ant-color-primary-bg) 0%, var(--ant-color-primary-border) 100%);
   border-right: 1px solid rgba(0, 0, 0, 0.06);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .login-left::after {
@@ -56,6 +93,12 @@
   background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.05), transparent);
 }
 
+@media (max-width: 768px) {
+  .login-left {
+    display: none;
+  }
+}
+
 .illustration {
   max-width: 100%;
   height: auto;
@@ -66,12 +109,34 @@
 .login-right {
   flex: 0.8;
   padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .login-right {
+    flex: 1;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-right {
+    padding: 1.5rem;
+  }
 }
 
 .content-wrapper {
   max-width: 380px;
   margin: 0 auto;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    max-width: 100%;
+  }
 }
 
 .login-header {
@@ -86,6 +151,18 @@
   font-weight: 600;
   letter-spacing: -0.5px;
   transition: color 0.3s ease;
+}
+
+@media (max-width: 640px) {
+  .login-header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-header h1 {
+    font-size: 1.6rem;
+  }
 }
 
 .subtitle {

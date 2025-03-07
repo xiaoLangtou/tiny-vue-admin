@@ -1,0 +1,121 @@
+<template>
+  <div class="main-box">
+    <div class="card content-box w-full">
+      <TableContainer
+        :is-page="true"
+        :page-info="{ current: page, pageSize: pageSize, total: total }"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+      >
+        <template #searchCard>
+          <SearchFrom :search-event="handleSearchEvent" />
+        </template>
+        <template #btnLeft>
+          <el-button v-auth="['role:add:btn']" type="primary" @click="handleAdd">
+            <el-icon>
+              <Plus />
+            </el-icon>
+            新增
+          </el-button>
+        </template>
+        <el-table
+          v-bind="$attrs"
+          :data="[...tableData]"
+          row-key="id"
+          :height="gridOptions.height"
+          :show-overflow-tooltip="gridOptions.showOverflow"
+        >
+          <template #empty>
+            <span>暂无数据</span>
+          </template>
+          <el-table-column
+            v-for="item in gridOptions.columns"
+            :type="item.type ? item.type : 'default'"
+            v-bind="{ ...item, ...$attrs }"
+            :key="item.prop"
+          >
+            <template #default="{ row }">
+              <div class="w-full flex items-center" v-if="item.slots === 'controls'">
+                <el-button v-auth="['role:edit:btn']" link type="primary" @click="handleEdit(row)">
+                  <el-icon>
+                    <EditPen />
+                  </el-icon>
+                  编辑
+                </el-button>
+                <el-button link v-auth="['role:delete:btn']" type="danger" @click="handleDelete(row)">
+                  <el-icon>
+                    <Delete />
+                  </el-icon>
+                  删除
+                </el-button>
+              </div>
+            </template>
+          </el-table-column>
+        </el-table>
+      </TableContainer>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ElMessage } from "element-plus";
+import SearchFrom from "./components/Search.vue";
+import {  get{{toUpperCase name}}List } from "@/api/modules/{{name}}";
+import { {{toUpperCase name}} } from "@/api/interface/{{name}}";
+import { useTableConfig } from "@/hooks/useTable";
+import TableContainer from "@/components/TableContainer/index.vue";
+import { usePagination } from "alova/client";
+
+const queryForm = ref<{{toUpperCase name}}.I{{toUpperCase name}}Params>({});
+
+const { gridOptions } = useTableConfig({
+  columns: [],
+  controlsWidth: 240
+});
+
+const {
+  data: tableData,
+  page,
+  pageSize,
+  total,
+  send
+} = usePagination(
+  (page, pageSize) =>
+    get{{toUpperCase name}}List({
+      current: page,
+      size: pageSize,
+      ...queryForm.value
+    }),
+  {
+    force: true,
+    total: response => response.data?.pager?.total || 0,
+    data: response => response.data?.records ?? []
+  }
+);
+
+const handleSearchEvent = (form: {{toUpperCase name}}.I{{toUpperCase name}}Params) => {
+  queryForm.value = form;
+  send();
+};
+
+const handleAdd = () => {
+  //todo 新增方法
+};
+
+const handleEdit = async (row: {{toUpperCase name}}.I{{toUpperCase name}}) => {
+   // todo 编辑放大
+  console.log(row)
+};
+
+const handleDelete = async (row: {{toUpperCase name}}.I{{toUpperCase name}}) => {
+  // todo 删除方法
+  console.log(row)
+};
+const handleSizeChange = (size: number) => {
+  pageSize.value = size;
+  page.value = 1;
+};
+const handleCurrentChange = (current: number) => {
+  page.value = current;
+};
+</script>

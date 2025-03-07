@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 14:01:57
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-22 14:05:57
+ * @LastEditTime: 2025-03-05 13:42:03
  * @FilePath: src/global/enums.ts
  * @Description: 全局所有的枚举
  */
@@ -65,6 +65,13 @@ export enum HTTP_METHOD {
     CONNECT = 'CONNECT', // 建立隧道连接
 }
 
+
+export enum MenuLayoutMode {
+    DEFAULT = 'default',
+    TOP = 'top',
+    MIX = 'mix',
+}
+
 export const HttpMethodCN: Record<HTTP_METHOD, string> = {
     [HTTP_METHOD.GET]: '获取',
     [HTTP_METHOD.POST]: '提交',
@@ -76,3 +83,6 @@ export const HttpMethodCN: Record<HTTP_METHOD, string> = {
     [HTTP_METHOD.TRACE]: '追踪',
     [HTTP_METHOD.CONNECT]: '连接',
 };
+
+
+

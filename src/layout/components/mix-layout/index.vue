@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 14:32:22
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-04 15:46:14
+ * @LastEditTime: 2025-03-06 12:53:48
  * @FilePath: src/layout/components/mix-layout/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -17,7 +17,8 @@
                     <suspense>
                         <Menu
                             mode="horizontal"
-                            is-top-menu
+                            :items="topMenuItems"
+                            :layout-mode="MenuLayoutMode.TOP"
                             class="!bg-transparent border-0"
                             @click-top-menu="handleTopMenu"
                         ></Menu>
@@ -36,11 +37,12 @@
             >
                 <suspense>
                     <Menu
+                        v-model:openKeys="menuOpenKeys"
+                        v-model:selectedKeys="menuSelectedKeys"
                         mode="inline"
                         class="!bg-transparent border-0"
-                        is-collapsed
-                        is-mix-menu
-                        :mix-menu-list="subMenuList"
+                        :items="subMenuItems"
+                        :layout-mode="MenuLayoutMode.MIX"
                     ></Menu>
                 </suspense>
             </a-layout-sider>
@@ -60,10 +62,26 @@ import { LayoutPage } from '@/layout/components';
 import { useMenuStore } from '@/store/module';
 import { MenuOptions } from '@/service/interface/menu';
 import router from '@/router';
+import { useMenu } from '@/composables/business/useMenu';
 
 const emit = defineEmits(['setting']);
+
+enum MenuLayoutMode {
+    DEFAULT = 'default',
+    TOP = 'top',
+    MIX = 'mix',
+}
+
 const menuStore = useMenuStore();
+const { getMenuTreeData } = useMenu();
+
+const menuOpenKeys = ref<string[]>([]);
+const menuSelectedKeys = ref<string[]>([]);
 const subMenuList = ref<MenuOptions[]>([]);
+
+const topMenuItems = computed(() => getMenuTreeData({ isTopMenu: true }));
+const subMenuItems = computed(() => getMenuTreeData({ isMixMenu: true, mixMenuList: subMenuList.value }));
+
 onMounted(() => {
     menuStore.setCollapsed({ isCollapsed: true });
 });
@@ -71,8 +89,11 @@ onMounted(() => {
 const handleTopMenu = (item: MenuOptions) => {
     if (item.id && menuStore.subMenuList.has(item.id as unknown as string)) {
         subMenuList.value = menuStore.subMenuList.get(item.id as unknown as string) as MenuOptions[];
+        // 如果有子菜单，展开侧边栏
+        menuStore.setCollapsed({ isCollapsed: false });
     } else {
         subMenuList.value = [];
+        menuStore.setCollapsed({ isCollapsed: true });
         item.path && router.push({ path: item.path });
     }
 };

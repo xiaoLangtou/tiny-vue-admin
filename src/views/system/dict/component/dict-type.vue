@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 16:54:16
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-05 10:58:46
+ * @LastEditTime: 2025-03-06 14:40:11
  * @FilePath: src/views/system/dict/component/dict-type.vue
  * @Description: 字典类型列表页
  -->
@@ -69,13 +69,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue';
 import { IDictType } from '@/service/interface/dict';
 import { getDictDetail, getDictList, removeDict } from '@/service/apis/dict';
 import { Search, Plus, Download, Edit, Trash2 } from 'lucide-vue-next';
-import { useMessage } from '@/hooks/useMessage';
+import { useMessage } from '@/composables/common/useMessage';
 import { useAppStore } from '@/store';
-import { useAntdToken } from '@/hooks/useAntdToken';
+import { useAntdToken } from '@/composables/common/useAntdToken';
 import DictTypeAdd from '@/views/system/dict/component/dict-type-add.vue';
 
 const emits = defineEmits(['currentRow']);
@@ -86,7 +85,7 @@ const dataObj = reactive({
     nameOrCode: '',
 });
 
-const dictTypeAddRef = useTemplateRef('dictTypeAddRef');
+const dictTypeAddRef = useTemplateRef<typeof DictTypeAdd>('dictTypeAddRef');
 const activeId = ref<number | string | undefined>('');
 const { message } = useMessage();
 
@@ -109,9 +108,7 @@ const getList = async () => {
 const editItem = async (item: IDictType) => {
     try {
         const { data } = await getDictDetail(item.id);
-        // TODO: Implement edit dialog with data
-        console.log('Edit item data:', data);
-        dictTypeAddRef.value.openDialog('edit', data);
+        dictTypeAddRef.value?.openDialog('edit', data);
     } catch (error) {
         message.error('获取字典详情失败');
     }
@@ -137,9 +134,7 @@ const handleSearchDictType = () => {
 };
 
 const openAddDialog = () => {
-    // TODO: Implement add dialog
-    console.log('Open add dialog');
-    dictTypeAddRef.value.openDialog();
+    dictTypeAddRef.value?.openDialog();
 };
 
 onMounted(() => {
@@ -153,9 +148,6 @@ const { token } = useAntdToken();
 </script>
 
 <style lang="scss" scoped>
-.dict-type-container {
-}
-
 .input-field {
     @apply flex-1 h-8 text-sm;
 }

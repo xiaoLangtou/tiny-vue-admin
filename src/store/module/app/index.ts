@@ -43,6 +43,7 @@ const useAppStore = defineStore('app', () => {
             colorBgContainer: lightThemeColors.colorBgContainer,
             colorBgLayout: lightThemeColors.colorBgLayout,
             colorPrimary: globalSetting.colorPrimary,
+            colorInfo: globalSetting.colorPrimary,
             borderRadius: globalSetting.borderRadius,
         },
         components: {},
@@ -75,6 +76,7 @@ const useAppStore = defineStore('app', () => {
         layoutSetting.colorPrimary = color;
         if (themeConfig.token) {
             themeConfig.token.colorPrimary = color;
+            themeConfig.token.colorInfo = color;
         }
         setMenuStyles(layoutSetting.theme);
     };

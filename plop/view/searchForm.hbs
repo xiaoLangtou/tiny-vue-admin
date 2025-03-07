@@ -1,0 +1,51 @@
+<template>
+  <div>
+    <SearchCard ref="searchCard" :model="search">
+      <template #time>
+        <el-form-item label="操作时间" prop="time">
+          <el-date-picker
+            v-model="search.time"
+            type="daterange"
+            start-placeholder="Start date"
+            end-placeholder="End date"
+          />
+        </el-form-item>
+      </template>
+      <template #btnGroup>
+        <el-button type="primary" @click="handleSearch">
+          <el-icon>
+            <Search />
+          </el-icon>
+          搜索
+        </el-button>
+        <el-button type="default" @click="handleReset">
+          <el-icon>
+            <RefreshRight />
+          </el-icon>
+          重置
+        </el-button>
+      </template>
+    </SearchCard>
+  </div>
+</template>
+
+<script setup lang="ts">
+import SearchCard from "@/components/SearchCard/index.vue";
+import { {{toUpperCase name}} } from "@/api/interface/{{name}}";
+import { FormInstance } from "element-plus";
+import { useSearchConfig } from "@/hooks/useTable";
+
+const props = defineProps<{ searchEvent: (searchForm: {{toUpperCase name}}.I{{toUpperCase name}}Params) => void }>();
+const searchCard = ref<FormInstance>();
+const { search, handleSearch, handleReset } = useSearchConfig<{{toUpperCase name}}.I{{toUpperCase name}}Params>(
+  {
+    time: "",
+    startTime: "",
+    endTime: ""
+  },
+  props,
+  searchCard
+);
+</script>
+
+<style scoped lang="scss"></style>

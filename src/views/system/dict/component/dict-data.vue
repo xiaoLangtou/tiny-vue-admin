@@ -1,86 +1,87 @@
 <template>
-    <div>
-        <!-- 搜索表单 -->
-        <search-form :fields="searchFields" @search="handleSearch" @reset="handleReset">
-            <template #actions>
-                <a-button type="primary" @click="handleAdd">
-                    <template #icon>
-                        <PlusOutlined />
+    <div class="xlt-base-container">
+        <!--        <fade-down>-->
+        <!--            <SearchForm-->
+        <!--                v-show="showSearchForm"-->
+        <!--                :fields="search?.fields"-->
+        <!--                :collapse-limit="3"-->
+        <!--                :show-collapse="false"-->
+        <!--                @search="search?.handleSearch"-->
+        <!--                @reset="search?.handleReset"-->
+        <!--            >-->
+        <!--            </SearchForm>-->
+        <!--        </fade-down>-->
+        <div class="xlt-container">
+            <!-- 数据表格 -->
+            <data-table :data-source="tableData" :pagination="pagination" v-bind="{ ...tableConfig }">
+                <template #bodyCell="{ column, record }">
+                    <template v-if="column.key === 'action'">
+                        <a-space>
+                            <a-button type="link" @click="handleEdit(record)">
+                                <template #icon>
+                                    <EditOutlined />
+                                </template>
+                                修改
+                            </a-button>
+                            <a-button type="link" danger @click="handleDelete(record)">
+                                <template #icon>
+                                    <DeleteOutlined />
+                                </template>
+                                删除
+                            </a-button>
+                        </a-space>
                     </template>
-                    新增字典项
-                </a-button>
-            </template>
-        </search-form>
-
-        <!-- 数据表格 -->
-        <data-table
-            :columns="columns"
-            :data-source="tableData"
-            :pagination="pagination"
-            :loading="loading"
-            @change="handleTableChange"
-        >
-            <template #bodyCell="{ column, record }">
-                <template v-if="column.key === 'action'">
-                    <a-space>
-                        <a-button type="link" @click="handleEdit(record)">
-                            <template #icon>
-                                <EditOutlined />
-                            </template>
-                            修改
-                        </a-button>
-                        <a-button type="link" danger @click="handleDelete(record)">
-                            <template #icon>
-                                <DeleteOutlined />
-                            </template>
-                            删除
-                        </a-button>
-                    </a-space>
                 </template>
-            </template>
-        </data-table>
+            </data-table>
+        </div>
     </div>
     <!-- 新增/修改字典的弹窗 -->
     <!--    <dict-data-add ref="addDialog" @close="getList" />-->
 </template>
 
-<script setup lang="ts">
-import { reactive, ref } from 'vue';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+<script setup lang="tsx">
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
 // import DictDataAdd from './dict-data-add.vue';
 import { IDictData, IDictType } from '@/service/interface/dict';
 import { getDictDataList, removeDictData } from '@/service/apis/dict';
-import { message } from 'ant-design-vue';
-import type { TablePaginationConfig } from 'ant-design-vue';
+import { message, Button, Popconfirm } from 'ant-design-vue';
+import FadeDown from '@/components/transition/fade-down.vue';
+import { useTableConfig } from '@/composables/common/useTable';
 
 const props = defineProps<{ dictType: IDictType }>();
 const tableData = ref<IDictData[]>([]);
 const addDialog = ref();
 const loading = ref(false);
 
-// 搜索字段配置
-const searchFields = [
-    { name: 'dictLabel', label: '标签名' },
-    { name: 'dictValue', label: '数据值' },
-];
+const showSearchForm = ref(true);
 
-// 表格列配置
-const columns = [
-    { title: '标签名', dataIndex: 'dictLabel', key: 'dictLabel' },
-    { title: '数据值', dataIndex: 'dictValue', key: 'dictValue' },
-    { title: '字典类型', dataIndex: 'dictType', key: 'dictType' },
-    { title: '描述', dataIndex: 'dictRemark', key: 'dictRemark' },
-    { title: '排序', dataIndex: 'dictSort', key: 'dictSort', width: 80 },
-    { title: '操作', key: 'action', width: 150 },
-];
-
-// 分页配置
-const pagination = reactive<TablePaginationConfig>({
-    current: 1,
-    pageSize: 10,
-    total: 0,
-    showSizeChanger: true,
-    showQuickJumper: true,
+const { tableConfig, pagination } = useTableConfig({
+    columns: [
+        { title: '标签名', dataIndex: 'dictLabel', key: 'dictLabel' },
+        { title: '数据值', dataIndex: 'dictValue', key: 'dictValue' },
+        { title: '字典类型', dataIndex: 'dictType', key: 'dictType' },
+        { title: '描述', dataIndex: 'dictRemark', key: 'dictRemark' },
+        { title: '排序', dataIndex: 'dictSort', key: 'dictSort', width: 80 },
+    ],
+    controlsCustomRender: ({ record }) => {
+        return (
+            <div class="flex-center gap-8px">
+                <Button primary type="link"   size="small" onClick={() => handleEdit(record)}>
+                    修改
+                </Button>
+                <Popconfirm onConfirm={() => handleDelete(record)} title="确认删除?">
+                    <Button danger type="link" size="small">
+                        删除
+                    </Button>
+                </Popconfirm>
+            </div>
+        );
+    },
+    pagination: {
+        current: 1,
+        pageSize: 10,
+        total: 0,
+    },
 });
 
 // 监听字典类型变化
@@ -89,38 +90,20 @@ watch(
     () => getList(),
 );
 
-// 获取列表数据
-const getList = async (params = {}) => {
-    if (!props.dictType?.id) return;
-    loading.value = true;
+const getList = async () => {
+    if (!props.dictType || !props.dictType.id) return;
     try {
-        const { data } = await getDictDataList(Number(props.dictType.id), pagination.current, pagination.pageSize);
+        const { data } = await getDictDataList({
+            typeId: Number(props.dictType.id),
+            current: pagination.value.current ?? 1,
+            size: pagination.value.pageSize ?? 10,
+        });
         tableData.value = data.records || [];
-        pagination.total = data.pager?.total || 0;
-    } catch (error) {
-        console.error(error);
-    } finally {
-        loading.value = false;
+        pagination.value.total = data.pager?.total || 0;
+        console.log(pagination.value);
+    } catch (e) {
+        console.log(e);
     }
-};
-
-// 表格变化处理
-const handleTableChange = (pag: TablePaginationConfig) => {
-    pagination.current = pag.current || 1;
-    pagination.pageSize = pag.pageSize || 10;
-    getList();
-};
-
-// 搜索处理
-const handleSearch = (values: any) => {
-    pagination.current = 1;
-    getList(values);
-};
-
-// 重置处理
-const handleReset = () => {
-    pagination.current = 1;
-    getList();
 };
 
 // 新增处理

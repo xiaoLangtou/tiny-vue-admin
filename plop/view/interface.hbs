@@ -1,0 +1,17 @@
+import { ReqPage, ResPage } from "@/api/interface/index";
+import { ServiceResult } from "@/core/fetch/handle";
+
+export namespace {{toUpperCase name}} {
+    export interface I{{toUpperCase name}} {
+      id?: number;
+      [prototype: string]: any;
+    }
+
+    export interface I{{toUpperCase name}}Params extends ReqPage {
+
+      [prototype: string]: any;
+    }
+
+    export type T{{toUpperCase name}}ListResult = ServiceResult<ResPage<I{{toUpperCase name}}>>;
+    export type T{{toUpperCase name}}DetailResult = ServiceResult<I{{toUpperCase name}}>;
+}

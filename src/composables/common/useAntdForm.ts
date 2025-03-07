@@ -1,0 +1,29 @@
+/**
+ * @Author: weipc 755197142@qq.com
+ * @Date: 2025-03-07 09:08:59
+ * @LastEditors: weipc 755197142@qq.com
+ * @LastEditTime: 2025-03-07 09:13:01
+ * @FilePath: src/composables/common/useAntdForm.ts
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+import { FormInstance } from 'ant-design-vue';
+
+export const useAntdForm = () => {
+    const formRef = ref<FormInstance | null>(null);
+
+
+    const validate = async () => {
+        await  formRef.value?.validate();
+    };
+
+    const resetFields = () => {
+        formRef.value?.resetFields();
+    };
+
+
+    return {
+        formRef,
+        validate,
+        resetFields,
+    }
+};

@@ -1,5 +1,5 @@
 <template>
-    <custom-modal v-model:open="open" modal-title="个性化设置">
+    <custom-modal v-model:open="open" modal-title="列设置">
         <template #footer>
             <a-button @click="handleReset">重置</a-button>
             <a-button @click="handleCancel">取消</a-button>
@@ -7,8 +7,8 @@
         </template>
 
         <a-tabs v-model:activeKey="activeKey">
-            <a-tab-pane key="base" tab="基础设置">
-                <a-alert message="点击图标按钮设置个性化列！" type="info" show-icon class="mb-4" />
+            <a-tab-pane key="base" tab="列设置">
+                <a-alert message="可以调整列的显示、隐藏和固定状态" type="info" show-icon class="mb-4" />
 
                 <!-- 列列表 -->
                 <div class="column-setting">
@@ -20,7 +20,7 @@
                             <a-tooltip :title="item.visible ? '显示' : '隐藏'">
                                 <span>
                                     <component
-                                        :is="item.visible ? Eye : EyeOff"
+                                        :is="item.visible ? EyeIcon : EyeOffIcon"
                                         class="w-4 h-4 cursor-pointer"
                                         @click="toggleVisibility(index)"
                                     />
@@ -42,22 +42,26 @@
             </a-tab-pane>
 
             <a-tab-pane key="other" tab="其他设置" force-render>
-                <a-alert message="点击图标按钮设置个性化列！" type="info" show-icon class="mb-4" />
+                <a-alert message="可以调整表格的其他显示效果" type="info" show-icon class="mb-4" />
 
                 <div class="flex flex-col gap-4">
                     <div class="other-setting flex items-center gap-3">
-                        <span class="setting-label w-24">高度是否铺满</span>
-                        <a-radio-group v-model:value="settingConfig.heightFull">
-                            <a-radio :value="1">是</a-radio>
-                            <a-radio :value="2">否</a-radio>
-                        </a-radio-group>
+                        <span class="setting-label">高度自适应</span>
+                        <a-switch
+                            :checked="settingConfig.heightFull"
+                            :checked-value="1"
+                            :un-checked-value="2"
+                            @update:checked="(value) => settingConfig.heightFull = value"
+                        />
                     </div>
                     <div class="other-setting flex items-center gap-3">
-                        <span class="setting-label w-24">显示边框</span>
-                        <a-radio-group v-model:value="settingConfig.showBorder">
-                            <a-radio :value="1">是</a-radio>
-                            <a-radio :value="2">否</a-radio>
-                        </a-radio-group>
+                        <span class="setting-label">显示边框</span>
+                        <a-switch
+                            :checked="settingConfig.showBorder"
+                            :checked-value="1"
+                            :un-checked-value="2"
+                            @update:checked="(value) => settingConfig.showBorder = value"
+                        />
                     </div>
                 </div>
             </a-tab-pane>
@@ -66,22 +70,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, reactive } from 'vue';
-import { AlignEndVertical, AlignStartVertical, Eye, EyeOff, Pin } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
+import { EyeIcon, EyeOffIcon } from 'lucide-vue-next';
 
-interface ColumnItem {
-    title: string;
-    key: string;
-    visible: boolean;
-    required?: boolean;
-    fixed?: 'left' | 'right';
-}
-
-interface IPersonalizedSetting {
-    columns: ColumnItem[];
-    heightFull: 1 | 2;
-    showBorder: 1 | 2;
-}
+import { Pin, AlignStartVertical, AlignEndVertical } from 'lucide-vue-next';
 
 const props = defineProps({
     columns: {
@@ -93,7 +85,7 @@ const props = defineProps({
         default: false,
     },
     defaultColumns: {
-        type: Array as PropType<ColumnItem[]>,
+        type: Array as PropType<any[]>,
         default: () => [],
     },
     heightFull: {
@@ -110,6 +102,22 @@ const emit = defineEmits<{
     (e: 'update:visible', value: boolean): void;
     (e: 'columnsChange', columns: ColumnItem[], heightFull: 1 | 2, showBorder: 1 | 2): void;
 }>();
+
+
+
+interface ColumnItem {
+    title: string;
+    key: string;
+    visible: boolean;
+    required?: boolean;
+    fixed?: 'left' | 'right';
+}
+
+interface IPersonalizedSetting {
+    columns: ColumnItem[];
+    heightFull: 1 | 2;
+    showBorder: 1 | 2;
+}
 
 const open = computed({
     get: () => props.visible,
@@ -133,6 +141,7 @@ const fixedIcons = {
 
 // 初始化列列表
 const initColumnList = () => {
+    console.log(props.columns)
     columnList.value = props.columns.map((col) => ({
         ...col,
         visible: col.visible ?? true,

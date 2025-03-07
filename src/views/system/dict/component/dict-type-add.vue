@@ -31,8 +31,7 @@
 import { FormInstance } from 'ant-design-vue';
 import { IDictType } from '@/service/interface/dict';
 import { addDict, updateDict } from '@/service/apis/dict';
-import { App } from 'ant-design-vue';
-import { useMessage } from '@/hooks/useMessage';
+import { useMessage } from '@/composables/common/useMessage';
 
 const emits = defineEmits(['close']);
 

@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSearchForm } from '@/hooks/useSearchForm';
+import { useSearchForm } from '@/composables/useSearchForm';
 
 // 定义搜索字段
 const fields = [

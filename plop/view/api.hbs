@@ -1,0 +1,45 @@
+import http from "@/api";
+import { {{toUpperCase name}} } from "@/api/interface/{{name}}";
+
+/**
+* @description 获取列表
+*/
+export const get{{toUpperCase name}}List = (params?: {{toUpperCase name}}.I{{toUpperCase name}}Params) => {
+  return http.Get<{{toUpperCase name}}.T{{toUpperCase name}}ListResult>("/{{name}}/list", { params: { ...params } });
+};
+
+/**
+ * @description 获取详情
+ * @param {number} id id
+ */
+export const get{{toUpperCase name}}Detail = (id: number) => {
+  return http.Get<{{toUpperCase name}}.I{{toUpperCase name}}>(`/{{name}}/detail/${id}`);
+};
+
+/**
+ * @description 新增
+ * @method post
+ * @returns
+ */
+export const add{{toUpperCase name}} = (data: {{toUpperCase name}}.I{{toUpperCase name}}) => {
+  return http.Post("/{{name}}/add", data);
+};
+
+/**
+ * @description 编辑
+ * @method post
+ * @returns
+ */
+export const edit{{toUpperCase name}} = (data: {{toUpperCase name}}.I{{toUpperCase name}}) => {
+  return http.Post("/{{name}}/edit", data);
+};
+
+/**
+ * @description 删除
+ * @param {number} id 用户id
+ * @method delete
+ * @returns
+ */
+export const delete{{toUpperCase name}} = (id: number) => {
+  return http.Delete(`/{{name}}/remove/${id}`);
+};
