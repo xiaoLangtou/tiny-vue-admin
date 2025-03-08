@@ -97,9 +97,6 @@ defineOptions({
     name: 'TableToolbar',
     inheritAttrs: true, // 确保继承 attrs
 });
-
-
-
 </script>
 
 <style lang="scss" scoped>

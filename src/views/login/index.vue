@@ -102,7 +102,6 @@ const handleLogin = async () => {
         await loginFormRef.value?.validate();
         submitLoading.value = true;
         await loginStore.loginAction(account);
-        message.success('登录成功');
     } catch (error) {
         console.error('Login error:', error);
     } finally {
