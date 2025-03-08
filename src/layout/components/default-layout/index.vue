@@ -2,7 +2,7 @@
     <a-layout class="min-h-screen">
         <a-layout-sider
             :collapsed="menuStore.isCollapsed"
-            class="layout-sider !bg-white dark:!bg-bg-darkLayout"
+            class="layout-sider h-fullh-full !bg-white dark:!bg-bg-darkLayout"
             :class="checked ? '!absolute z-[99]' : ''"
             :width="230"
             :collapsed-width="collapsedWidth"

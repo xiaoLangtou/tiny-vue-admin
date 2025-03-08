@@ -4,12 +4,28 @@ import { REG_USER_NAME, REG_PHONE, REG_PWD, REG_EMAIL, REG_CODE_SIX, REG_CODE_FO
 export interface FormRuleConfig {
     required?: boolean;
     message?: string;
-    trigger?: ('blur' | 'change')[];
+    trigger?: ('blur' | 'change')[] | 'blur' | 'change' | '';
     min?: number;
     max?: number;
     len?: number;
     pattern?: RegExp;
     validator?: (rule: FormRule, value: any) => Promise<void>;
+    type?:
+        | 'string'
+        | 'number'
+        | 'boolean'
+        | 'method'
+        | 'regexp'
+        | 'integer'
+        | 'float'
+        | 'array'
+        | 'object'
+        | 'enum'
+        | 'date'
+        | 'url'
+        | 'hex'
+        | 'email'
+        | 'any';
 }
 
 export const useFormRules = () => {
@@ -58,16 +74,17 @@ export const useFormRules = () => {
     };
 
     // 创建自定义规则
-    const createCustomRule = (config: FormRuleConfig): FormRule => {
+    const createCustomRule = (config: FormRuleConfig) => {
         return {
-            required: config.required,
+            required: config.required || true,
             message: config.message,
-            trigger: config.trigger || ['blur', 'change'],
+            trigger: config.trigger || '',
             pattern: config.pattern,
             validator: config.validator,
             min: config.min,
             max: config.max,
             len: config.len,
+            type: config.type || 'string',
         };
     };
 
