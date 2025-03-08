@@ -1,19 +1,13 @@
 <template>
     <div class="xlt-base-container">
-        <!--        <fade-down>-->
-        <!--            <SearchForm-->
-        <!--                v-show="showSearchForm"-->
-        <!--                :fields="search?.fields"-->
-        <!--                :collapse-limit="3"-->
-        <!--                :show-collapse="false"-->
-        <!--                @search="search?.handleSearch"-->
-        <!--                @reset="search?.handleReset"-->
-        <!--            >-->
-        <!--            </SearchForm>-->
-        <!--        </fade-down>-->
         <div class="xlt-container">
             <!-- 数据表格 -->
-            <data-table :data-source="tableData" :pagination="pagination" v-bind="{ ...tableConfig }">
+            <data-table
+                :data-source="tableData"
+                :pagination="pagination"
+                v-bind="{ ...tableConfig, ...toolbarConfig }"
+                @add="handleAdd"
+            >
                 <template #bodyCell="{ column, record }">
                     <template v-if="column.key === 'action'">
                         <a-space>
@@ -36,12 +30,12 @@
         </div>
     </div>
     <!-- 新增/修改字典的弹窗 -->
-    <!--    <dict-data-add ref="addDialog" @close="getList" />-->
+    <dict-data-add ref="addDialog" @close="getList" />
 </template>
 
 <script setup lang="tsx">
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
-// import DictDataAdd from './dict-data-add.vue';
+import DictDataAdd from './dict-data-add.vue';
 import { IDictData, IDictType } from '@/service/interface/dict';
 import { getDictDataList, removeDictData } from '@/service/apis/dict';
 import { message, Button, Popconfirm } from 'ant-design-vue';
@@ -55,7 +49,7 @@ const loading = ref(false);
 
 const showSearchForm = ref(true);
 
-const { tableConfig, pagination } = useTableConfig({
+const { tableConfig, toolbarConfig, pagination } = useTableConfig({
     columns: [
         { title: '标签名', dataIndex: 'dictLabel', key: 'dictLabel' },
         { title: '数据值', dataIndex: 'dictValue', key: 'dictValue' },
@@ -63,14 +57,15 @@ const { tableConfig, pagination } = useTableConfig({
         { title: '描述', dataIndex: 'dictRemark', key: 'dictRemark' },
         { title: '排序', dataIndex: 'dictSort', key: 'dictSort', width: 80 },
     ],
+    addBtnText: '新增字典项',
     controlsCustomRender: ({ record }) => {
         return (
             <div class="flex-center gap-8px">
-                <Button primary type="link" size="small" onClick={() => handleEdit(record)}>
+                <Button type="link" primary onClick={() => handleEdit(record)}>
                     修改
                 </Button>
                 <Popconfirm onConfirm={() => handleDelete(record)} title="确认删除?">
-                    <Button danger type="link" size="small">
+                    <Button danger type="link">
                         删除
                     </Button>
                 </Popconfirm>
