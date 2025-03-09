@@ -13,7 +13,7 @@ import { TApiListResult, TApiDetailResult, IApi, TApiGroupResult, IApiParams, TA
  * @description 获取列表
  */
 export const getApiList = (params?: IApiParams) => {
-    return xltRequest.Get<TApiListResult>("/api/list", { params: { ...params } });
+    return xltRequest.Get<TApiListResult>('/api/list', { params: { ...params } });
 };
 
 /**
@@ -30,7 +30,7 @@ export const getApiDetail = (id: number) => {
  * @returns
  */
 export const addApi = (data: IApi) => {
-    return xltRequest.Post("/api/add", data);
+    return xltRequest.Post('/api/add', data);
 };
 
 /**
@@ -39,7 +39,7 @@ export const addApi = (data: IApi) => {
  * @returns
  */
 export const editApi = (data: IApi) => {
-    return xltRequest.Post("/api/edit", data);
+    return xltRequest.Post('/api/edit', data);
 };
 
 /**
@@ -56,38 +56,37 @@ export const deleteApi = (id: number) => {
  * @description 获取分组列表
  */
 export const getApiGroup = () => {
-    return xltRequest.Get<TApiGroupResult>("/api/group");
+    return xltRequest.Get<TApiGroupResult>('/api/group');
 };
 
 /**
  * 同步api列表
  */
 export const syncApi = () => {
-    return xltRequest.Get<TApiSyncResult>("/api/synchronous");
+    return xltRequest.Get<TApiSyncResult>('/api/synchronous');
 };
 
 /**
  *更新缓存
  */
 export const updateApiCache = () => {
-    return xltRequest.Get("/api/freshCasbin");
+    return xltRequest.Get('/api/freshCasbin');
 };
 
 /**
  * 忽略接口
  */
 export const ignoreApi = (data: IApi) => {
-    return xltRequest.Post("/api/ignore", data);
+    return xltRequest.Post('/api/ignore', data);
 };
 
 /**
  * 批量创建接口
  */
 export const batchCreateApi = (data: IApi[]) => {
-    return xltRequest.Post("/api/batch-apis", data);
+    return xltRequest.Post('/api/batch-apis', data);
 };
 
 export const getAllApis = () => {
     return xltRequest.Get<TApiListResult>(`/api/all`);
 };
-

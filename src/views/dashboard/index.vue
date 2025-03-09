@@ -6,7 +6,9 @@
                 <div class="flex items-center">
                     <div class="relative">
                         <a-avatar :size="60" src="/src/assets/images/img.png" class="border-2 border-primary-100" />
-                        <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
+                        <div
+                            class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"
+                        ></div>
                     </div>
                     <div class="ml-4">
                         <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">你好，Edward</h2>
@@ -29,19 +31,24 @@
 
         <!-- 数据概览 - 更简洁、现代的卡片设计 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div v-for="(stat, index) in statistics" :key="index"
-                 class="stat-card bg-white dark:bg-gray-800 rounded-xl p-5 transition-all hover:shadow-md">
+            <div
+                v-for="(stat, index) in statistics"
+                :key="index"
+                class="stat-card bg-white dark:bg-gray-800 rounded-xl p-5 transition-all hover:shadow-md"
+            >
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">{{ stat.title }}</p>
                         <h3 class="text-2xl font-bold mt-1 text-gray-900 dark:text-gray-100">{{ stat.value }}</h3>
                         <div v-if="stat.change" class="flex items-center mt-1">
-                            <icon-view :icon="stat.change > 0 ? 'trending-up' : 'trending-down'"
-                                       :class="stat.change > 0 ? 'text-green-500' : 'text-red-500'"
-                                       class="text-sm mr-1" />
+                            <icon-view
+                                :icon="stat.change > 0 ? 'trending-up' : 'trending-down'"
+                                :class="stat.change > 0 ? 'text-green-500' : 'text-red-500'"
+                                class="text-sm mr-1"
+                            />
                             <span :class="stat.change > 0 ? 'text-green-500' : 'text-red-500'" class="text-xs">
-                {{ Math.abs(stat.change) }}% {{ stat.change > 0 ? '增长' : '下降' }}
-              </span>
+                                {{ Math.abs(stat.change) }}% {{ stat.change > 0 ? '增长' : '下降' }}
+                            </span>
                         </div>
                     </div>
                     <div class="p-3 rounded-lg" :class="stat.bgColor">
@@ -88,7 +95,9 @@
                                         <p class="text-gray-900 dark:text-gray-100 font-medium">{{ activity.title }}</p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">{{ activity.time }}</p>
                                     </div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ activity.description }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        {{ activity.description }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +123,12 @@
                                 </div>
                                 <span class="text-sm text-gray-500 dark:text-gray-400">{{ project.progress }}%</span>
                             </div>
-                            <a-progress :percent="project.progress" :stroke-color="project.progressColor" :show-info="false" size="small" />
+                            <a-progress
+                                :percent="project.progress"
+                                :stroke-color="project.progressColor"
+                                :show-info="false"
+                                size="small"
+                            />
                         </div>
                     </div>
                 </div>
@@ -130,9 +144,15 @@
                     </div>
 
                     <div class="grid grid-cols-4 gap-2">
-                        <div v-for="menu in quickMenus" :key="menu.title"
-                             class="quick-action flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900 transition-colors cursor-pointer">
-                            <div class="w-8 h-8 flex items-center justify-center rounded-full mb-1" :class="menu.bgColor">
+                        <div
+                            v-for="menu in quickMenus"
+                            :key="menu.title"
+                            class="quick-action flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900 transition-colors cursor-pointer"
+                        >
+                            <div
+                                class="w-8 h-8 flex items-center justify-center rounded-full mb-1"
+                                :class="menu.bgColor"
+                            >
                                 <icon-view :icon="menu.icon" :class="menu.iconColor" class="text-base" />
                             </div>
                             <span class="text-xs text-gray-700 dark:text-gray-300 text-center">{{ menu.title }}</span>
@@ -151,15 +171,30 @@
                     </div>
 
                     <div class="space-y-2">
-                        <div v-for="(announcement, index) in announcements" :key="index"
-                             class="announcement-item p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                        <div
+                            v-for="(announcement, index) in announcements"
+                            :key="index"
+                            class="announcement-item p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                        >
                             <div class="flex items-start">
-                                <div class="w-2 h-2 rounded-full mt-2 mr-2" :class="announcement.isNew ? 'bg-red-500' : 'bg-gray-300 dark:bg-gray-600'"></div>
+                                <div
+                                    class="w-2 h-2 rounded-full mt-2 mr-2"
+                                    :class="announcement.isNew ? 'bg-red-500' : 'bg-gray-300 dark:bg-gray-600'"
+                                ></div>
                                 <div class="flex-1 overflow-hidden">
-                                    <p class="text-gray-800 dark:text-gray-200 font-medium text-sm truncate">{{ announcement.title }}</p>
+                                    <p class="text-gray-800 dark:text-gray-200 font-medium text-sm truncate">
+                                        {{ announcement.title }}
+                                    </p>
                                     <div class="flex justify-between items-center mt-1">
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{ announcement.date }}</span>
-                                        <a-tag v-if="announcement.tag" :color="announcement.tagColor" class="text-xs py-0 px-1">{{ announcement.tag }}</a-tag>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{
+                                            announcement.date
+                                        }}</span>
+                                        <a-tag
+                                            v-if="announcement.tag"
+                                            :color="announcement.tagColor"
+                                            class="text-xs py-0 px-1"
+                                            >{{ announcement.tag }}</a-tag
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -180,9 +215,13 @@
                     </div>
 
                     <div class="space-y-2">
-                        <div v-for="(member, index) in teamMembers" :key="index" class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                        <div
+                            v-for="(member, index) in teamMembers"
+                            :key="index"
+                            class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                        >
                             <div class="flex items-center">
-                                <a-avatar :src="member.avatar" :style="{backgroundColor: member.avatarBg}" :size="32">
+                                <a-avatar :src="member.avatar" :style="{ backgroundColor: member.avatarBg }" :size="32">
                                     {{ !member.avatar ? member.name.charAt(0).toUpperCase() : '' }}
                                 </a-avatar>
                                 <div class="ml-2">
@@ -192,12 +231,22 @@
                             </div>
                             <div class="flex space-x-1">
                                 <a-tooltip title="发送消息">
-                                    <a-button type="text" shape="circle" size="small" class="h-6 w-6 flex items-center justify-center">
+                                    <a-button
+                                        type="text"
+                                        shape="circle"
+                                        size="small"
+                                        class="h-6 w-6 flex items-center justify-center"
+                                    >
                                         <template #icon><icon-view icon="message-circle" class="text-xs" /></template>
                                     </a-button>
                                 </a-tooltip>
                                 <a-tooltip title="查看资料">
-                                    <a-button type="text" shape="circle" size="small" class="h-6 w-6 flex items-center justify-center">
+                                    <a-button
+                                        type="text"
+                                        shape="circle"
+                                        size="small"
+                                        class="h-6 w-6 flex items-center justify-center"
+                                    >
                                         <template #icon><icon-view icon="info" class="text-xs" /></template>
                                     </a-button>
                                 </a-tooltip>
@@ -211,17 +260,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import dayjs from 'dayjs'
+import { ref, computed } from 'vue';
+import dayjs from 'dayjs';
 
 // 格式化当前日期
 const formattedDate = computed(() => {
-    const now = dayjs()
-    const today = now.format('YYYY年MM月DD日')
-    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-    const weekday = weekdays[now.day()]
-    return `${today} ${weekday}`
-})
+    const now = dayjs();
+    const today = now.format('YYYY年MM月DD日');
+    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const weekday = weekdays[now.day()];
+    return `${today} ${weekday}`;
+});
 
 // 统计数据
 const statistics = ref([
@@ -231,7 +280,7 @@ const statistics = ref([
         icon: 'briefcase',
         bgColor: 'bg-blue-50 dark:bg-blue-900/30',
         iconColor: 'text-blue-500 dark:text-blue-400',
-        change: 12
+        change: 12,
     },
     {
         title: '进行中',
@@ -239,7 +288,7 @@ const statistics = ref([
         icon: 'play-circle',
         bgColor: 'bg-green-50 dark:bg-green-900/30',
         iconColor: 'text-green-500 dark:text-green-400',
-        change: 8
+        change: 8,
     },
     {
         title: '已完成',
@@ -247,7 +296,7 @@ const statistics = ref([
         icon: 'check-circle',
         bgColor: 'bg-purple-50 dark:bg-purple-900/30',
         iconColor: 'text-purple-500 dark:text-purple-400',
-        change: 5
+        change: 5,
     },
     {
         title: '团队成员',
@@ -255,9 +304,9 @@ const statistics = ref([
         icon: 'users',
         bgColor: 'bg-orange-50 dark:bg-orange-900/30',
         iconColor: 'text-orange-500 dark:text-orange-400',
-        change: -2
-    }
-])
+        change: -2,
+    },
+]);
 
 // 最新动态数据
 const activities = ref([
@@ -266,30 +315,30 @@ const activities = ref([
         description: '已上传最终版设计方案到项目文件夹',
         time: '10分钟前',
         icon: 'check-circle',
-        iconBg: 'bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400'
+        iconBg: 'bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400',
     },
     {
         title: '开始新项目开发',
         description: '创建了"智能客服系统"项目并分配了团队成员',
         time: '1小时前',
         icon: 'play-circle',
-        iconBg: 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400'
+        iconBg: 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400',
     },
     {
         title: '团队会议总结',
         description: '讨论了Q2季度规划和项目进度',
         time: '2小时前',
         icon: 'users',
-        iconBg: 'bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400'
+        iconBg: 'bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400',
     },
     {
         title: '更新项目文档',
         description: '更新了API文档和使用说明',
         time: '3小时前',
         icon: 'file-text',
-        iconBg: 'bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400'
-    }
-])
+        iconBg: 'bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400',
+    },
+]);
 
 // 快捷菜单数据 - 增强样式
 const quickMenus = ref([
@@ -297,27 +346,27 @@ const quickMenus = ref([
         title: '创建任务',
         icon: 'plus-circle',
         bgColor: 'bg-blue-100 dark:bg-blue-900/50',
-        iconColor: 'text-blue-600 dark:text-blue-400'
+        iconColor: 'text-blue-600 dark:text-blue-400',
     },
     {
         title: '发起会议',
         icon: 'video',
         bgColor: 'bg-green-100 dark:bg-green-900/50',
-        iconColor: 'text-green-600 dark:text-green-400'
+        iconColor: 'text-green-600 dark:text-green-400',
     },
     {
         title: '文档中心',
         icon: 'folder',
         bgColor: 'bg-purple-100 dark:bg-purple-900/50',
-        iconColor: 'text-purple-600 dark:text-purple-400'
+        iconColor: 'text-purple-600 dark:text-purple-400',
     },
     {
         title: '通讯录',
         icon: 'users',
         bgColor: 'bg-orange-100 dark:bg-orange-900/50',
-        iconColor: 'text-orange-600 dark:text-orange-400'
-    }
-])
+        iconColor: 'text-orange-600 dark:text-orange-400',
+    },
+]);
 
 // 公告列表数据 - 增加标签
 const announcements = ref([
@@ -326,28 +375,28 @@ const announcements = ref([
         date: '2024-03-15',
         isNew: true,
         tag: '重要',
-        tagColor: 'red'
+        tagColor: 'red',
     },
     {
         title: '新功能发布：项目看板优化',
         date: '2024-03-14',
         isNew: true,
         tag: '新功能',
-        tagColor: 'green'
+        tagColor: 'green',
     },
     {
         title: '春节假期安排通知',
         date: '2024-03-13',
         isNew: false,
         tag: '通知',
-        tagColor: 'blue'
+        tagColor: 'blue',
     },
     {
         title: '年度工作总结会议',
         date: '2024-03-12',
-        isNew: false
-    }
-])
+        isNew: false,
+    },
+]);
 
 // 项目进度数据 - 新增
 const projects = ref([
@@ -355,27 +404,27 @@ const projects = ref([
         name: '企业官网改版',
         progress: 75,
         progressColor: '#4CAF50',
-        statusColor: 'bg-green-500'
+        statusColor: 'bg-green-500',
     },
     {
         name: '移动端APP开发',
         progress: 45,
         progressColor: '#2196F3',
-        statusColor: 'bg-blue-500'
+        statusColor: 'bg-blue-500',
     },
     {
         name: '数据分析平台',
         progress: 90,
         progressColor: '#9C27B0',
-        statusColor: 'bg-purple-500'
+        statusColor: 'bg-purple-500',
     },
     {
         name: '内部管理系统',
         progress: 30,
         progressColor: '#FF9800',
-        statusColor: 'bg-orange-500'
-    }
-])
+        statusColor: 'bg-orange-500',
+    },
+]);
 
 // 团队成员数据 - 新增
 const teamMembers = ref([
@@ -383,27 +432,27 @@ const teamMembers = ref([
         name: '张小明',
         role: '前端开发',
         avatar: '/src/assets/avatars/avatar-1.jpg',
-        avatarBg: '#4CAF50'
+        avatarBg: '#4CAF50',
     },
     {
         name: '李静',
         role: 'UI设计师',
         avatar: '/src/assets/avatars/avatar-2.jpg',
-        avatarBg: '#2196F3'
+        avatarBg: '#2196F3',
     },
     {
         name: '王大鹏',
         role: '产品经理',
         avatar: '',
-        avatarBg: '#9C27B0'
+        avatarBg: '#9C27B0',
     },
     {
         name: '赵小红',
         role: '后端开发',
         avatar: '/src/assets/avatars/avatar-4.jpg',
-        avatarBg: '#FF9800'
-    }
-])
+        avatarBg: '#FF9800',
+    },
+]);
 </script>
 
 <style scoped lang="scss">

@@ -56,13 +56,11 @@ const props = defineProps({
     },
     searchEvent: {
         type: Function as PropType<(formState: FormState<SearchField[]>) => void>,
-        default: () => {
-        },
+        default: () => {},
     },
     resetEvent: {
         type: Function as PropType<(formState: FormState<SearchField[]>) => void>,
-        default: () => {
-        },
+        default: () => {},
     },
 });
 // 动态生成插槽名的类型定义

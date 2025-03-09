@@ -14,7 +14,7 @@ import { IDeptParams, TDeptListResult, IDept, TDeptPageListResult } from '@/serv
  * @returns
  */
 export const getDeptList = (params?: IDeptParams) => {
-  return xltRequest.Get<TDeptPageListResult>("/dept/list", { params: { ...params } });
+    return xltRequest.Get<TDeptPageListResult>('/dept/list', { params: { ...params } });
 };
 
 /**
@@ -22,7 +22,7 @@ export const getDeptList = (params?: IDeptParams) => {
  * @returns
  */
 export const getDeptTree = () => {
-  return xltRequest.Get<TDeptListResult>("/dept/tree", {});
+    return xltRequest.Get<TDeptListResult>('/dept/tree', {});
 };
 
 /**
@@ -43,7 +43,7 @@ export const getDeptTree = () => {
  * @returns
  */
 export const addDept = (data: IDept) => {
-  return xltRequest.Post("/dept/add", data);
+    return xltRequest.Post('/dept/add', data);
 };
 
 /**
@@ -65,7 +65,7 @@ export const addDept = (data: IDept) => {
  * @returns
  */
 export const updateDept = (data: IDept) => {
-  return xltRequest.Post("/dept/edit", data);
+    return xltRequest.Post('/dept/edit', data);
 };
 
 /**
@@ -74,7 +74,7 @@ export const updateDept = (data: IDept) => {
  * @returns
  */
 export const removeDept = (id: number) => {
-  return xltRequest.Delete(`/dept/remove/${id}`);
+    return xltRequest.Delete(`/dept/remove/${id}`);
 };
 
 /**
@@ -83,7 +83,7 @@ export const removeDept = (id: number) => {
  * @returns
  */
 export const getDeptDetail = (id: any) => {
-  return xltRequest.Get<IDept>(`/dept/detail/${id}`);
+    return xltRequest.Get<IDept>(`/dept/detail/${id}`);
 };
 
 /**
@@ -92,12 +92,12 @@ export const getDeptDetail = (id: any) => {
  * @param {number} status 是否启用
  */
 export const changeDeptStatus = (id: number, status: number) => {
-  return xltRequest.Put("/dept/change-status", { id, status });
+    return xltRequest.Put('/dept/change-status', { id, status });
 };
 
 /**
  * @description 生成部门常量
  */
 export const getDeptConst = () => {
-  return xltRequest.Get<any>("/dept/generate-dept-constants");
+    return xltRequest.Get<any>('/dept/generate-dept-constants');
 };

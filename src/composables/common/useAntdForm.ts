@@ -32,5 +32,4 @@ export function useAntdForm<T>({ _formData }: { _formData: Reactive<T> }) {
         validate,
         resetFields,
     };
-};
-
+}

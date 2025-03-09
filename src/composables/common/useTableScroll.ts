@@ -13,7 +13,7 @@ export function useTableScroll(scrollX: MaybeRef<number> = 1200) {
     const scrollConfig = computed(() => {
         return {
             y: wrapperElHeight.value - 72,
-            x: "max-content",
+            x: 'max-content',
         };
     });
 

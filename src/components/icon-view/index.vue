@@ -3,7 +3,7 @@
         <i :class="['iconfont', `${iconModel.modelValue}`]"></i>
     </span>
     <span v-if="modelValue.startsWith('Lucide-')" class="mr-2">
-        <component :is="formatterIcon(modelValue)"  :size="16"  :stroke-width="2.5"></component>
+        <component :is="formatterIcon(modelValue)" :size="16" :stroke-width="2.5"></component>
     </span>
 </template>
 

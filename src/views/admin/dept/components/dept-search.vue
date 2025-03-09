@@ -45,5 +45,3 @@ const { formState, fields, handleSearch, handleReset } = useSearchForm(
     emit,
 );
 </script>
-
-

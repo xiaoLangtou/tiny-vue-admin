@@ -50,5 +50,3 @@ const { formState, fields, handleSearch, handleReset } = useSearchForm(
 
 console.log(formState);
 </script>
-
-

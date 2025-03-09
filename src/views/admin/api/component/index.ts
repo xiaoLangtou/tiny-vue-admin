@@ -8,5 +8,5 @@
  */
 
 // export { default as ApiAdd } from "./add.vue";
-export { default as ApiSynchronous } from "./api-synchronous.vue";
-export { default as ApiSearch } from "./api-search.vue";
+export { default as ApiSynchronous } from './api-synchronous.vue';
+export { default as ApiSearch } from './api-search.vue';

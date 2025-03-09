@@ -16,7 +16,7 @@ import { IPost, IPostParams, TPostDetailResult, TPostListResult } from '@/servic
  * @returns {AxiosPromise<ResPage<IPost>>}
  */
 export const getPostList = (params?: IPostParams) => {
-  return xltRequest.Get<TPostListResult>("/post/list", { params: { ...params } });
+    return xltRequest.Get<TPostListResult>('/post/list', { params: { ...params } });
 };
 
 /**
@@ -30,7 +30,7 @@ export const getPostList = (params?: IPostParams) => {
  * @returns {AxiosPromise}
  */
 export const addPost = (data: IPost) => {
-  return xltRequest.Post("/post/add", data);
+    return xltRequest.Post('/post/add', data);
 };
 
 /**
@@ -45,7 +45,7 @@ export const addPost = (data: IPost) => {
  * @returns {AxiosPromise}
  */
 export const editPost = (data: IPost) => {
-  return xltRequest.Post("/post/edit", data);
+    return xltRequest.Post('/post/edit', data);
 };
 
 /**
@@ -55,7 +55,7 @@ export const editPost = (data: IPost) => {
  * @returns {AxiosPromise}
  */
 export const deletePost = (id: number | string) => {
-  return xltRequest.Delete(`/post/remove/${id}`);
+    return xltRequest.Delete(`/post/remove/${id}`);
 };
 
 /**
@@ -65,7 +65,7 @@ export const deletePost = (id: number | string) => {
  * @returns {AxiosPromise<IPost>}
  */
 export const getPostDetail = (id: number | string) => {
-  return xltRequest.Get<TPostDetailResult>(`/post/detail/${id}`);
+    return xltRequest.Get<TPostDetailResult>(`/post/detail/${id}`);
 };
 
 /**
@@ -76,5 +76,5 @@ export const getPostDetail = (id: number | string) => {
  * @returns {AxiosPromise}
  */
 export const changePostStatus = (id: number | string, status: number) => {
-  return xltRequest.Put(`/post/status`, { id, status });
+    return xltRequest.Put(`/post/status`, { id, status });
 };

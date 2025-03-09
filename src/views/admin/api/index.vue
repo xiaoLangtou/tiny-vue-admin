@@ -90,7 +90,7 @@ const { tableConfig, pagination, toolbarConfig } = useTableConfig({
     isCreateTime: false,
     isControls: false,
 });
-const apiSynchronousRef = useTemplateRef<typeof ApiSynchronous>("apiSynchronousRef")
+const apiSynchronousRef = useTemplateRef<typeof ApiSynchronous>('apiSynchronousRef');
 const { data: tableData, send } = usePagination(
     (page, pageSize) =>
         getApiList({
