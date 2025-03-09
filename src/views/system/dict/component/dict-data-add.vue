@@ -4,8 +4,8 @@
         :width="700"
         get-container="body"
         :title="dialogTitle"
-        @confirm="handleSave(formRef)"
-        @close="closeDialog(formRef)"
+        @confirm="handleSave"
+        @close="closeDialog"
     >
         <a-form ref="formRef" :model="formData" :rules="rules" :label-col="{ span: 3 }" :wrapper-col="{ span: 21 }">
             <a-form-item label="字典类型" name="dictType">
@@ -35,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from 'ant-design-vue';
 import { IDictData } from '@/service/interface/dict';
 import { addDictData, updateDictData } from '@/service/apis/dict';
 import { useMessage } from '@/composables/common/useMessage';
@@ -45,16 +44,16 @@ const emits = defineEmits(['close']);
 const dialogTitle = ref('新增字典项');
 const activeAction = ref('add');
 const { message } = useMessage();
-const { formRef, resetFields, validate, createCustomRule } = useAntdForm();
-
-const formData = reactive<IDictData>({
-    dictLabel: '',
-    dictValue: '',
-    dictType: '',
-    dictSort: 0,
-    dictRemark: '',
-    dictTypeId: undefined,
-    dictDesc: '',
+const { formRef, resetFields, validate, createCustomRule, formData, defaultValue } = useAntdForm<IDictData>({
+    _formData: reactive<IDictData>({
+        dictLabel: '',
+        dictValue: '',
+        dictType: '',
+        dictSort: 0,
+        dictRemark: '',
+        dictTypeId: undefined,
+        dictDesc: '',
+    }),
 });
 
 const rules = {
@@ -73,20 +72,19 @@ const openDialog = (type = 'add', data = {}) => {
     dialogVisible.value = true;
 };
 
-const handleSave = async (formEl: FormInstance | null) => {
-    if (!formEl) return;
+const handleSave = async () => {
     try {
         await validate();
         const saveURL = activeAction.value === 'add' ? addDictData : updateDictData;
         await saveURL(formData);
         message.success('保存成功');
-        closeDialog(formEl);
+        closeDialog();
         emits('close');
     } catch (error) {}
 };
 
-const closeDialog = (formEl: FormInstance | null) => {
-    if (!formEl) return;
+const closeDialog = () => {
+    Object.assign(formData, defaultValue);
     resetFields();
     formData.id = undefined;
     dialogVisible.value = false;

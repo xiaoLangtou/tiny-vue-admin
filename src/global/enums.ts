@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 14:01:57
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-05 13:42:03
+ * @LastEditTime: 2025-03-09 10:44:59
  * @FilePath: src/global/enums.ts
  * @Description: 全局所有的枚举
  */
@@ -82,3 +82,5 @@ export const HttpMethodCN: Record<HTTP_METHOD, string> = {
     [HTTP_METHOD.TRACE]: '追踪',
     [HTTP_METHOD.CONNECT]: '连接',
 };
+
+

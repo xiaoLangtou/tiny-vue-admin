@@ -24,6 +24,7 @@
                 ref="tableWrapperRef"
                 class="xlt-table"
                 :bordered="bordered === 1"
+                defaultExpandAllRows
                 :dataSource="dataSource"
                 :columns="visibleColumns"
                 :pagination="false"
@@ -38,7 +39,7 @@
             </a-table>
 
             <!-- 分页 -->
-            <div class="xlt-pagination">
+            <div v-if="showPagination" class="xlt-pagination">
                 <a-pagination
                     v-model:current="tablePagination.current"
                     v-model:page-size="tablePagination.pageSize"
@@ -64,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import TableToolbar from '@/components/data-table/table-toolbar/index.vue';
 import ColumnSetting from '@/components/data-table/column-setting/index.vue';
 import { TablePaginationConfig } from 'ant-design-vue';
@@ -77,6 +78,7 @@ const props = withDefaults(defineProps<DataTableProps & TableToolbarProps>(), {
     dataSource: () => [],
     columns: () => [],
     pagination: () => ({}),
+    showPagination: true,
     loading: false,
     rowKey: 'id',
     isToolbar: true,
@@ -200,6 +202,13 @@ const loadSavedColumnConfig = () => {
     if (savedConfig) {
         Object.assign(columnsConfig.value, savedConfig);
     }
+};
+
+const handlePageChange = (value: number, size: number) => {
+    emit('pageChange', { current: value, size: size });
+};
+const handleSizeChange = (value: number, size: number) => {
+    emit('pageChange', { current: value, size: size });
 };
 
 // **保存列配置**

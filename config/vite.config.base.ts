@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 22:09:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-01 11:39:52
+ * @LastEditTime: 2025-03-08 16:06:57
  * @FilePath: config/vite.config.base.ts
  * @Description: vite基础配置
  */

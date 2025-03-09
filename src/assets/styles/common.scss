@@ -2,14 +2,14 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:23:21
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 13:20:10
+ * @LastEditTime: 2025-03-09 15:59:24
  * @FilePath: src/assets/styles/common.scss
  * @Description: 自定义公共样式
  */
 
 .xlt-container {
     --xlt-search-box-bg: theme('colors.bg.darkLayout');
-    @apply bg-white dark:bg-[var(--xlt-search-box-bg)] pl-2 pr-2 rounded-lg;
+    @apply bg-white dark:bg-[var(--xlt-search-box-bg)] pl-2 pr-2 pt-3 pb-3 rounded-lg;
 }
 
 .xlt-base-container {
@@ -27,6 +27,19 @@
     .ant-table {
         @apply dark:bg-[var(--xlt-table-bg)];
     }
+}
+
+
+.xlt-btn {
+    @apply flex justify-center items-center gap-2;
+}
+
+.xlt-flex-center {
+    @apply flex justify-center items-center;
+}
+
+.xlt-flex-col {
+    @apply flex flex-col;
 }
 
 

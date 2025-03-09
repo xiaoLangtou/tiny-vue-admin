@@ -2,42 +2,32 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-27 23:49:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-28 16:45:41
- * @FilePath: src/components/search-form/index.vue
+ * @LastEditTime: 2025-03-09 14:17:16
+ * @FilePath: src/components/data-table/search-form/index.vue
  * @Description: 搜索表单
  -->
 <template>
     <div class="xlt-container">
-        <a-form
-            ref="formRef"
-            name="advanced_search"
-            class="ant-advanced-search-form"
-            :model="formState"
-            @finish="handleFinish"
-        >
+        <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState">
             <a-row :gutter="24">
-                <template v-for="(field, index) in fields" :key="index">
+                <template v-for="(slotName, index) in slotNames" :key="index">
                     <a-col v-show="expand || (collapseLimit && index < collapseLimit)" :span="8">
-                        <a-form-item :name="field.name" :label="field.label" :rules="field.rules">
-                            <slot :name="field.name" :field="field">
-                                <a-input v-model:value="formState[field.name]" :placeholder="`请输入${field.label}`" />
-                            </slot>
-                        </a-form-item>
+                        <slot :name="slotName"></slot>
                     </a-col>
                 </template>
             </a-row>
             <a-row>
-                <a-col :span="24" style="text-align: right">
+                <a-col :span="24" class="flex items-center justify-end gap-2" style="text-align: right">
                     <slot name="actions">
-                        <a-button type="primary" html-type="submit">搜索</a-button>
-                        <a-button style="margin: 0 8px" @click="handleReset">重置</a-button>
+                        <a-button type="primary" @click="searchEvent(formState)">搜索</a-button>
+                        <a-button @click="resetEvent(formState)">重置</a-button>
                     </slot>
-                    <a v-if="showCollapse" style="font-size: 12px" @click="expand = !expand">
+                    <a v-if="showCollapse" class="flex items-center" style="font-size: 12px" @click="expand = !expand">
                         <template v-if="expand">
-                            <UpOutlined />
+                            <LucideChevronUp :size="14" />
                         </template>
                         <template v-else>
-                            <DownOutlined />
+                            <ChevronDown :size="14" />
                         </template>
                         {{ expand ? '收起' : '展开' }}
                     </a>
@@ -48,51 +38,47 @@
 </template>
 
 <script setup lang="ts">
-import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
-import type { FormInstance } from 'ant-design-vue';
+import { LucideChevronUp, ChevronDown } from 'lucide-vue-next';
+import { FormState, SearchField } from '@/composables/common/useSearchForm';
 
-interface SearchField {
-    name: string;
-    label: string;
-    rules?: any[];
+const props = defineProps({
+    formState: {
+        type: Object as PropType<FormState<SearchField[]>>,
+        default: () => ({}),
+    },
+    collapseLimit: {
+        type: Number as PropType<number>,
+        default: 3,
+    },
+    showCollapse: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    searchEvent: {
+        type: Function as PropType<(formState: FormState<SearchField[]>) => void>,
+        default: () => {
+        },
+    },
+    resetEvent: {
+        type: Function as PropType<(formState: FormState<SearchField[]>) => void>,
+        default: () => {
+        },
+    },
+});
+// 动态生成插槽名的类型定义
+type SlotNames = keyof FormState<SearchField[]> extends string ? keyof FormState<SearchField[]> : never;
 
-    [key: string]: any;
-}
-
-type SearchFormSlots = {
-    [K in SearchField['name']]: (props: { field: SearchField }) => any;
-} & {
-    actions: () => any;
-};
-
-const props = defineProps<{
-    fields: SearchField[];
-    collapseLimit?: number;
-    showCollapse?: boolean;
+defineSlots<{
+    [K in SlotNames]: (payload: any) => any;
 }>();
-
-const emit = defineEmits<{
-    (e: 'search', values: any): void;
-    (e: 'reset'): void;
-}>();
-
-defineSlots<SearchFormSlots>();
 
 const expand = ref(false);
-const formRef = ref<FormInstance>();
-const formState = reactive<Record<string, any>>({});
 
-const handleFinish = (values: any) => {
-    emit('search', values);
-};
+const slots = useSlots();
 
-const handleReset = () => {
-    formRef.value?.resetFields();
-    emit('reset');
-};
+const slotNames = Object.keys(slots).filter((name) => name !== 'actions');
 
-defineExpose({
-    formRef,
-    formState,
+defineOptions({
+    name: 'SearchForm',
 });
 </script>

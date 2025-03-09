@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 16:28:30
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 23:47:13
+ * @LastEditTime: 2025-03-08 16:31:48
  * @FilePath: src/router/guard/menu.ts
  * @Description: 菜单路由守卫
  */
@@ -73,6 +73,7 @@ export const setupMenuGuard = (router: Router) => {
                 router.addRoute('root', route);
             }
         });
+        console.log(routes);
 
         next({ ...to, replace: true });
         NProgress.done();

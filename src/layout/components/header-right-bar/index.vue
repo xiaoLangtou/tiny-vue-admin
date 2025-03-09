@@ -2,64 +2,66 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-03 17:06:41
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-04 11:42:22
+ * @LastEditTime: 2025-03-08 15:51:00
  * @FilePath: src/layout/components/header-right-bar/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
 <template>
     <div class="header-right-bar">
-        <div class="header-right-bar-item">
-            <!-- 搜索 -->
-            <!-- <xlt-search-bar /> -->
-            <!-- 全屏 -->
-            <div ref="fullscreenRef" class="fullscreen-wrapper">
-                <a-tooltip :title="isFullscreen ? '退出全屏' : '全屏'">
-                    <a-button
-                        type="text"
-                        class="flex justify-center items-center"
-                        :icon="h(isFullscreen ? Shrink({ size: 18 }, {} as any) : Expand({ size: 18 }, {} as any))"
-                        @click="toggle"
-                    />
-                </a-tooltip>
+        <fade-down>
+            <div class="header-right-bar-item">
+                <!-- 搜索 -->
+                <!-- <xlt-search-bar /> -->
+                <!-- 全屏 -->
+                <div ref="fullscreenRef" class="fullscreen-wrapper">
+                    <a-tooltip :title="isFullscreen ? '退出全屏' : '全屏'">
+                        <a-button
+                            type="text"
+                            class="flex justify-center items-center"
+                            :icon="h(isFullscreen ? Shrink({ size: 18 }, {} as any) : Expand({ size: 18 }, {} as any))"
+                            @click="toggle"
+                        />
+                    </a-tooltip>
+                </div>
+                <!-- 主题切换 -->
+
+                <theme-toggle />
+
+                <!-- 导航栏设置 -->
+                <a-button type="text" class="setting-button" @click="open">
+                    <template #icon>
+                        <Settings :size="18"></Settings>
+                    </template>
+                </a-button>
+                <!-- 头像信息-->
+                <a-dropdown>
+                    <a-avatar class="cursor-pointer" :size="32">U</a-avatar>
+                    <template #overlay>
+                        <a-menu>
+                            <a-menu-item key="profile">
+                                <template #icon>
+                                    <User class="w-4 h-4" />
+                                </template>
+                                个人信息
+                            </a-menu-item>
+                            <a-menu-item key="settings">
+                                <template #icon>
+                                    <Settings class="w-4 h-4" />
+                                </template>
+                                设置
+                            </a-menu-item>
+                            <a-menu-divider />
+                            <a-menu-item key="logout">
+                                <template #icon>
+                                    <LogOut class="w-4 h-4" />
+                                </template>
+                                退出登录
+                            </a-menu-item>
+                        </a-menu>
+                    </template>
+                </a-dropdown>
             </div>
-            <!-- 主题切换 -->
-            <fade-down>
-                <theme-toggle v-show="menuStore.isCollapsed" />
-            </fade-down>
-            <!-- 导航栏设置 -->
-            <a-button type="text" class="setting-button" @click="open">
-                <template #icon>
-                    <Settings :size="18"></Settings>
-                </template>
-            </a-button>
-            <!-- 头像信息-->
-            <a-dropdown>
-                <a-avatar class="cursor-pointer" :size="32">U</a-avatar>
-                <template #overlay>
-                    <a-menu>
-                        <a-menu-item key="profile">
-                            <template #icon>
-                                <User class="w-4 h-4" />
-                            </template>
-                            个人信息
-                        </a-menu-item>
-                        <a-menu-item key="settings">
-                            <template #icon>
-                                <Settings class="w-4 h-4" />
-                            </template>
-                            设置
-                        </a-menu-item>
-                        <a-menu-divider />
-                        <a-menu-item key="logout">
-                            <template #icon>
-                                <LogOut class="w-4 h-4" />
-                            </template>
-                            退出登录
-                        </a-menu-item>
-                    </a-menu>
-                </template>
-            </a-dropdown>
-        </div>
+        </fade-down>
     </div>
 </template>
 

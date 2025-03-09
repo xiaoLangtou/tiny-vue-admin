@@ -9,6 +9,7 @@ export interface ITableProps {
     isCreateTime?: boolean;
     isControls?: boolean;
     controlsWidth?: number;
+    indexWidth?: number;
     showRefresh?: boolean;
     showColumnSetting?: boolean;
     showImport?: boolean;
@@ -39,6 +40,7 @@ export const useTableConfig = (config: ITableProps) => {
         isFullscreen,
         addBtnText,
         isToolbar = true,
+        indexWidth = 80,
     } = config;
 
     const pagination = ref({
@@ -72,7 +74,7 @@ export const useTableConfig = (config: ITableProps) => {
                 title: '序号',
                 key: 'index',
                 dataIndex: 'index',
-                width: 64,
+                width: indexWidth,
                 align: 'center',
                 customRender: ({ index }: any) => {
                     return index + 1;

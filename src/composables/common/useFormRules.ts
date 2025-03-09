@@ -76,7 +76,7 @@ export const useFormRules = () => {
     // 创建自定义规则
     const createCustomRule = (config: FormRuleConfig) => {
         return {
-            required: config.required || true,
+            required: Object.keys(config).includes('required') ? config.required : true,
             message: config.message,
             trigger: config.trigger || '',
             pattern: config.pattern,

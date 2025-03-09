@@ -2,60 +2,156 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 15:14:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-03 11:50:30
+ * @LastEditTime: 2025-03-09 18:43:36
  * @FilePath: src/views/admin/dept/index.vue
- * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ * @Description: 部门管理
  -->
 <template>
-    <div class="xlt-container h-full">
-        <SplitPane v-model:collapse="isCollapsed" size="300px" :min-size="200" :max-size="600">
-            <!-- 左侧内容 -->
-            <template #left>
-                <div class="panel-left">
-                    <h3>部门管理</h3>
-                    <p>这里是左侧面板的内容，可以放菜单或者其他功能。</p>
-                </div>
-            </template>
-
-            <!-- 右侧主要内容 -->
-            <template #main>
-                <div class="panel-main">
-                    <h2>API 管理</h2>
-                    <p>这里是主要内容区域。</p>
-                    <div class="flex items-center gap-4">
-                        <span class="w-3 h-3 bg-[#6366f1]" @click="appStore.toggleColorPrimary('#6366f1')"></span>
-                        <span class="w-3 h-3 bg-[#10b981]" @click="appStore.toggleColorPrimary('#10b981')"></span>
-                        <span class="w-3 h-3 bg-[#22c55e]" @click="appStore.toggleColorPrimary('#22c55e')"></span>
-                        <span class="w-3 h-3 bg-[#3b82f6]" @click="appStore.toggleColorPrimary('#3b82f6')"></span>
-                        <span class="w-3 h-3 bg-[#f97316]" @click="appStore.toggleColorPrimary('#f97316')"></span>
-                    </div>
-
-                    <a-button type="primary">测试</a-button>
-                </div>
-            </template>
-        </SplitPane>
+    <div class="xlt-base-container">
+        <dept-search @search="handleSearchEvent" @reset="handleSearchEvent" />
+        <div class="xlt-container">
+            <data-table
+                :data-source="tableData"
+                :show-pagination="false"
+                defaultExpandAllRows
+                v-bind="{ ...tableConfig, pagination, ...toolbarConfig }"
+                @add="handleAdd"
+            ></data-table>
+        </div>
+        <DeptAdd ref="deptAddRef" @close="handleClose" />
     </div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue';
-import { SplitPane } from '@/components';
-import { useAppStore } from '@/store';
+<script lang="tsx" setup>
+import { message, Modal } from 'ant-design-vue';
+import DeptSearch from '@/views/admin/dept/components/dept-search.vue';
+import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons-vue';
+import { useTableConfig } from '@/composables';
+import { getDeptDetail, getDeptList, removeDept } from '@/service/apis/dept';
+import { IDept, IDeptParams } from '@/service/interface/dept';
+import { getDictDataObjByType } from '@/service/apis/dict';
 
-const isCollapsed = ref(false);
+const tableData = ref<IDept[]>([]);
 
-const appStore = useAppStore();
+const DeptAdd = defineAsyncComponent(() => import('./components/add.vue'));
+const deptAddRef = useTemplateRef<typeof DeptAdd>('deptAddRef');
+
+const deptTypeDict = ref<Record<string, any>>({});
+let searchForm = reactive<IDeptParams>({});
+
+const { tableConfig, toolbarConfig, pagination } = useTableConfig({
+    columns: [
+        { title: '机构名称', dataIndex: 'deptName', width: 200 },
+        { title: '机构代码', dataIndex: 'deptCode' },
+        { title: '机构全称', dataIndex: 'fullName' },
+        { title: '排序', dataIndex: 'orderNum' },
+        {
+            title: '机构类型',
+            dataIndex: 'deptType',
+            slots: { customRender: 'deptType' },
+            customRender: ({ record }: { record: any }) => {
+                return (
+                    <a-tag color={record.deptType === 'COMPANY' ? 'blue' : 'green'}>
+                        {deptTypeDict.value[record.deptType]}
+                    </a-tag>
+                );
+            },
+        },
+        { title: '状态', dataIndex: 'status', slots: { customRender: 'status' } },
+        { title: '负责人', dataIndex: 'leader' },
+    ],
+    controlsWidth: 300,
+    indexWidth: 100,
+    controlsCustomRender: ({ record }: { record: IDept }) => {
+        return (
+            <div class="xlt-flex-center">
+                <a-button
+                    type="link"
+                    class="xlt-btn gap-0"
+                    icon={<PlusCircleOutlined />}
+                    onClick={(event: MouseEvent) => handleAdd(event, record)}
+                >
+                    新增下级
+                </a-button>
+                <a-button type="link" class="xlt-btn gap-0" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
+                    编辑
+                </a-button>
+                <a-button
+                    type="link"
+                    danger
+                    class="xlt-btn gap-0"
+                    icon={<DeleteOutlined />}
+                    onClick={() => handleDelete(record)}
+                >
+                    删除
+                </a-button>
+            </div>
+        );
+    },
+});
+
+onMounted(() => {
+    initListData();
+});
+
+const getDeptTypeDict = async () => {
+    const { data } = await getDictDataObjByType('SYSTEM_DEPT_TYPE');
+    deptTypeDict.value = data;
+};
+
+const getList = async () => {
+    const { data } = await getDeptList({ ...searchForm });
+    tableData.value = data.records;
+};
+
+const handleSearchEvent = (form: IDeptParams) => {
+    searchForm = form;
+    getList();
+};
+
+const handleAdd = (event: MouseEvent, row?: IDept) => {
+    deptAddRef.value?.openDialog('add', { parentId: row?.id });
+};
+
+const handleEdit = async (row: IDept) => {
+    try {
+        if (!row.id) return;
+        const { data } = await getDeptDetail(row.id);
+        deptAddRef.value?.openDialog('edit', data);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+const handleDelete = async (row: IDept) => {
+    try {
+        if (!row.id) return;
+        Modal.confirm({
+            title: '提示',
+            content: '确定删除该条数据吗？',
+            async onOk() {
+                await removeDept(row.id!);
+                message.success('删除成功');
+                initListData();
+            },
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+const initListData = () => {
+    getList();
+    getDeptTypeDict();
+};
+
+const handleClose = () => {
+    initListData();
+};
 </script>
 
 <style scoped>
-.panel-left {
-    padding: 16px;
-    background-color: red;
-    height: 100%;
-}
-
-.panel-main {
-    padding: 16px;
-    height: 100%;
+.dialog-footer {
+    text-align: right;
 }
 </style>

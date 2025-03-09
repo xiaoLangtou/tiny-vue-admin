@@ -33,24 +33,15 @@
                         </div>
                     </div>
                     <back-in-out-left>
-                        <div
-                            v-if="!menuStore.isCollapsed"
-                            class="aside-setting h-16 w-full border-t border-t-gray-100 dark:border-t-gray-700"
-                        >
-                            <div class="setting-box h-full flex items-center justify-center gap-3">
-                                <theme-toggle></theme-toggle>
-                                <button
-                                    class="setting-icon-btn w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                                    title="帮助"
+                        <div class="aside-setting h-16 w-full border-t border-t-gray-100 dark:border-t-gray-700">
+                            <div class="pl-2 pr-2 box-border flex items-center h-full">
+                                <a-button
+                                    class="w-full flex items-center justify-center gap-2 h-10"
+                                    @click="useLoginStore().logoutAction()"
                                 >
-                                    <CircleHelp :size="18" :stroke-width="2.25" absoluteStrokeWidth />
-                                </button>
-                                <button
-                                    class="setting-icon-btn w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                                    title="返回"
-                                >
-                                    <ArrowLeft :size="18" :stroke-width="2.25" absoluteStrokeWidth />
-                                </button>
+                                    <log-out :size="18" />
+                                    <span v-if="!menuStore.isCollapsed">退出登录</span>
+                                </a-button>
                             </div>
                         </div>
                     </back-in-out-left>
@@ -96,6 +87,8 @@ import { BackInOutLeft, Breadcrumb } from '@/components';
 import Logo from '@/layout/components/logo/index.vue';
 import { useMenu } from '@/composables/business/useMenu';
 import UserInfo from './user-info.vue';
+import { LogOut } from 'lucide-vue-next';
+import { useLoginStore } from '@/store';
 
 const emit = defineEmits(['setting']);
 const menuStore = useMenuStore();

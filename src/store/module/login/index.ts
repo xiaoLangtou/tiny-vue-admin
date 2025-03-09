@@ -2,22 +2,25 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-05 10:58:46
+ * @LastEditTime: 2025-03-08 16:18:13
  * @FilePath: src/store/module/login/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 
 import { defineStore } from 'pinia';
 import { IAccount } from '@/service/interface/login';
-import { getUserInfo, getUserMenu, login } from '@/service/apis/login';
+import { getUserMenu, login, logout } from '@/service/apis/login';
 // @ts-ignore
 import md5 from 'md5';
 import { to } from '@/utils/result-handler';
 import router from '@/router';
 import { TLoginState } from '@/store/module/login/types';
-import { message } from 'ant-design-vue';
-const [messageApi] = message.useMessage();
+import { message, Modal } from 'ant-design-vue';
+import { LOGIN_URL } from '@/global/constants';
+import { createVNode } from 'vue';
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 
+const [messageApi] = message.useMessage();
 const useLoginStore = defineStore('login', {
     persist: [
         {
@@ -87,6 +90,25 @@ const useLoginStore = defineStore('login', {
             const result = await to(getUserMenu());
             if (!result.ok) return;
             this.setAuthMenuList({ authMenuList: result.value.data });
+        },
+
+        async logoutAction() {
+            Modal.confirm({
+                title: '提示',
+                icon: createVNode(ExclamationCircleOutlined),
+                content: '是否确认退出登录？',
+                okText: '确认',
+                cancelText: '取消',
+                onOk: async () => {
+                    // 执行退出登录接口
+                    const result = await to(logout());
+                    if (!result.ok) return;
+                    this.setToken('');
+                    this.setUserInfo({ userInfo: {} as unknown as TLoginState['userInfo'] });
+                    this.setAuthMenuList({ authMenuList: [] });
+                    await router.replace(LOGIN_URL);
+                },
+            });
         },
     },
 });

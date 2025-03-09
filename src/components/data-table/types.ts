@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-05 14:43:43
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 22:25:03
+ * @LastEditTime: 2025-03-09 14:51:00
  * @FilePath: src/components/data-table/types.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -66,4 +66,5 @@ export interface DataTableProps extends TableProps, TableToolbarProps {
     rowSelection?: TableProps['rowSelection'];
     localeName?: string;
     isToolbar?: boolean;
+    showPagination: true;
 }

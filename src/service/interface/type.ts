@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-18 14:40:44
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-05 10:54:47
+ * @LastEditTime: 2025-03-09 10:44:59
  * @FilePath: src/service/interface/type.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -32,6 +32,11 @@ export interface TPager {
 // 分页响应参数
 export interface ResPage<T> {
     records: T[];
-    // eslint-disable-next-line no-undef
     pager?: TPager;
+}
+
+// 分页请求参数
+export interface ReqPage {
+    current?: number;
+    size?: number;
 }

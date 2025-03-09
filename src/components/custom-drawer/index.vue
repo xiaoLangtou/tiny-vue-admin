@@ -10,6 +10,7 @@
         v-bind="drawerProps"
         :open="open"
         mask
+        destroyOnClose
         mask-closable
         :get-container="getContainer"
         :afterOpenChange="afterOpenChange"
@@ -46,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import { h } from 'vue';
 import { DrawerProps } from 'ant-design-vue';
 
 const props = withDefaults(defineProps<Props>(), {
@@ -114,8 +114,7 @@ const drawerProps = computed(() => {
 
 // 处理取消
 const handleCancel = () => {
-    emit('cancel');
-    emit('update:open', false);
+    handleClose();
 };
 
 // 处理确认
