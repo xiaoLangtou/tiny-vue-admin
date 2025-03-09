@@ -2,13 +2,13 @@
     <custom-drawer
         v-model:open="dialogVisible"
         :title="dialogTitle"
-        width="50%"
+        width="40%"
         :confirm-loading="submitLoading"
         destroyOnClose
         @confirm="handleSave"
         @close="closeDialog"
     >
-        <a-form ref="formRef" :model="formData" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+        <a-form ref="formRef" :model="formData" :rules="rules" :label-col="{ span: 3 }" :wrapper-col="{ span: 21 }">
             <a-form-item label="岗位名称" name="name">
                 <a-input v-model:value="formData.name" placeholder="请输入岗位名称" />
             </a-form-item>

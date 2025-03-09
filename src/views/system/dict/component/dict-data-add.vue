@@ -3,6 +3,7 @@
         v-model:open="dialogVisible"
         :width="700"
         get-container="body"
+        destroy-on-close
         :title="dialogTitle"
         @confirm="handleSave"
         @close="closeDialog"
@@ -44,16 +45,18 @@ const emits = defineEmits(['close']);
 const dialogTitle = ref('新增字典项');
 const activeAction = ref('add');
 const { message } = useMessage();
-const { formRef, resetFields, validate, createCustomRule, formData, defaultValue } = useAntdForm<IDictData>({
-    _formData: reactive<IDictData>({
-        dictLabel: '',
-        dictValue: '',
-        dictType: '',
-        dictSort: 0,
-        dictRemark: '',
-        dictTypeId: undefined,
-        dictDesc: '',
-    }),
+
+const formData = reactive<IDictData>({
+    dictLabel: '',
+    dictValue: '',
+    dictType: '',
+    dictSort: 0,
+    dictRemark: '',
+    dictTypeId: undefined,
+    dictDesc: '',
+});
+const { formRef, resetFields, validate, createCustomRule, defaultValue } = useAntdForm<IDictData>({
+    _formData: formData,
 });
 
 const rules = {
@@ -68,7 +71,8 @@ const dialogVisible = ref(false);
 const openDialog = (type = 'add', data = {}) => {
     dialogTitle.value = type === 'add' ? '新增字典项' : '修改字典项';
     activeAction.value = type;
-    Object.assign(formData, data);
+    Object.assign(formData, defaultValue, data);
+
     dialogVisible.value = true;
 };
 

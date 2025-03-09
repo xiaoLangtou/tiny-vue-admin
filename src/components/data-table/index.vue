@@ -102,6 +102,7 @@ const emit = defineEmits<{
 // **定义 `props`**
 
 const slots = useSlots();
+console.log(slots);
 const attrs = useAttrs();
 
 // **工具栏的 `props`**
