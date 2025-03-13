@@ -2,20 +2,21 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 14:15:46
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 12:01:46
+ * @LastEditTime: 2025-03-13 10:52:14
  * @FilePath: src/layout/components/layout-page/layout-page.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
 <template>
     <div class="page-container">
         <router-view v-slot="{ Component, route }">
-            <component :is="Component" :key="route.fullPath" />
+            <template v-if="Component">
+                <component :is="Component" :key="route.fullPath" />
+            </template>
         </router-view>
     </div>
 </template>
 
 <script setup lang="ts">
-import { FadeInLeft } from '@/components';
 
 const props = defineProps({
     // 面包屑高度

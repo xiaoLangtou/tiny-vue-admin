@@ -10,9 +10,8 @@
 
 <script lang="ts" setup>
 import FadeDown from '../transition/fade-down.vue';
-import FadeInLeft from '../transition/fade-in-left.vue';
 
-const props = defineProps({
+defineProps({
     isFullscreen: {
         type: Boolean as PropType<boolean>,
         default: false,

@@ -2,15 +2,15 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 20:21:41
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-07 14:08:06
+ * @LastEditTime: 2025-03-13 00:26:46
  * @FilePath: src/components/menu/index.vue
  * @Description: 修改菜单样式
  -->
 <template>
     <a-menu
         v-bind="$attrs"
-        v-model:selectedKeys="state.selectedKeys"
-        :openKeys="state.openKeys"
+        v-model:selected-keys="state.selectedKeys"
+        :open-keys="state.openKeys"
         :mode="mode"
         :items="items"
         @click="handleClick"
@@ -19,17 +19,24 @@
 </template>
 
 <script setup lang="ts">
-import { IMenuOptions } from '@/composables/business/useMenu';
-import type { MenuProps } from 'ant-design-vue';
-import router from '@/router';
+import type { IMenuOptions } from '@/composables/business/useMenu';
 import { MenuLayoutMode } from '@/global/enums';
+import router from '@/router';
+import type { MenuProps } from 'ant-design-vue';
+
+defineOptions({
+    name: 'AppMenu',
+});
 
 const props = withDefaults(defineProps<Props>(), {
     isCollapsed: false,
     mode: 'inline',
     layoutMode: MenuLayoutMode.DEFAULT,
 });
+
 const emit = defineEmits(['clickTopMenu']);
+
+const appTitle = import.meta.env.VITE_GLOB_APP_TITLE;
 
 const state = reactive<Record<string, string[]>>({
     rootSubmenuKeys: [],
@@ -50,7 +57,7 @@ const handleClick = ({ item }: { item: IMenuOptions }) => {
     if (props.layoutMode === MenuLayoutMode.TOP) {
         emit('clickTopMenu', item);
     } else if (item.meta?.path) {
-        console.log('item', item);
+        useTitle(`${item?.meta?.title} - ${appTitle}`);
         router.push(item.meta.path);
     }
 };
@@ -61,6 +68,7 @@ const onOpenChange = (openKeys: string[]) => {
         state.openKeys = openKeys;
     } else {
         state.openKeys = latestOpenKey ? [latestOpenKey] : [];
+        console.log('openKeys', latestOpenKey);
     }
 };
 

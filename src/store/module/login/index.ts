@@ -2,23 +2,23 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 20:13:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-08 16:18:13
+ * @LastEditTime: 2025-03-12 17:38:02
  * @FilePath: src/store/module/login/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
-
-import { defineStore } from 'pinia';
-import { IAccount } from '@/service/interface/login';
-import { getUserMenu, login, logout } from '@/service/apis/login';
-// @ts-ignore
-import md5 from 'md5';
-import { to } from '@/utils/result-handler';
-import router from '@/router';
-import { TLoginState } from '@/store/module/login/types';
-import { message, Modal } from 'ant-design-vue';
 import { LOGIN_URL } from '@/global/constants';
-import { createVNode } from 'vue';
+import router from '@/router';
+import { getUserMenu, login, logout } from '@/service/apis/login';
+import type { IAccount } from '@/service/interface/login';
+import type { TLoginState } from '@/store/module/login/types';
+import { to } from '@/utils/result-handler';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { message, Modal } from 'ant-design-vue';
+
+/* @ts-expect-error 需要兼容旧版本 API*/
+import md5 from 'md5';
+import { defineStore } from 'pinia';
+import { createVNode } from 'vue';
 
 const [messageApi] = message.useMessage();
 const useLoginStore = defineStore('login', {

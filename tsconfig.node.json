@@ -20,5 +20,6 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true
     },
-    "include": ["./config/vite.config.*.ts"]
+    "include": ["./config/vite.config.*.ts","eslint.config.*"],
+    "extends": "@tsconfig/node22/tsconfig.json",
 }

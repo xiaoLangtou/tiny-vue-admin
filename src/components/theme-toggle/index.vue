@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Moon, Sun } from 'lucide-vue-next';
-import { useAppStore } from '@/store';
-import { ThemeType } from '@/store/module/app/types';
+import { useAppStore } from '@/store/module';
 import { isDark } from '@/store/module/app';
+import type { ThemeType } from '@/store/module/app/types';
+import { Moon, Sun } from 'lucide-vue-next';
 
 const appStore = useAppStore();
 const { theme } = storeToRefs(appStore);
@@ -16,22 +16,22 @@ const colorPrimary = computed(() => appStore.themeConfig.token?.colorPrimary);
  * - 过渡动画基于鼠标点击位置，若无点击事件则默认居中展开或收缩。
  *
  * @param event - 可选的鼠标事件，决定动画的起点位置。
- * @param _theme - 目标主题，可选值为 `'light'` 或 `'dark'`。
+ * @param themeType - 目标主题，可选值为 `'light'` 或 `'dark'`。
  */
-const toggleTheme = (event?: MouseEvent, _theme: ThemeType) => {
-    if (_theme === theme.value) return;
+const toggleTheme = (event: MouseEvent, themeType: ThemeType) => {
+    if (themeType === theme.value) return;
     if (!document.startViewTransition) {
-        appStore.toggleTheme(_theme);
+        appStore.toggleTheme(themeType);
         return;
     }
 
     const x = event?.clientX ?? innerWidth / 2;
     const y = event?.clientY ?? innerHeight / 2;
     const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-    const isEnteringDarkMode = _theme === 'dark';
+    const isEnteringDarkMode = themeType === 'dark';
 
     const transition = document.startViewTransition(() => {
-        appStore.toggleTheme(_theme);
+        appStore.toggleTheme(themeType);
         document.documentElement.classList.toggle('dark', isDark.value);
     });
 

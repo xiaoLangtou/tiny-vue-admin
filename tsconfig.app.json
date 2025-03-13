@@ -20,9 +20,9 @@
         "baseUrl": ".",
         // 基本路径是项目根目录
         "paths": {
-            "@/*": ["src/*"],
+            "@/*": ["./src/*"],
             // 明确指定路径别名
-            "@types/*": ["src/types/*"]
+            "@types/*": ["./src/types/*"]
             // 额外的类型别名，便于引用
         },
         "lib": [
@@ -58,10 +58,11 @@
         "src/types/*.d.ts",
         // 包括自定义类型声明
         "src/types/global.d.ts",
-        "src/vite-env.d.ts"
+        "src/env.d.ts"
     ],
     "exclude": [
         "node_modules"
         // 排除第三方依赖
-    ]
+    ],
+    "extends": "@vue/tsconfig/tsconfig.dom.json"
 }

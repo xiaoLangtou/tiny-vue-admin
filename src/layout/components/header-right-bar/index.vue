@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-03 17:06:41
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-08 15:51:00
+ * @LastEditTime: 2025-03-12 16:46:30
  * @FilePath: src/layout/components/header-right-bar/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -68,12 +68,11 @@
 <script setup lang="ts">
 import { ThemeToggle } from '@/components';
 import { Expand, LogOut, Settings, Shrink, User } from 'lucide-vue-next';
-import { useAppStore, useMenuStore } from '@/store/module';
+import { useAppStore } from '@/store/module';
 import FadeDown from '@/components/transition/fade-down.vue';
 import { h } from 'vue';
 
 const emit = defineEmits(['setting']);
-const menuStore = useMenuStore();
 const el = ref<HTMLElement | null>(null);
 const appStore = useAppStore();
 const colorPrimary = computed(() => appStore.themeConfig.token?.colorPrimary);

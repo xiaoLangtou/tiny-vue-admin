@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-27 23:49:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 14:17:16
+ * @LastEditTime: 2025-03-12 16:43:08
  * @FilePath: src/components/data-table/search-form/index.vue
  * @Description: 搜索表单
  -->
@@ -38,10 +38,10 @@
 </template>
 
 <script setup lang="ts">
-import { LucideChevronUp, ChevronDown } from 'lucide-vue-next';
-import { FormState, SearchField } from '@/composables/common/useSearchForm';
+import { ChevronDown, LucideChevronUp } from 'lucide-vue-next';
+import type { FormState, SearchField } from '@/composables/common/useSearchForm';
 
-const props = defineProps({
+defineProps({
     formState: {
         type: Object as PropType<FormState<SearchField[]>>,
         default: () => ({}),

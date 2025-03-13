@@ -1,4 +1,4 @@
-import { TableColumnProps, TablePaginationConfig } from 'ant-design-vue';
+import type { TableColumnProps, TablePaginationConfig } from 'ant-design-vue';
 
 export type ITableColumnProps = TableColumnProps & { search?: string };
 
@@ -17,6 +17,7 @@ export interface ITableProps {
     showFullscreen?: boolean;
     showSearch?: boolean;
     isFullscreen?: boolean;
+    showPagination?: boolean;
     addBtnText?: string;
     isToolbar?: boolean;
     controlsCustomRender?: ({ record }: { record: any }) => any | null;
@@ -31,16 +32,17 @@ export const useTableConfig = (config: ITableProps) => {
         isControls = true,
         controlsCustomRender = null,
         controlsWidth = 200,
-        showRefresh,
-        showColumnSetting,
-        showImport,
-        showExport,
-        showFullscreen,
-        showSearch,
-        isFullscreen,
-        addBtnText,
+        showRefresh = true,
+        showColumnSetting = true,
+        showImport = false,
+        showExport = false,
+        showFullscreen = true,
+        showSearch = true,
+        isFullscreen = true,
+        addBtnText = '新增',
         isToolbar = true,
         indexWidth = 80,
+        showPagination = true,
     } = config;
 
     const pagination = ref({
@@ -61,6 +63,7 @@ export const useTableConfig = (config: ITableProps) => {
             showSearch,
             addBtnText,
             isToolbar,
+            showPagination,
         };
     });
 
@@ -76,7 +79,7 @@ export const useTableConfig = (config: ITableProps) => {
                 dataIndex: 'index',
                 width: indexWidth,
                 align: 'center',
-                customRender: ({ index }: any) => {
+                customRender: ({ index }: { index: number }) => {
                     return index + 1;
                 },
             });
@@ -107,14 +110,12 @@ export const useTableConfig = (config: ITableProps) => {
         }
 
         cols.forEach((col) => {
+            col.key = (col.key ?? col.dataIndex) as string;
             if (col.ellipsis === undefined) {
                 col.ellipsis = true;
                 col.showSorterTooltip = true;
                 col.minWidth = 150;
             }
-        });
-
-        cols.forEach((col) => {
             if (col.search !== undefined && !['index', 'controls'].includes(col.key as string)) {
                 searchParams.value[col.search] = '';
             }

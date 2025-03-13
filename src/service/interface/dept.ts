@@ -1,11 +1,11 @@
-import { ServiceResult } from '@/service/request/config/handle';
-import { ResPage } from '@/service/interface/type';
+import type { ServiceResult } from '@/service/request/config/handle';
+import type { ResPage } from '@/service/interface/type';
 
 /**
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-09 15:26:18
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 15:26:52
+ * @LastEditTime: 2025-03-12 12:39:15
  * @FilePath: src/service/interface/dept.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */

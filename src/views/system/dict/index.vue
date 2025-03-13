@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 16:47:07
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 00:42:54
+ * @LastEditTime: 2025-03-12 17:21:53
  * @FilePath: src/views/system/dict/index.vue
  * @Description: 字典管理
  -->
@@ -12,7 +12,7 @@
             <!-- 左侧内容 -->
             <template #left>
                 <div class="w-full">
-                    <dict-type @current-row="handleCurrentRow"></dict-type>
+                    <DictType @current-row="handleCurrentRow"></DictType>
                 </div>
             </template>
 
@@ -27,15 +27,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { SplitPane } from '@/components';
-import { useAppStore } from '@/store';
-import DictType from '@/views/system/dict/component/dict-type.vue';
+
+import DictType from './component/dict-type.vue';
 import DictData from '@/views/system/dict/component/dict-data.vue';
-import { IDictType } from '@/service/interface/dict';
+import type { IDictType } from '@/service/interface/dict';
 
 const isCollapsed = ref(false);
 
 const dictType = ref({} as unknown as IDictType);
-const appStore = useAppStore();
 
 const handleCurrentRow = (row: IDictType) => {
     dictType.value = row;

@@ -2,7 +2,7 @@
  * @description 字典管理相关接口
  */
 import xltRequest from '@/service/request/alova';
-import { IDeptParams, TDeptListResult, IDept, TDeptPageListResult } from '@/service/interface/dept';
+import type { IDept, IDeptParams, TDeptListResult, TDeptPageListResult } from '@/service/interface/dept';
 
 /**
  * @description 获取部门列表

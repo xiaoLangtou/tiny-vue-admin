@@ -7,6 +7,7 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const TinyModal: typeof import('@opentiny/vue')['TinyModal']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -24,6 +25,7 @@ declare global {
   const createInjectionState: typeof import('@vueuse/core')['createInjectionState']
   const createPinia: typeof import('pinia')['createPinia']
   const createReactiveFn: typeof import('@vueuse/core')['createReactiveFn']
+  const createRef: typeof import('@vueuse/core')['createRef']
   const createReusableTemplate: typeof import('@vueuse/core')['createReusableTemplate']
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']

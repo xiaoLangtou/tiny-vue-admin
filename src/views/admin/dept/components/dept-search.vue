@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-09 11:55:18
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 16:18:49
+ * @LastEditTime: 2025-03-12 17:00:28
  * @FilePath: src/views/admin/dept/components/dept-search.vue
  * @Description: 部门搜索表单
  -->
@@ -38,7 +38,7 @@ defineOptions({
     name: 'DeptSearch',
 });
 
-const { formState, fields, handleSearch, handleReset } = useSearchForm(
+const { formState, handleSearch, handleReset } = useSearchForm(
     {
         fields: ['code', 'name', 'status'] as const,
     },

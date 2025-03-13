@@ -2,18 +2,18 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 16:58:53
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 00:42:54
+ * @LastEditTime: 2025-03-12 12:41:35
  * @FilePath: src/service/apis/dict.ts
  * @Description: 字典管理相关接口
  */
 
 import xltRequest from '@/service/request/alova';
-import {
-    TDictListResult,
-    IDictType,
-    TDictDetailResult,
-    TDictDataListResult,
+import type {
     IDictData,
+    IDictType,
+    TDictDataListResult,
+    TDictDetailResult,
+    TDictListResult,
 } from '@/service/interface/dict';
 
 /**

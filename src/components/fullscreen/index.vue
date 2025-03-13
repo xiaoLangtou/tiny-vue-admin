@@ -25,36 +25,35 @@
 import { h } from 'vue';
 import { Shrink } from 'lucide-vue-next';
 
-const props = defineProps({
+defineProps({
     isFullscreen: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    exitFullscreen: {
-        type: Function as PropType<() => void>,
-        default: () => {},
-    },
 });
+
+defineOptions({
+    name: 'FullscreenWrapper',
+});
+
+const emit = defineEmits(['exitFullscreen']);
+
+const exitFullscreen = () => {
+    emit('exitFullscreen');
+};
 </script>
 
 <style lang="scss" scoped>
-.fullscreen-fade-enter-active,
-.fullscreen-fade-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.fullscreen-fade-enter-from,
-.fullscreen-fade-leave-to {
-    opacity: 0;
-}
-
 .fullscreen-container {
     position: relative;
     width: 100%;
-    @apply bg-bg-container dark:bg-bg-darkContainer pl-3 pr-3;
+    height: 100%;
 }
 
 .exit-btn {
-    @apply w-full flex justify-end p-4;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
 }
 </style>

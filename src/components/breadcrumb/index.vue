@@ -4,12 +4,12 @@
             <ChevronRight :size="16"></ChevronRight>
         </template>
         <a-breadcrumb :routes="breadcrumbList" separator="">
-            <template #itemRender="{ route, paths }">
-                <span v-if="breadcrumbList.indexOf(route) === breadcrumbList.length - 1">
-                    {{ route.breadcrumbName }}
+            <template #itemRender="itemRender">
+                <span v-if="breadcrumbList.indexOf(itemRender.route) === breadcrumbList.length - 1">
+                    {{ formatterBreadcrumb(itemRender.route) }}
                 </span>
-                <router-link v-else :to="`/${paths[paths.length - 1]}`">
-                    {{ route.breadcrumbName }}
+                <router-link v-else :to="`/${itemRender.paths[itemRender.paths.length - 1]}`">
+                    {{ formatterBreadcrumb(itemRender.route) }}
                 </router-link>
             </template>
         </a-breadcrumb>
@@ -31,10 +31,15 @@ interface Route {
 }
 
 defineOptions({
-    name: 'Breadcrumb',
+    name: 'AppBreadcrumb',
 });
 
 // 假设 route 是一个全局变量或通过 props 传入的对象
+
+const formatterBreadcrumb = (broadcrumb: Route) => {
+    return broadcrumb.breadcrumbName ?? '未知页面';
+};
+
 const breadcrumbList = computed(() => {
     const matched = route.matched;
 
@@ -52,7 +57,7 @@ const breadcrumbList = computed(() => {
                 breadcrumbName: child.meta?.title ?? '未知子页面', // 提供默认值
             })),
         }));
-
+    console.log(breadcrumbItems);
     // 返回最终的面包屑列表，包括首页作为默认项
     return [defaultBreadcrumb, ...breadcrumbItems];
 });

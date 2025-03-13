@@ -4,7 +4,7 @@
         :title="dialogTitle"
         width="40%"
         :confirm-loading="submitLoading"
-        destroyOnClose
+        destroy-on-close
         @confirm="handleSave"
         @close="closeDialog"
     >
@@ -46,7 +46,7 @@ const dialogVisible = ref(false);
 const submitLoading = ref(false);
 
 const { createCustomRule, resetFields, validate, formData, formRef, defaultValue } = useAntdForm({
-    _formData: reactive({
+    _formData: ref({
         name: '',
         code: '',
         sortOrder: 0,
@@ -64,12 +64,12 @@ const rules = ref<Record<string, any>>({
 const openDialog = async (type = 'add', data: any = {}) => {
     dialogTitle.value = type === 'edit' ? '修改岗位' : '新增岗位';
     if (type === 'edit') {
-        formData.id = data.id;
-        formData.name = data.name;
-        formData.code = data.code;
-        formData.sortOrder = data.sortOrder;
-        formData.status = Number(data.status);
-        formData.description = data.description ?? '';
+        formData.value.id = data.id;
+        formData.value.name = data.name;
+        formData.value.code = data.code;
+        formData.value.sortOrder = data.sortOrder;
+        formData.value.status = Number(data.status);
+        formData.value.description = data.description ?? '';
     }
     dialogVisible.value = true;
 };
@@ -77,10 +77,10 @@ const openDialog = async (type = 'add', data: any = {}) => {
 const handleSave = async () => {
     submitLoading.value = true;
     await validate();
-    const saveURL = formData.id ? editPost : addPost;
+    const saveURL = formData.value.id ? editPost : addPost;
     await saveURL({
         ...formData,
-        sortOrder: Number(formData.sortOrder),
+        sortOrder: Number(formData.value.sortOrder),
     });
     message.success('保存成功');
     closeDialog();
@@ -89,8 +89,8 @@ const handleSave = async () => {
 
 const closeDialog = () => {
     resetFields();
-    Object.assign(formData, defaultValue);
-    formData.id = '';
+    Object.assign(formData.value, defaultValue);
+    formData.value.id = '';
     dialogVisible.value = false;
     emits('close');
 };

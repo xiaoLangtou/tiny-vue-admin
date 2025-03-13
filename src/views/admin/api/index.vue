@@ -6,6 +6,7 @@
                 <data-table
                     :data-source="[...tableData] as IApi[]"
                     v-bind="{ ...tableConfig, pagination, ...toolbarConfig }"
+                    show-pagination
                     @page-change="handlePageChange"
                 >
                     <template #toolbar-buttons>
@@ -13,7 +14,7 @@
                             v-auth="['role:synchronization:btn']"
                             type="primary"
                             class="flex items-center justify-center gap-1"
-                            :icon="CompassIcon({ size: 14 },{} as any)"
+                            :icon="CompassIcon({ size: 14 }, {} as any)"
                             @click="handleSynchronousApi"
                         >
                             同步API
@@ -21,14 +22,14 @@
                         <a-button
                             v-auth="['role:add:btn']"
                             class="flex items-center justify-center gap-1"
-                            :icon="RefreshCw({ size: 14 },{} as any)"
+                            :icon="RefreshCw({ size: 14 }, {} as any)"
                         >
                             刷新缓存
                         </a-button>
                         <a-button
                             v-auth="['role:add:btn']"
                             class="flex items-center justify-center gap-1"
-                            :icon="LucideBookmark({ size: 14 },{} as any)"
+                            :icon="LucideBookmark({ size: 14 }, {} as any)"
                         >
                             查看文档
                         </a-button>
@@ -42,11 +43,10 @@
 </template>
 
 <script lang="ts" setup>
-import { h } from 'vue';
 import { ApiSearch, ApiSynchronous } from './component';
-import { RefreshCw, CompassIcon, LucideBookmark } from 'lucide-vue-next';
+import { CompassIcon, LucideBookmark, RefreshCw } from 'lucide-vue-next';
 import { getApiList } from '@/service/apis/api';
-import { IApi, IApiParams } from '@/service/interface/api';
+import type { IApi, IApiParams } from '@/service/interface/api';
 import { useTableConfig } from '@/composables';
 import { usePagination } from 'alova/client';
 import { HTTP_METHOD, HttpMethodCN } from '@/global/enums';
@@ -92,7 +92,7 @@ const { tableConfig, pagination, toolbarConfig } = useTableConfig({
 });
 const apiSynchronousRef = useTemplateRef<typeof ApiSynchronous>('apiSynchronousRef');
 const { data: tableData, send } = usePagination(
-    (page, pageSize) =>
+    () =>
         getApiList({
             current: pagination.value.current,
             size: pagination.value.pageSize,

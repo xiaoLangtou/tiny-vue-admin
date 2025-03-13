@@ -1,9 +1,11 @@
+import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
+import type { ThemeType } from './types';
 import { defineStore } from 'pinia';
 import { theme as antdTheme } from 'ant-design-vue/es';
-import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
+
 import globalSetting from '@/global/setting';
-import type { ThemeType } from './types';
-import { lightThemeColors, darkThemeColors, menuDarkColors, menuLightColors } from './colors'; // 引入颜色配置
+
+import { darkThemeColors, lightThemeColors, menuDarkColors, menuLightColors } from './colors'; // 引入颜色配置
 
 // 定义主题类型接口
 export interface ILayoutSetting {

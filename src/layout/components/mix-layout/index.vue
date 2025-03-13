@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 14:32:22
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 12:53:48
+ * @LastEditTime: 2025-03-12 16:55:14
  * @FilePath: src/layout/components/mix-layout/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -37,8 +37,8 @@
             >
                 <suspense>
                     <Menu
-                        v-model:openKeys="menuOpenKeys"
-                        v-model:selectedKeys="menuSelectedKeys"
+                        v-model:open-keys="menuOpenKeys"
+                        v-model:selected-keys="menuSelectedKeys"
                         mode="inline"
                         class="!bg-transparent border-0"
                         :items="subMenuItems"
@@ -60,9 +60,13 @@ import Logo from '@/layout/components/logo/index.vue';
 import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
 import { LayoutPage } from '@/layout/components';
 import { useMenuStore } from '@/store/module';
-import { MenuOptions } from '@/service/interface/menu';
+import type { MenuOptions } from '@/service/interface/menu';
 import router from '@/router';
 import { useMenu } from '@/composables/business/useMenu';
+
+defineOptions({
+    name: 'MixLayout',
+});
 
 const emit = defineEmits(['setting']);
 
@@ -94,6 +98,7 @@ const handleTopMenu = (item: MenuOptions) => {
     } else {
         subMenuList.value = [];
         menuStore.setCollapsed({ isCollapsed: true });
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         item.path && router.push({ path: item.path });
     }
 };

@@ -38,6 +38,10 @@
 import { CSSProperties } from 'vue';
 import { X } from 'lucide-vue-next';
 
+defineOptions({
+    name: 'CustomModal',
+});
+
 defineProps({
     modalTitle: {
         type: String as PropType<string>,

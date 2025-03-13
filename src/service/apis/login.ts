@@ -2,15 +2,14 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 22:04:59
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-08 16:13:28
+ * @LastEditTime: 2025-03-12 12:41:35
  * @FilePath: src/service/apis/login.ts
  * @Description: 登录相关接口
  */
 import xltRequest from '@/service/request/alova';
-import { IAccount, ILoginResult, TUserInfoResult } from '@/service/interface/login';
-import { TMenuServiceResult } from '@/service/interface/menu';
-import exp from 'constants';
-import { ServiceResult } from '@/service/request/config/handle';
+import type { IAccount, ILoginResult, TUserInfoResult } from '@/service/interface/login';
+import type { TMenuServiceResult } from '@/service/interface/menu';
+import type { ServiceResult } from '@/service/request/config/handle';
 
 /**
  * @description 用户登录接口

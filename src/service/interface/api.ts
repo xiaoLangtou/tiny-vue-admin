@@ -1,6 +1,6 @@
 import { HTTP_METHOD } from '@/global/enums';
-import { ServiceResult } from '@/service/request/config/handle';
-import { ReqPage, ResPage } from '@/service/interface/type';
+import type { ServiceResult } from '@/service/request/config/handle';
+import type { ReqPage, ResPage } from '@/service/interface/type';
 
 export interface IApi {
     id?: number;

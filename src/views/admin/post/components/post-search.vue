@@ -26,7 +26,7 @@ import { useSearchForm } from '@/composables';
 
 const emit = defineEmits(['search', 'reset']);
 
-const { formState, fields, handleSearch, handleReset } = useSearchForm(
+const { formState, handleSearch, handleReset } = useSearchForm(
     {
         fields: ['name', 'code', 'status'] as const,
     },

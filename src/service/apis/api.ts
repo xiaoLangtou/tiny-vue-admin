@@ -2,12 +2,19 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-09 10:36:38
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 10:44:59
+ * @LastEditTime: 2025-03-12 12:41:35
  * @FilePath: src/service/apis/api.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 import xltRequest from '@/service/request/alova';
-import { TApiListResult, TApiDetailResult, IApi, TApiGroupResult, IApiParams, TApiSyncResult } from '../interface/api';
+import type {
+    IApi,
+    IApiParams,
+    TApiDetailResult,
+    TApiGroupResult,
+    TApiListResult,
+    TApiSyncResult,
+} from '../interface/api';
 
 /**
  * @description 获取列表

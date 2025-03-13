@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { IDictData } from '@/service/interface/dict';
+import type { IDictData } from '@/service/interface/dict';
 import { addDictData, updateDictData } from '@/service/apis/dict';
 import { useMessage } from '@/composables/common/useMessage';
 import { useAntdForm } from '@/composables';
@@ -46,7 +46,7 @@ const dialogTitle = ref('新增字典项');
 const activeAction = ref('add');
 const { message } = useMessage();
 
-const formData = reactive<IDictData>({
+const formData = ref<IDictData>({
     dictLabel: '',
     dictValue: '',
     dictType: '',
@@ -71,7 +71,7 @@ const dialogVisible = ref(false);
 const openDialog = (type = 'add', data = {}) => {
     dialogTitle.value = type === 'add' ? '新增字典项' : '修改字典项';
     activeAction.value = type;
-    Object.assign(formData, defaultValue, data);
+    Object.assign(formData.value, defaultValue, data);
 
     dialogVisible.value = true;
 };
@@ -80,17 +80,19 @@ const handleSave = async () => {
     try {
         await validate();
         const saveURL = activeAction.value === 'add' ? addDictData : updateDictData;
-        await saveURL(formData);
+        await saveURL(formData.value);
         message.success('保存成功');
         closeDialog();
         emits('close');
-    } catch (error) {}
+    } catch {
+        message.error('保存失败');
+    }
 };
 
 const closeDialog = () => {
-    Object.assign(formData, defaultValue);
+    Object.assign(formData.value, defaultValue);
     resetFields();
-    formData.id = undefined;
+    formData.value.id = undefined;
     dialogVisible.value = false;
     emits('close');
 };

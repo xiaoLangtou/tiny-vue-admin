@@ -1,15 +1,14 @@
 // 获取菜单列表
 import xltRequest from '@/service/request/alova';
-import { IMenu } from '../interface/menu';
-import { ServiceResult } from '@/service/request/config/handle';
-
+import type { IMenu } from '../interface/menu';
+import type { ServiceResult } from '@/service/request/config/handle';
 
 /**
  * @description 获取菜单列表
  * @param {string} name 菜单名称
  */
 export const getMenuTreeList = (name?: string) => {
-  return xltRequest.Get<any>("/menu/tree", { params: { name } });
+    return xltRequest.Get<any>('/menu/tree', { params: { name } });
 };
 
 /**
@@ -28,8 +27,8 @@ export const getMenuTreeList = (name?: string) => {
  * @param {number} params.sortOrder 排序
  * @returns
  */
-export const createMenu = (params:IMenu) => {
-  return xltRequest.Post("/menu/create", params);
+export const createMenu = (params: IMenu) => {
+    return xltRequest.Post('/menu/create', params);
 };
 
 /**
@@ -49,8 +48,8 @@ export const createMenu = (params:IMenu) => {
  * @param {number} params.sortOrder 排序
  * @returns
  */
-export const updateMenu = (params:IMenu) => {
-  return xltRequest.Post("/menu/update", params);
+export const updateMenu = (params: IMenu) => {
+    return xltRequest.Post('/menu/update', params);
 };
 
 /**
@@ -59,7 +58,7 @@ export const updateMenu = (params:IMenu) => {
  * @returns
  */
 export const deleteMenu = (id: number) => {
-  return xltRequest.Delete(`/menu/delete/${id}`);
+    return xltRequest.Delete(`/menu/delete/${id}`);
 };
 
 /**
@@ -68,5 +67,5 @@ export const deleteMenu = (id: number) => {
  * @returns
  */
 export const getMenuDetail = (id: number | undefined) => {
-  return xltRequest.Get<ServiceResult<IMenu>>(`/menu/detail/${id}`);
+    return xltRequest.Get<ServiceResult<IMenu>>(`/menu/detail/${id}`);
 };

@@ -105,8 +105,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Sun, Moon } from 'lucide-vue-next';
-import { useAppStore } from '@/store';
+import { useAppStore } from '@/store/module';
+import { Moon, Sun } from 'lucide-vue-next';
 
 defineOptions({
     name: 'SettingDrawer',

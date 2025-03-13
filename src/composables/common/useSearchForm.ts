@@ -1,4 +1,4 @@
-import { FormInstance } from 'ant-design-vue';
+import type { FormInstance } from 'ant-design-vue';
 import { ref, shallowReactive } from 'vue';
 
 // 定义字段类型，可以是字符串或对象
@@ -53,7 +53,7 @@ export function useSearchForm<T extends readonly SearchField[]>(
         formRef.value?.resetFields();
         Object.keys(formState).forEach((key) => {
             const field = fields.find((f) => (typeof f === 'string' ? f === key : f.name === key));
-            formState[key as keyof FormState<T>] = typeof field === 'string' ? '' : field?.defaultValue ?? '';
+            formState[key as keyof FormState<T>] = typeof field === 'string' ? '' : (field?.defaultValue ?? '');
         });
         emit('reset');
     };

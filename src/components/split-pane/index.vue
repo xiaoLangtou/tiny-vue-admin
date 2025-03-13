@@ -48,6 +48,10 @@
 <script lang="ts" setup>
 import { LucideChevronLeft, LucideChevronRight } from 'lucide-vue-next';
 
+defineOptions({
+    name: 'SplitPane',
+});
+
 /**
  * 组件属性定义
  */
@@ -56,8 +60,8 @@ const props = withDefaults(
         size?: string | number;
         minSize?: number;
         maxSize?: number;
-        customStyle?: any;
-        bodyStyle?: any;
+        customStyle?: Record<string, string>;
+        bodyStyle?: Record<string, string>;
         allowCollapse?: boolean;
         collapse?: boolean;
         vertical?: boolean;
@@ -68,6 +72,8 @@ const props = withDefaults(
         size: '20%',
         minSize: 200,
         maxSize: 800,
+        customStyle: () => ({}),
+        bodyStyle: () => ({}),
         allowCollapse: true,
         collapse: false,
         vertical: false,
@@ -83,7 +89,6 @@ const rootRef = ref<HTMLElement | null>(null);
 const sideRef = ref<HTMLElement | null>(null);
 
 // 状态管理
-// eslint-disable-next-line vue/no-setup-props-destructure
 const isCollapse = ref(props.collapse);
 const resizing = ref(false);
 const resizedSize = ref<string | null>(null);
@@ -104,8 +109,8 @@ const sideStyle = computed(() => ({
     [props.vertical ? 'height' : 'width']: isCollapse.value
         ? '0'
         : isMobile.value
-        ? '100%'
-        : resizedSize.value || normalizedSize.value,
+          ? '100%'
+          : resizedSize.value || normalizedSize.value,
     transition: 'all 0.5s ease',
     position: isMobile.value ? 'absolute' : 'relative',
     zIndex: isMobile.value ? 10 : 3,
@@ -183,7 +188,9 @@ onMounted(() => {
         flex: 1;
         background: var(--color-bg-1);
         overflow: hidden;
-        transition: transform 0.5s ease, width 0.5s ease;
+        transition:
+            transform 0.5s ease,
+            width 0.5s ease;
     }
 
     &__content {

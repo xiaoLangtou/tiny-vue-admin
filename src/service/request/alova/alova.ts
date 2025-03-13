@@ -2,20 +2,20 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2024-12-03 15:33:16
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 16:18:32
+ * @LastEditTime: 2025-03-12 17:45:53
  * @FilePath: src/service/request/alova/alova.ts
  * @Description: 配置 alova.js 实例
  */
 
+import { LOGIN_URL } from '@/global/constants';
+import { ResultEnum } from '@/global/enums';
+import router from '@/router';
+import { handleServiceResult } from '@/service/request/config/handle';
+import { useLoginStore } from '@/store/module';
 import { createAlova } from 'alova';
+import { createClientTokenAuthentication } from 'alova/client';
 import adapterFetch from 'alova/fetch';
 import VueHook from 'alova/vue';
-import { ResultEnum } from '@/global/enums';
-import { createClientTokenAuthentication } from 'alova/client';
-import { handleServiceResult } from '@/service/request/config/handle';
-import { useLoginStore } from '@/store';
-import router from '@/router';
-import { LOGIN_URL } from '@/global/constants';
 import { message } from 'ant-design-vue';
 
 // 基础 alova 配置
@@ -64,7 +64,6 @@ const alovaInstance = createAlova({
                     useLoginStore().setToken('');
                     message.error('服务器错误，请稍后重试');
                     await router.replace(LOGIN_URL);
-                    // eslint-disable-next-line prefer-promise-reject-errors
                     return Promise.reject('服务器错误');
                 }
 
@@ -73,9 +72,9 @@ const alovaInstance = createAlova({
                     const responseData = await responseClone.json();
                     message.error(responseData.message || '请求错误');
                     return Promise.reject(responseData.message || '接口错误');
-                } catch (err) {
+                } catch  {
                     message.error('解析错误');
-                    // eslint-disable-next-line prefer-promise-reject-errors
+
                     return Promise.reject('解析错误');
                 }
             }

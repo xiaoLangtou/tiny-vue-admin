@@ -76,12 +76,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
-import { useLoginStore } from '@/store';
-import { IAccount } from '@/service/interface/login';
+import type { IAccount } from '@/service/interface/login';
+import { useLoginStore } from '@/store/module';
+import { LockOutlined, UserOutlined } from '@ant-design/icons-vue';
 import type { Rule } from 'ant-design-vue/es/form';
-import { message } from 'ant-design-vue';
+import { reactive, ref } from 'vue';
 
 const loginStore = useLoginStore();
 const loginFormRef = ref();

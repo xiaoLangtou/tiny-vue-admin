@@ -2,15 +2,14 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 14:54:39
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-27 17:41:21
+ * @LastEditTime: 2025-03-12 17:45:53
  * @FilePath: src/router/guard/permission.ts
  * @Description: 登录状态校验
  */
-import type { LocationQueryRaw, Router } from 'vue-router';
-import NProgress from 'nprogress';
-
-import { useLoginStore } from '@/store';
+import { useLoginStore } from '@/store/module';
 import { message } from 'ant-design-vue';
+import NProgress from 'nprogress';
+import type { LocationQueryRaw, Router } from 'vue-router';
 
 const [messageApi] = message.useMessage();
 

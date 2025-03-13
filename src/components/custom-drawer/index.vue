@@ -10,10 +10,10 @@
         v-bind="drawerProps"
         :open="open"
         mask
-        destroyOnClose
-        mask-closable
+        :destroy-on-close="true"
+        :mask-closable="true"
         :get-container="getContainer"
-        :afterOpenChange="afterOpenChange"
+        :after-open-change="afterOpenChange"
         @close="handleClose"
     >
         <!-- 额外操作按钮 -->
@@ -47,7 +47,11 @@
 </template>
 
 <script setup lang="ts">
-import { DrawerProps } from 'ant-design-vue';
+import type { DrawerProps } from 'ant-design-vue';
+
+defineOptions({
+    name: 'CustomDrawer',
+});
 
 const props = withDefaults(defineProps<Props>(), {
     open: false,
@@ -63,24 +67,22 @@ const props = withDefaults(defineProps<Props>(), {
     getContainer: false,
 });
 
-const emit = defineEmits<
-    /** 抽屉打开后的回调 */
-    /** 更新open状态 */
-    /** 关闭抽屉时触发 */
-    /** 点击确认按钮时触发 */
-    /** 点击取消按钮时触发 */
-    (e: 'cancel' | 'confirm' | 'close' | 'update:open' | 'afterOpenChange', value?: boolean) => void
->();
+const emit = defineEmits<{
+    (e: 'cancel'): void;
+    (e: 'confirm'): void;
+    (e: 'close'): void;
+    (e: 'update:open', value: boolean): void;
+    (e: 'afterOpenChange', value: boolean): void;
+}>();
 
 // 定义插槽
 defineSlots<{
     /** 默认插槽，用于放置抽屉的主体内容 */
-    default: (props: { msg: string }) => any;
+    default: () => any;
     /** 额外操作按钮插槽，用于自定义右上角的操作按钮 */
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    extra: (props: { msg: string }) => any;
+    extra: () => any;
     /** 底部内容插槽，用于自定义抽屉底部内容 */
-    footer: (props: { msg: string }) => any;
+    footer: () => any;
 }>();
 
 interface Props extends Partial<DrawerProps> {
@@ -92,23 +94,19 @@ interface Props extends Partial<DrawerProps> {
     showConfirmButton?: boolean;
     /** 是否显示取消按钮 */
     showCancelButton?: boolean;
-
     /** 确认按钮文本 */
     confirmButtonText?: string;
-
     /** 取消按钮文本 */
     cancelButtonText?: string;
-
     /** 确认按钮图标 */
     confirmButtonIcon?: string;
-
     /** 取消按钮图标 */
     cancelButtonIcon?: string;
 }
 
 // 抽屉属性
 const drawerProps = computed(() => {
-    const { open, confirmLoading, showConfirmButton, showCancelButton, ...rest } = props;
+    const { ...rest } = props;
     return rest;
 });
 

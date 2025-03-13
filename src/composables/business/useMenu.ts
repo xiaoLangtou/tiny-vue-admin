@@ -1,8 +1,7 @@
-import { computed } from 'vue';
+import { computed, h } from 'vue';
 import { useMenuStore } from '@/store/module';
 import { useDeepClone } from '@/composables/common/useDeepClone';
-import { MenuOptions } from '@/service/interface/menu';
-import { h } from 'vue';
+import type { MenuOptions } from '@/service/interface/menu';
 import { IconView } from '@/components';
 import router from '@/router';
 
@@ -34,7 +33,6 @@ export function useMenu() {
 
     const rawMenuList = computed(() => useDeepClone(unref(menuStore.menuList)));
     const topMenuList = computed(() => useDeepClone(unref(menuStore.topMenuList)));
-    const subMenuList = computed(() => useDeepClone(unref(menuStore.subMenuList)));
 
     const filterRawMenuData = (data: MenuOptions[]) => {
         const menus: IMenuOptions[] = [];
@@ -51,7 +49,7 @@ export function useMenu() {
                 },
             };
             if (item.children?.length) {
-                let _children = filterRawMenuData(item.children);
+                const _children = filterRawMenuData(item.children);
                 _children.sort((a, b) => {
                     return a.meta.sortOrder - b.meta.sortOrder;
                 });

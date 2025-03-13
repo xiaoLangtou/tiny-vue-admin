@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 15:14:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 18:43:36
+ * @LastEditTime: 2025-03-12 17:09:59
  * @FilePath: src/views/admin/dept/index.vue
  * @Description: 部门管理
  -->
@@ -12,8 +12,7 @@
         <div class="xlt-container">
             <data-table
                 :data-source="tableData"
-                :show-pagination="false"
-                defaultExpandAllRows
+                default-expand-all-rows
                 v-bind="{ ...tableConfig, pagination, ...toolbarConfig }"
                 @add="handleAdd"
             ></data-table>
@@ -28,7 +27,7 @@ import DeptSearch from '@/views/admin/dept/components/dept-search.vue';
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons-vue';
 import { useTableConfig } from '@/composables';
 import { getDeptDetail, getDeptList, removeDept } from '@/service/apis/dept';
-import { IDept, IDeptParams } from '@/service/interface/dept';
+import type { IDept, IDeptParams } from '@/service/interface/dept';
 import { getDictDataObjByType } from '@/service/apis/dict';
 
 const tableData = ref<IDept[]>([]);
@@ -40,6 +39,7 @@ const deptTypeDict = ref<Record<string, any>>({});
 let searchForm = reactive<IDeptParams>({});
 
 const { tableConfig, toolbarConfig, pagination } = useTableConfig({
+    showPagination: false,
     columns: [
         { title: '机构名称', dataIndex: 'deptName', width: 200 },
         { title: '机构代码', dataIndex: 'deptCode' },
@@ -67,19 +67,19 @@ const { tableConfig, toolbarConfig, pagination } = useTableConfig({
             <div class="xlt-flex-center">
                 <a-button
                     type="link"
-                    class="xlt-btn gap-0"
+                    class="xlt-btn !gap-0"
                     icon={<PlusCircleOutlined />}
                     onClick={(event: MouseEvent) => handleAdd(event, record)}
                 >
                     新增下级
                 </a-button>
-                <a-button type="link" class="xlt-btn gap-0" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
+                <a-button type="link" class="xlt-btn !gap-0" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
                     编辑
                 </a-button>
                 <a-button
                     type="link"
                     danger
-                    class="xlt-btn gap-0"
+                    class="xlt-btn !gap-0"
                     icon={<DeleteOutlined />}
                     onClick={() => handleDelete(record)}
                 >
@@ -149,9 +149,3 @@ const handleClose = () => {
     initListData();
 };
 </script>
-
-<style scoped>
-.dialog-footer {
-    text-align: right;
-}
-</style>

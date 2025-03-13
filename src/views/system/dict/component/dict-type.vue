@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 16:54:16
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-06 14:40:11
+ * @LastEditTime: 2025-03-12 17:18:14
  * @FilePath: src/views/system/dict/component/dict-type.vue
  * @Description: 字典类型列表页
  -->
@@ -69,16 +69,14 @@
 </template>
 
 <script setup lang="ts">
-import { IDictType } from '@/service/interface/dict';
+import type { IDictType } from '@/service/interface/dict';
 import { getDictDetail, getDictList, removeDict } from '@/service/apis/dict';
-import { Search, Plus, Download, Edit, Trash2 } from 'lucide-vue-next';
-import { useMessage } from '@/composables/common/useMessage';
-import { useAppStore } from '@/store';
+import { Download, Edit, Plus, Search, Trash2 } from 'lucide-vue-next';
+import { useMessage } from '@/composables';
 import { useAntdToken } from '@/composables/common/useAntdToken';
 import DictTypeAdd from '@/views/system/dict/component/dict-type-add.vue';
 
 const emits = defineEmits(['currentRow']);
-const appStore = useAppStore();
 
 const dictList = ref<IDictType[]>([]);
 const dataObj = reactive({
@@ -100,7 +98,7 @@ const getList = async () => {
             activeId.value = '';
             emits('currentRow', null);
         }
-    } catch (error) {
+    } catch {
         message.error('获取字典列表失败');
     }
 };
@@ -109,7 +107,7 @@ const editItem = async (item: IDictType) => {
     try {
         const { data } = await getDictDetail(item.id);
         dictTypeAddRef.value?.openDialog('edit', data);
-    } catch (error) {
+    } catch {
         message.error('获取字典详情失败');
     }
 };
@@ -119,7 +117,7 @@ const deleteItem = async (item: IDictType) => {
         await removeDict(item.id);
         message.success('删除成功');
         await getList();
-    } catch (e) {
+    } catch {
         message.error('删除失败');
     }
 };

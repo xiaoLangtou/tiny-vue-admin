@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-09 11:55:18
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 15:31:05
+ * @LastEditTime: 2025-03-12 16:57:06
  * @FilePath: src/views/admin/api/component/api-search.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -41,12 +41,10 @@ import { HTTP_METHOD, HttpMethodCN } from '@/global/enums';
 
 const emit = defineEmits(['search', 'reset']);
 
-const { formState, fields, handleSearch, handleReset } = useSearchForm(
+const { formState, handleSearch, handleReset } = useSearchForm(
     {
         fields: ['path', 'method', 'tags', 'description'] as const,
     },
     emit,
 );
-
-console.log(formState);
 </script>

@@ -2,19 +2,24 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-07 13:44:15
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 10:30:07
+ * @LastEditTime: 2025-03-11 23:23:19
  * @FilePath: src/assets/styles/ant.scss
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 
 .ant-menu-light.ant-menu-root.ant-menu-vertical {
-    border-inline-end: none!important;
+    border-inline-end: none !important;
 }
 
-.ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline{
+.ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline {
     border-radius: theme("borderRadius.md");
 }
 
-.ant-table-row  .ant-table-cell-fix-right {
+.ant-table-row .ant-table-cell-fix-right {
     @apply dark:bg-bg-darkLayout
+}
+
+
+.xlt-flex-center .ant-btn-link {
+    @apply pr-1 pl-1;
 }

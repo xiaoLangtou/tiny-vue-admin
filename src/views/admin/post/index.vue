@@ -16,7 +16,7 @@
                             </a-tag>
                         </template>
                         <template v-if="column.key === 'controls'">
-                            <a-space>
+                            <div class="xlt-flex-center">
                                 <a-button
                                     v-auth="['user:reset:btn']"
                                     class="xlt-btn !gap-0"
@@ -52,7 +52,7 @@
                                     </template>
                                     删除
                                 </a-button>
-                            </a-space>
+                            </div>
                         </template>
                     </template>
                 </data-table>
@@ -63,13 +63,14 @@
 </template>
 
 <script lang="ts" setup>
-import { message } from 'ant-design-vue';
 import { changePostStatus, deletePost, getPostDetail, getPostList } from '@/service/apis/post';
-import { IPost, IPostParams } from '@/service/interface/post';
+import type { IPost, IPostParams } from '@/service/interface/post';
 import { usePagination } from 'alova/client';
 import { DeleteOutlined, EditOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons-vue';
-import { useTableConfig } from '@/composables';
+import { useMessage, useTableConfig } from '@/composables';
 import PostSearch from '@/views/admin/post/components/post-search.vue';
+
+const { message } = useMessage();
 
 const PostAdd = defineAsyncComponent(() => import('./components/add.vue'));
 const postAddRef = useTemplateRef<typeof PostAdd>('postAddRef');
@@ -124,7 +125,9 @@ const handleEdit = async (row: IPost) => {
         if (!row.id) return;
         const { data } = await getPostDetail(row.id);
         postAddRef.value?.openDialog('edit', data);
-    } catch (e) {}
+    } catch {
+        message.error('获取岗位详情失败');
+    }
 };
 
 const handleDelete = async (row: IPost) => {
@@ -133,7 +136,9 @@ const handleDelete = async (row: IPost) => {
         await deletePost(row.id);
         message.success('删除成功');
         await send();
-    } catch (e) {}
+    } catch {
+        message.error('删除失败');
+    }
 };
 
 const handlePageChange = ({ current, size }: { current: number; size: number }) => {
@@ -153,7 +158,7 @@ const handleSwitchChange = async (row: IPost) => {
         await changePostStatus(row.id, isEnable);
         message.success(isEnable ? '启用成功' : '停用成功');
         await send();
-    } catch (e) {
+    } catch {
         row.status = !row.status;
     }
 };

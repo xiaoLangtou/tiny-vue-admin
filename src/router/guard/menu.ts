@@ -2,27 +2,43 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 16:28:30
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-08 16:31:48
+ * @LastEditTime: 2025-03-13 10:53:56
  * @FilePath: src/router/guard/menu.ts
  * @Description: 菜单路由守卫
  */
 
-import type { Router, RouteRecordRaw } from 'vue-router';
-// @ts-ignore
-import NProgress from 'nprogress';
+import type { MenuOptions } from '@/service/interface/menu';
 import { useMenuStore } from '@/store/module';
-import { MenuOptions } from '@/service/interface/menu';
+import NProgress from 'nprogress';
+import type { RouteLocationNormalized, Router, RouteRecordRaw } from 'vue-router';
 
 // 导入当前项目中views下的所有路由文件
-const views = import.meta.glob('../../views/**/*.vue');
+interface VueModule {
+    default: any;
+    [key: string]: any;
+}
 
+const context = import.meta.webpackContext("/src/views/", {
+    recursive: true,
+    regExp: /\.vue$/,
+    mode: "lazy",
+    chunkName: "views/[request]",
+    prefetch: true
+});
+
+
+const views: Record<string, any> = {};
+for (const path of context.keys()) {
+    const modulePath = path.replace("./", "/src/views/");
+    views[modulePath] = () => (context(path) as Promise<VueModule>).then(module => module?.default || module);
+}
 const toRoutes = (menus: MenuOptions[]) => {
-    const router: RouteRecordRaw[] = [];
+    const routes: RouteRecordRaw[] = [];
     menus.forEach((menu) => {
         const path = menu.component
-            ? `../../views${menu.component}${menu.component.includes('.vue') ? '' : '.vue'}`
+            ? `/src/views${menu.component}${menu.component.includes('.vue') ? '' : '.vue'}`
             : '';
-        router.push({
+        routes.push({
             name: menu.name,
             path: menu.path,
             component: views[path] ?? '',
@@ -35,7 +51,13 @@ const toRoutes = (menus: MenuOptions[]) => {
         });
     });
 
-    return router;
+    return routes;
+};
+
+const setDocumentTitle = (router: Router, to: RouteLocationNormalized) => {
+    const route = router.getRoutes().find((item) => item.path === to.path);
+    const appTitle = import.meta.env.VITE_GLOB_APP_TITLE;
+    useTitle(`${route?.meta?.title} - ${appTitle}`);
 };
 
 export const setupMenuGuard = (router: Router) => {
@@ -70,11 +92,11 @@ export const setupMenuGuard = (router: Router) => {
         const routes = toRoutes(data);
         routes.forEach((route: RouteRecordRaw) => {
             if (route.name && !router.hasRoute(route.name)) {
+                console.log('addRoute', route);
                 router.addRoute('root', route);
             }
         });
-        console.log(routes);
-
+        setDocumentTitle(router, to);
         next({ ...to, replace: true });
         NProgress.done();
     });

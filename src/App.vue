@@ -9,14 +9,13 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useAppStore } from '@/store';
+import { useAppStore } from '@/store/module';
 import { isDark } from '@/store/module/app';
-import Loading from '@/components/loading/index.vue';
 import enUS from 'ant-design-vue/es/locale/en_US';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 
 const appStore = useAppStore();
-const { themeConfig, theme } = storeToRefs(appStore);
+const { themeConfig } = storeToRefs(appStore);
 const loading = ref(true);
 
 const locale = ref(zhCN.locale);

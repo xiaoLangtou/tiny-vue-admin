@@ -2,23 +2,23 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-07 09:08:59
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 18:51:14
+ * @LastEditTime: 2025-03-12 13:49:14
  * @FilePath: src/composables/common/useAntdForm.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
-import { FormInstance } from 'ant-design-vue';
+import type { FormInstance } from 'ant-design-vue';
 import { useFormRules } from '@/composables';
-import { Reactive } from 'vue';
 
-export function useAntdForm<T>({ _formData }: { _formData: Reactive<T> }) {
+export function useAntdForm<T>({ _formData }: { _formData: Ref<T> }) {
     const formRef = ref<FormInstance | null>(null);
-    const defaultValue = JSON.parse(JSON.stringify(_formData));
+    const defaultValue = JSON.parse(JSON.stringify(_formData.value));
     const { createCustomRule, createRequiredRule, combineRules } = useFormRules();
     const validate = async () => {
         await formRef.value?.validate();
     };
 
     const resetFields = () => {
+        _formData.value = defaultValue;
         formRef.value?.resetFields(); // 重置表单
     };
 

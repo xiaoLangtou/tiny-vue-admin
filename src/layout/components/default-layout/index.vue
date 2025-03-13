@@ -26,8 +26,8 @@
                         <div class="aside-menu overflow-y-auto flex-1 p-2">
                             <user-info></user-info>
                             <Menu
-                                v-model:openKeys="menuOpenKeys"
-                                v-model:selectedKeys="menuSelectedKeys"
+                                v-model:open-keys="menuOpenKeys"
+                                v-model:selected-keys="menuSelectedKeys"
                                 :items="menuItems"
                             ></Menu>
                         </div>
@@ -78,17 +78,15 @@
 </template>
 
 <script lang="ts" setup>
+import { BackInOutLeft, Breadcrumb } from '@/components';
+import { useMenu } from '@/composables/business/useMenu';
+import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
+import Logo from '@/layout/components/logo/index.vue';
+import { useLoginStore, useMenuStore } from '@/store/module';
+import { LogOut, PanelTopClose, PanelTopOpen } from 'lucide-vue-next';
 // 初始化默认主题
 import { LayoutPage } from '../index';
-import { useMenuStore } from '@/store/module';
-import { ArrowLeft, CircleHelp, PanelTopClose, PanelTopOpen } from 'lucide-vue-next';
-import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
-import { BackInOutLeft, Breadcrumb } from '@/components';
-import Logo from '@/layout/components/logo/index.vue';
-import { useMenu } from '@/composables/business/useMenu';
 import UserInfo from './user-info.vue';
-import { LogOut } from 'lucide-vue-next';
-import { useLoginStore } from '@/store';
 
 const emit = defineEmits(['setting']);
 const menuStore = useMenuStore();

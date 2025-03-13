@@ -6,7 +6,7 @@
             <a-button type="primary" @click="handleConfirm">确定</a-button>
         </template>
 
-        <a-tabs v-model:activeKey="activeKey">
+        <a-tabs v-model:active-key="activeKey">
             <a-tab-pane key="base" tab="列设置">
                 <a-alert message="可以调整列的显示、隐藏和固定状态" type="info" show-icon class="mb-4" />
 
@@ -70,10 +70,8 @@
 </template>
 
 <script setup lang="ts">
+import { AlignEndVertical, AlignStartVertical, EyeIcon, EyeOffIcon, Pin } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
-import { EyeIcon, EyeOffIcon } from 'lucide-vue-next';
-
-import { Pin, AlignStartVertical, AlignEndVertical } from 'lucide-vue-next';
 
 const props = defineProps({
     columns: {

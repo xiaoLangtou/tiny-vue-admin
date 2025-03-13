@@ -34,20 +34,16 @@
 </template>
 
 <script setup lang="tsx">
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
-import DictDataAdd from './dict-data-add.vue';
-import { IDictData, IDictType } from '@/service/interface/dict';
-import { getDictDataList, removeDictData } from '@/service/apis/dict';
-import { message, Button, Popconfirm } from 'ant-design-vue';
-import FadeDown from '@/components/transition/fade-down.vue';
 import { useTableConfig } from '@/composables/common/useTable';
+import { getDictDataList, removeDictData } from '@/service/apis/dict';
+import type { IDictData, IDictType } from '@/service/interface/dict';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
+import { Button, message, Popconfirm } from 'ant-design-vue';
+import DictDataAdd from './dict-data-add.vue';
 
 const props = defineProps<{ dictType: IDictType }>();
 const tableData = ref<IDictData[]>([]);
 const addDialog = ref();
-const loading = ref(false);
-
-const showSearchForm = ref(true);
 
 const { tableConfig, toolbarConfig, pagination } = useTableConfig({
     columns: [
@@ -120,7 +116,7 @@ const handleDelete = async (record: IDictData) => {
         await removeDictData(record.id);
         message.success('删除成功');
         await getList();
-    } catch (error) {
+    } catch {
         message.error('删除失败');
     }
 };

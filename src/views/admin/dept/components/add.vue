@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-09 11:55:18
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 18:52:13
+ * @LastEditTime: 2025-03-11 23:11:43
  * @FilePath: src/views/admin/dept/components/add.vue
  * @Description: 部门新增/编辑表单
  -->
@@ -124,7 +124,7 @@ const deptTypeDict = ref<IDictData[]>([]);
 const submitLoading = ref(false);
 
 const { resetFields, validate, createCustomRule, formRef, formData, defaultValue } = useAntdForm<IDept>({
-    _formData: reactive<IDept>({
+    _formData: ref<IDept>({
         address: '',
         deptCode: '',
         deptName: '',
@@ -156,7 +156,7 @@ const openDialog = async (type = 'add', deptItem: any = {}) => {
     dialogTitle.value = type === 'edit' ? '修改部门' : '新增部门';
     resetFields();
     if (type === 'edit') {
-        Object.assign(formData, {
+        Object.assign(formData.value, {
             id: deptItem.id,
             parentId: deptItem.parentId === -1 ? undefined : deptItem.parentId,
             deptName: deptItem.deptName,
@@ -177,7 +177,7 @@ const openDialog = async (type = 'add', deptItem: any = {}) => {
         }
     } else {
         const { data } = await getDeptConst();
-        Object.assign(formData, {
+        Object.assign(formData.value, {
             deptCode: data?.deptCode || '',
             orderNum: data?.orderNum || 0,
             parentId: deptItem.parentId || undefined,
@@ -206,8 +206,8 @@ const handleSave = async () => {
     try {
         submitLoading.value = true;
         await validate();
-        const saveURL = formData.id ? updateDept : addDept;
-        await saveURL(formData);
+        const saveURL = formData.value.id ? updateDept : addDept;
+        await saveURL(formData.value);
         message.success('保存成功');
         closeDialog();
     } catch (e) {
@@ -218,9 +218,9 @@ const handleSave = async () => {
 };
 
 const closeDialog = () => {
-    Object.assign(formData, defaultValue);
-    formData.id = undefined;
-    formData.parentId = undefined;
+    Object.assign(formData.value, defaultValue);
+    formData.value.id = undefined;
+    formData.value.parentId = undefined;
     resetFields();
     dialogVisible.value = false;
     emits('close');

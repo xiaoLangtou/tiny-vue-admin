@@ -2,7 +2,7 @@
  * @description 部门管理相关接口
  */
 import xltRequest from '@/service/request/alova';
-import { IPost, IPostParams, TPostDetailResult, TPostListResult } from '@/service/interface/post';
+import type { IPost, IPostParams, TPostDetailResult, TPostListResult } from '@/service/interface/post';
 
 /**
  * @description 获取岗位列表

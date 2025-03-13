@@ -4,7 +4,7 @@ import { GLOBAl_STORAGE_PREFIX } from '@/global/constants';
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-18 15:22:21
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-02-22 13:51:43
+ * @LastEditTime: 2025-03-13 17:28:08
  * @FilePath: src/utils/storage.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -70,7 +70,6 @@ export class StorageUtil {
         const fullKey = StorageUtil.getKey(key);
         const storage = StorageUtil.getStorage(useSession);
         const data = storage.getItem(fullKey);
-        console.log(data);
         if (!data) {
             return null;
         }
