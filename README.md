@@ -8,8 +8,8 @@
 
 ### 环境要求
 
--   Node.js（建议 v18 及以上）
--   npm 或 yarn
+- Node.js（建议 v18 及以上）
+- npm 或 yarn
 
 ### 安装依赖
 
@@ -45,29 +45,29 @@ npm run format
 
 ### 依赖项
 
--   @opentiny/vue: Tiny Vue 组件库
--   vue: 渐进式 JavaScript 框架
--   pinia: 状态管理库
--   vue-router: Vue 路由库
--   axios: 基于 Promise 的 HTTP 客户端
--   nprogress: 加载进度条
--   tailwindcss: 功能齐全的 CSS 框架
--   vite: 构建工具和开发服务器
--   prettier: 代码格式化工具
--   eslint: JavaScript 和 Vue 文件的代码检查工具
+- @opentiny/vue: Tiny Vue 组件库
+- vue: 渐进式 JavaScript 框架
+- pinia: 状态管理库
+- vue-router: Vue 路由库
+- axios: 基于 Promise 的 HTTP 客户端
+- nprogress: 加载进度条
+- tailwindcss: 功能齐全的 CSS 框架
+- vite: 构建工具和开发服务器
+- prettier: 代码格式化工具
+- eslint: JavaScript 和 Vue 文件的代码检查工具
 
 ### 开发工具
 
--   Husky: Git 钩子，用于强制执行提交消息格式检查
--   Commitizen: 用于生成一致的提交消息
--   Vite: 快速热更新的开发构建工具
--   Pinia Plugin PersistedState: 持久化 Pinia 状态，使页面重载后数据仍然保留
+- Husky: Git 钩子，用于强制执行提交消息格式检查
+- Commitizen: 用于生成一致的提交消息
+- Vite: 快速热更新的开发构建工具
+- Pinia Plugin PersistedState: 持久化 Pinia 状态，使页面重载后数据仍然保留
 
 ### 代码风格与提交信息
 
--   我们使用 Prettier 进行代码格式化，使用 ESLint 进行代码检查。
--   提交信息 应遵循 Conventional Commits 标准。使用 Commitizen 简化提交消息的格式。
--   commitlint 钩子会确保提交信息符合标准格式。
+- 我们使用 Prettier 进行代码格式化，使用 ESLint 进行代码检查。
+- 提交信息 应遵循 Conventional Commits 标准。使用 Commitizen 简化提交消息的格式。
+- commitlint 钩子会确保提交信息符合标准格式。
 
 ### 文件资源目录
 

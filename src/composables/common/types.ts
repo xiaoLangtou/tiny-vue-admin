@@ -8,4 +8,4 @@
  */
 
 export type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
-export type MessageType = "" | "success" | "warning" | "info" | "error";
+export type MessageType = '' | 'success' | 'warning' | 'info' | 'error';

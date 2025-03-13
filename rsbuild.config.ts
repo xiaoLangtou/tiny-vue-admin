@@ -24,7 +24,7 @@ export default defineConfig(() => {
     // 将环境变量的值转换并注入到项目中
     const __APP_ENV__ = wrapperEnv(publicVars);
     const { rspackPlugins, rsbuildPlugins } = createPluginsTs();
-    
+
     return {
         source: {
             entry: {

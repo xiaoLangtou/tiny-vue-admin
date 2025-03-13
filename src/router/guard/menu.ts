@@ -18,19 +18,18 @@ interface VueModule {
     [key: string]: any;
 }
 
-const context = import.meta.webpackContext("/src/views/", {
+const context = import.meta.webpackContext('/src/views/', {
     recursive: true,
     regExp: /\.vue$/,
-    mode: "lazy",
-    chunkName: "views/[request]",
-    prefetch: true
+    mode: 'lazy',
+    chunkName: 'views/[request]',
+    prefetch: true,
 });
-
 
 const views: Record<string, any> = {};
 for (const path of context.keys()) {
-    const modulePath = path.replace("./", "/src/views/");
-    views[modulePath] = () => (context(path) as Promise<VueModule>).then(module => module?.default || module);
+    const modulePath = path.replace('./', '/src/views/');
+    views[modulePath] = () => (context(path) as Promise<VueModule>).then((module) => module?.default || module);
 }
 const toRoutes = (menus: MenuOptions[]) => {
     const routes: RouteRecordRaw[] = [];

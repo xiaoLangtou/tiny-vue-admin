@@ -42,7 +42,7 @@ export enum ContentTypeEnum {
     FORM_DATA = 'multipart/form-data;charset=UTF-8',
 }
 
-export const FROZEN_STATUS:Record<string, string> = {
+export const FROZEN_STATUS: Record<string, string> = {
     NORMAL: '启用',
     FROZEN: '禁用',
 };

@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-
 const props = defineProps({
     // 面包屑高度
     breadcrumbHeight: {

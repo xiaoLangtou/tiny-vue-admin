@@ -39,10 +39,10 @@ defineOptions({
 
 const iconModel = defineModel<string>({ default: '' });
 const activeIcon = computed({
-    get: () => iconModel.value ? iconModel.value.replace('Lucide-', '') : undefined,
+    get: () => (iconModel.value ? iconModel.value.replace('Lucide-', '') : undefined),
     set: (value) => {
         iconModel.value = value ? `Lucide-${value}` : '';
-    }
+    },
 });
 const loading = ref(false);
 

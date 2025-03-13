@@ -72,7 +72,7 @@ const alovaInstance = createAlova({
                     const responseData = await responseClone.json();
                     message.error(responseData.message || '请求错误');
                     return Promise.reject(responseData.message || '接口错误');
-                } catch  {
+                } catch {
                     message.error('解析错误');
 
                     return Promise.reject('解析错误');

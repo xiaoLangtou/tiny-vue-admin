@@ -15,7 +15,7 @@ import type { IUser, IUserParams, TUserListResult } from '@/service/interface/us
  * @returns
  */
 export const getUserList = (params?: IUserParams) => {
-  return xltRequest.Get<TUserListResult>("/user/list", { params: { ...params } });
+    return xltRequest.Get<TUserListResult>('/user/list', { params: { ...params } });
 };
 
 /**
@@ -23,7 +23,7 @@ export const getUserList = (params?: IUserParams) => {
  * @param {number} id 用户id
  */
 export const getUserDetail = (id: number) => {
-  return xltRequest.Get<any>(`/user/detail/${id}`);
+    return xltRequest.Get<any>(`/user/detail/${id}`);
 };
 
 /**
@@ -44,7 +44,7 @@ export const getUserDetail = (id: number) => {
  * @returns
  */
 export const addUser = (data: IUser) => {
-  return xltRequest.Post("/user/add", data);
+    return xltRequest.Post('/user/add', data);
 };
 
 /**
@@ -66,7 +66,7 @@ export const addUser = (data: IUser) => {
  * @returns
  */
 export const editUser = (data: IUser) => {
-  return xltRequest.Post("/user/edit", data);
+    return xltRequest.Post('/user/edit', data);
 };
 
 /**
@@ -76,7 +76,7 @@ export const editUser = (data: IUser) => {
  * @returns
  */
 export const deleteUser = (id: number) => {
-  return xltRequest.Delete(`/user/remove/${id}`);
+    return xltRequest.Delete(`/user/remove/${id}`);
 };
 
 /**
@@ -87,7 +87,7 @@ export const deleteUser = (id: number) => {
  * @returns
  */
 export const changeUserStatus = (data: { id: number; status: string }) => {
-  return xltRequest.Put(`/user/status`, { id: data.id, status: data.status });
+    return xltRequest.Put(`/user/status`, { id: data.id, status: data.status });
 };
 
 /**
@@ -105,7 +105,7 @@ export const changeUserStatus = (data: { id: number; status: string }) => {
  * @returns
  */
 export const getUsersByRoleId = (params: IUserParams) => {
-  return xltRequest.Get<any>("/user/role/list", { params: { ...params } });
+    return xltRequest.Get<any>('/user/role/list', { params: { ...params } });
 };
 
 /**
@@ -113,5 +113,5 @@ export const getUsersByRoleId = (params: IUserParams) => {
  * @param data
  */
 export const resetPassword = (data: { ids: number[] }) => {
-  return xltRequest.Put("/user/reset/password", data);
+    return xltRequest.Put('/user/reset/password', data);
 };

@@ -12,7 +12,7 @@
         <div v-if="isFullscreen" class="exit-btn">
             <a-button
                 class="flex justify-center items-center"
-                :icon="h(Shrink({size:18}, {} as any))"
+                :icon="h(Shrink({ size: 18 }, {} as any))"
                 @click="exitFullscreen"
             ></a-button>
         </div>
