@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-17 21:44:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-13 00:10:55
+ * @LastEditTime: 2025-03-14 00:44:27
  * @FilePath: src/router/static-route.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -18,7 +18,16 @@ const staticRoutes: RouteRecordRaw[] = [
         name: 'root',
         path: '/dashboard',
         component: Layout,
-        children: [],
+        children: [
+            {
+                name: 'dashboard',
+                path: '',
+                component: () => import('@/views/dashboard/index.vue'),
+                meta: {
+                    title: '工作台',
+                },
+            },
+        ],
     },
     {
         path: '/login',

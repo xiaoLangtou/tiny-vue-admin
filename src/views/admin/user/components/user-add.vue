@@ -108,16 +108,16 @@
 </template>
 
 <script setup lang="ts">
+import CustomDrawer from '@/components/custom-drawer/index.vue';
+import { useAntdForm, useMessage } from '@/composables';
+import { SEX_STATUS } from '@/global/enums';
+import { getDeptTree } from '@/service/apis/dept';
+import { getPostList } from '@/service/apis/post';
+import { addUser, editUser } from '@/service/apis/user';
 import type { IDept } from '@/service/interface/dept';
 import type { IPost } from '@/service/interface/post';
 import type { IRole } from '@/service/interface/role';
 import type { IUser } from '@/service/interface/user';
-import { getDeptTree } from '@/service/apis/dept';
-import { SEX_STATUS } from '@/global/enums';
-import { addUser, editUser } from '@/service/apis/user';
-import { getPostList } from '@/service/apis/post';
-import CustomDrawer from '@/components/custom-drawer/index.vue';
-import { useAntdForm, useMessage } from '@/composables';
 
 defineOptions({
     name: 'UserAdd',
@@ -143,7 +143,7 @@ const { formData, createCustomRule, formRef, validate, resetFields, defaultValue
 const submitLoading = ref(false);
 
 const rules = {
-    deptId: [createCustomRule({ message: '请选择归属部门' })],
+    deptId: [createCustomRule({ message: '请选择归属部门', type: 'number', trigger: 'change' })],
     username: [createCustomRule({ message: '请输入用户名' })],
     nickname: [createCustomRule({ message: '请输入用户昵称' })],
     email: [createCustomRule({ type: 'email', message: '请输入正确的邮箱地址' })],

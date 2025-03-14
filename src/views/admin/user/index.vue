@@ -48,9 +48,7 @@
 
                     <template #bodyCell="{ column, record }">
                         <template v-if="column.key === 'status'">
-                            <a-tag :color="record.status ? 'processing' : 'default'">
-                                {{ FROZEN_STATUS[record.status] }}
-                            </a-tag>
+                            <status-tag :value="record.status"></status-tag>
                         </template>
                         <template v-if="column.key === 'controls'">
                             <div class="xlt-flex-center">
@@ -124,7 +122,6 @@
 <script lang="ts" setup>
 import { SplitPane } from '@/components';
 import { useModalMessage, useTableConfig } from '@/composables';
-import { FROZEN_STATUS } from '@/global/enums';
 import { changeUserStatus, deleteUser, getUserDetail, getUserList, resetPassword } from '@/service/apis/user';
 import type { IUser, IUserParams } from '@/service/interface/user';
 import { DeleteOutlined, EditOutlined, SyncOutlined } from '@ant-design/icons-vue';
@@ -162,7 +159,7 @@ const { toolbarConfig, tableConfig, pagination } = useTableConfig({
         { dataIndex: 'email', title: '电子邮箱', width: 150 },
         { dataIndex: 'phone', title: '手机号', width: 150 },
     ],
-    controlsWidth: 280,
+    controlsWidth: 340,
 });
 
 const {

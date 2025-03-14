@@ -1,11 +1,4 @@
-/**
- * @Author: weipc 755197142@qq.com
- * @Date: 2025-02-23 13:29:01
- * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-03 10:31:31
- * @FilePath: src/components/index.ts
- * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
- */
+export { default as StatusTag } from './status-tag/index.vue';
 export { default as Menu } from './menu/index.vue';
 export { default as ThemeToggle } from './theme-toggle/index.vue';
 export { default as IconView } from './icon-view/index.vue';

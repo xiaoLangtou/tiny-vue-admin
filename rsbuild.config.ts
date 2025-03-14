@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2024-12-05 10:47:02
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-13 16:48:16
+ * @LastEditTime: 2025-03-14 10:17:25
  * @FilePath: rsbuild.config.ts
  * @Description: https://rsbuild.dev/zh/guide/start/index
  */
@@ -56,41 +56,47 @@ export default defineConfig(() => {
             assetPrefix: process.env.VITE_PUBLIC_PATH,
             liveReload: false,
         },
-        // output: {
-        //     polyfill: 'off',
-        //     target: 'web', // 默认 environment
-        //     minify: true,
-        //     sourceMap: true,
-        //     assetPrefix: process.env.VITE_PUBLIC_PATH,
-        //     dataUriLimit: {
-        //         image: 5000,
-        //         media: 0,
-        //     },
-        // },
+        output: {
+            target: 'web', // 默认 environment
+            minify: false,
+            sourceMap: {
+                js:
+                    process.env.NODE_ENV === 'production'
+                        ? // 生产模式使用高质量的 source map 格式
+                          'source-map'
+                        : // 开发模式使用性能更好的 source map 格式
+                          'source-map',
+            },
+            assetPrefix: process.env.VITE_PUBLIC_PATH,
+            dataUriLimit: {
+                image: 5000,
+                media: 0,
+            },
+        },
         tools: {
             rspack: (config, { appendPlugins }) => {
                 appendPlugins(rspackPlugins);
             },
         },
-        optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    vendors: {
-                        name: 'vendors',
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: -10,
-                        chunks: 'initial',
-                    },
-                    common: {
-                        name: 'common',
-                        minChunks: 2,
-                        priority: -20,
-                        chunks: 'initial',
-                        reuseExistingChunk: true,
-                    },
-                },
-            },
-        },
+        // optimization: {
+        //     splitChunks: {
+        //         cacheGroups: {
+        //             vendors: {
+        //                 name: 'vendors',
+        //                 test: /[\\/]node_modules[\\/]/,
+        //                 priority: -10,
+        //                 chunks: 'initial',
+        //             },
+        //             common: {
+        //                 name: 'common',
+        //                 minChunks: 2,
+        //                 priority: -20,
+        //                 chunks: 'initial',
+        //                 reuseExistingChunk: true,
+        //             },
+        //         },
+        //     },
+        // },
         performance: {
             /**
              * 代码拆包策略
