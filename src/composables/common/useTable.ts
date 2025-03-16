@@ -21,10 +21,12 @@ export interface ITableProps {
     addBtnText?: string;
     isToolbar?: boolean;
     controlsCustomRender?: ({ record }: { record: any }) => any | null;
+    showIndex?: boolean;
 }
 
 export const useTableConfig = (config: ITableProps) => {
     const {
+        showIndex = true,
         columns,
         pagination: _pagination,
         rowKey,
@@ -72,7 +74,7 @@ export const useTableConfig = (config: ITableProps) => {
     const tableColumns = computed(() => {
         const cols = [...columns];
 
-        if (!cols.some((c) => c.dataIndex === 'index')) {
+        if (!cols.some((c) => c.dataIndex === 'index') && showIndex) {
             cols.unshift({
                 title: '序号',
                 key: 'index',

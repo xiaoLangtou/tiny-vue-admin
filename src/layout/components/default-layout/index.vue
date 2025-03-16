@@ -26,8 +26,8 @@
                         <div class="aside-menu overflow-y-auto flex-1 p-2">
                             <user-info></user-info>
                             <Menu
-                                v-model:open-keys="menuOpenKeys"
-                                v-model:selected-keys="menuSelectedKeys"
+                                :open-keys="state.openKeys"
+                                :selected-keys="state.selectedKeys"
                                 :items="menuItems"
                             ></Menu>
                         </div>
@@ -70,16 +70,16 @@
                 <layout-page></layout-page>
             </a-layout-content>
 
-            <a-layout-footer class="text-center h-16 text-gray-500 dark:text-gray-400">
-                Ant Design ©2018 Created by Ant UED
-            </a-layout-footer>
+            <!--            <a-layout-footer class="text-center h-16 text-gray-500 dark:text-gray-400">-->
+            <!--                Ant Design ©2018 Created by Ant UED-->
+            <!--            </a-layout-footer>-->
         </a-layout>
     </a-layout>
 </template>
 
 <script lang="ts" setup>
 import { BackInOutLeft, Breadcrumb } from '@/components';
-import { useMenu } from '@/composables/business/useMenu';
+import { useMenu } from '@/composables/common/useMenu.ts';
 import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
 import Logo from '@/layout/components/logo/index.vue';
 import { useLoginStore, useMenuStore } from '@/store/module';
@@ -91,11 +91,9 @@ import UserInfo from './user-info.vue';
 const emit = defineEmits(['setting']);
 const menuStore = useMenuStore();
 
-const { getMenuTreeData } = useMenu();
+const { getMenuTreeData, state } = useMenu({ mode: 'inline', layout: 'default' });
 
 const menuItems = computed(() => getMenuTreeData());
-const menuOpenKeys = ref<string[]>([]);
-const menuSelectedKeys = ref<string[]>([]);
 
 const toggleMenuStyle = () => {
     menuStore.setCollapsed({ isCollapsed: !menuStore.isCollapsed });

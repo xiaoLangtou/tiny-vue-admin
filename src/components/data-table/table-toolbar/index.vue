@@ -14,6 +14,7 @@
 
         <!-- 右侧功能区 -->
         <div class="right-section">
+            <slot name="toolbar"></slot>
             <a-tooltip v-if="showRefresh" title="刷新">
                 <a-button :icon="h(RotateCw({ size: 18 }, {} as any))" class="action-button" @click="emit('refresh')" />
             </a-tooltip>
@@ -70,7 +71,6 @@
             <a-tooltip v-if="showExport" title="导出">
                 <a-button :icon="h(Download({ size: 18 }, {} as any))" class="action-button" @click="emit('export')" />
             </a-tooltip>
-            <slot name="toolbar"></slot>
         </div>
     </div>
 </template>

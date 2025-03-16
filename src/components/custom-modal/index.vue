@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-01 17:04:03
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-01 17:27:43
+ * @LastEditTime: 2025-03-16 15:40:03
  * @FilePath: src/components/custom-modal/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { CSSProperties } from 'vue';
 import { X } from 'lucide-vue-next';
+import type { CSSProperties } from 'vue';
 
 defineOptions({
     name: 'CustomModal',

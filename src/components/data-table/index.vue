@@ -1,5 +1,5 @@
 <template>
-    <div class="data-table-container">
+    <div ref="tableWrapperRef" class="data-table-container">
         <TeleportFullscreen :is-fullscreen="isTeleportFullscreen">
             <!-- 表格工具栏 -->
             <table-toolbar
@@ -17,10 +17,13 @@
                 <template #buttons>
                     <slot name="toolbar-buttons"></slot>
                 </template>
+                <template #toolbar>
+                    <slot name="toolbar-right"></slot>
+                </template>
             </table-toolbar>
 
             <!-- 表格主体 -->
-            <div ref="tableWrapperRef">
+            <div class="h-full">
                 <a-table
                     v-bind="tableAttrs"
                     class="xlt-table h-full"
@@ -33,24 +36,24 @@
                     :loading="loading"
                     :row-key="rowKey"
                     :row-selection="computedRowSelection"
+                    :custom-row="customRow"
                 >
                     <template v-for="(_, name) in slots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData"></slot>
                     </template>
                 </a-table>
-            </div>
-
-            <!-- 分页 -->
-            <div v-if="showPagination" class="xlt-pagination">
-                <a-pagination
-                    v-model:current="tablePagination.current"
-                    v-model:page-size="tablePagination.pageSize"
-                    :total="tablePagination.total"
-                    :show-total="tablePagination.showTotal"
-                    show-quick-jumper
-                    @change="handlePageChange"
-                    @show-size-change="handleSizeChange"
-                />
+                <!-- 分页 -->
+                <div v-if="showPagination" class="xlt-pagination">
+                    <a-pagination
+                        v-model:current="tablePagination.current"
+                        v-model:page-size="tablePagination.pageSize"
+                        :total="tablePagination.total"
+                        :show-total="tablePagination.showTotal"
+                        show-quick-jumper
+                        @change="handlePageChange"
+                        @show-size-change="handleSizeChange"
+                    />
+                </div>
             </div>
         </TeleportFullscreen>
     </div>
@@ -63,7 +66,7 @@ import { useMd5Id } from '@/composables/common/useMd5Id.ts';
 import { StorageUtil } from '@/utils/storage';
 import { type TablePaginationConfig } from 'ant-design-vue';
 import { useAttrs, useSlots } from 'vue';
-import TeleportFullscreen from '../fullscreen/teleport.vue';
+import TeleportFullscreen from '../fullscreen/teleport.vue'; // **组件属性定义**
 
 // **组件属性定义**
 const props = withDefaults(defineProps<DataTableProps & TableToolbarProps>(), {
@@ -249,7 +252,7 @@ const loadSavedColumnConfig = () => {
 // 更新列的配置
 const updateColumnConfig = (columns: any[]) => {
     // 将列的显示与隐藏，列固定给提出来形成一个对象，方便后期使用
-    console.log('更新表格列，开始初始化表格列');
+    console.log('更新表格列，开始初始化表格列', columns);
     const localConfig = loadSavedColumnConfig();
 
     if (localConfig) {
@@ -267,7 +270,6 @@ const updateColumnConfig = (columns: any[]) => {
             });
         });
     }
-
     settingColumns.value = props.columns
         .filter((column) => column.key !== 'controls')
         .map((col) => {
@@ -277,6 +279,8 @@ const updateColumnConfig = (columns: any[]) => {
                 fixed: columnsConfig.get(col.key)?.fixed,
             };
         });
+
+    console.log('更新表格列，结束初始化表格列-', settingColumns.value);
 
     initColumns(columns);
 };
@@ -292,20 +296,28 @@ watch(
 
 // **表格高度自适应**
 const tableWrapperRef = shallowRef<HTMLElement | null>(null);
-const scrollConfig = ref();
+const scrollConfig = ref({ y: 500, x: 1000 });
 
 // 计算表格高度
-const calculateTableHeight = () => {
+const calculateTableHeight = async () => {
     if (!tableWrapperRef.value) return;
 
     try {
+        await nextTick();
         const containerRect = tableWrapperRef.value.getBoundingClientRect();
         const distanceToBottom = window.innerHeight - containerRect.top;
         const bottomMargin = 200;
-
+        const { width } = useElementSize(tableWrapperRef);
         scrollConfig.value = {
+            x: width.value,
             y: Math.max(200, distanceToBottom - bottomMargin),
         };
+
+        if (document.querySelector('.ant-table-body')) {
+            document
+                .querySelector('.ant-table-body')
+                ?.style.setProperty('min-height', `${scrollConfig.value.y - 100}px`);
+        }
     } catch (error) {
         console.error('Error calculating table height:', error);
     }
@@ -343,7 +355,7 @@ const toggleFullscreen = () => {
 
 <style lang="scss" scoped>
 .data-table-container {
-    @apply w-full;
+    @apply w-full h-full;
 
     .xlt-table {
         @apply mb-4;

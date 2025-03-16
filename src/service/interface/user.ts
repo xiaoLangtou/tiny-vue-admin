@@ -19,6 +19,7 @@ export interface IUser {
     remark?: string;
     roles?: number[];
     status?: string;
+    isSystemUser?: number;
 }
 
 export interface IUserParams extends ReqPage {

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-18 14:40:44
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-09 10:44:59
+ * @LastEditTime: 2025-03-15 23:40:53
  * @FilePath: src/service/interface/type.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -39,4 +39,11 @@ export interface ResPage<T> {
 export interface ReqPage {
     current?: number;
     size?: number;
+}
+
+// 响应结果
+export interface Resp {
+    code: number;
+    data: boolean;
+    message: string;
 }

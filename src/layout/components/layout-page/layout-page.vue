@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-23 14:15:46
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-13 10:52:14
+ * @LastEditTime: 2025-03-15 12:23:50
  * @FilePath: src/layout/components/layout-page/layout-page.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -31,11 +31,11 @@ const breadcrumbHeight = computed(() => {
 </script>
 <style lang="scss" scoped>
 .page-container {
-    --page-footer-height: theme('height.16');
+    //--page-footer-height: theme('height.16');
     --page-header-height: 64px;
     --breadcrumnb-height: v-bind(breadcrumbHeight);
     --page-content-height: calc(
-        100vh - var(--page-header-height) - var(--page-footer-height) - var(--breadcrumnb-height)
+        100vh - var(--page-header-height) - var(--breadcrumnb-height)
     );
     height: var(--page-content-height);
     @apply w-full overflow-auto p-3;

@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 14:01:57
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-12 12:36:33
+ * @LastEditTime: 2025-03-16 19:09:22
  * @FilePath: src/global/enums.ts
  * @Description: 全局所有的枚举
  */
@@ -45,6 +45,8 @@ export enum ContentTypeEnum {
 export const FROZEN_STATUS: Record<string, string> = {
     NORMAL: '启用',
     FROZEN: '禁用',
+    SUCCESS: '成功',
+    FAIL: '失败',
 };
 
 export const SEX_STATUS = {

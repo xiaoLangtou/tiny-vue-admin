@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 14:32:22
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-12 16:55:14
+ * @LastEditTime: 2025-03-14 15:10:35
  * @FilePath: src/layout/components/mix-layout/index.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -19,6 +19,7 @@
                             mode="horizontal"
                             :items="topMenuItems"
                             :layout-mode="MenuLayoutMode.TOP"
+                            :selected-keys="state.openKeys"
                             class="!bg-transparent border-0"
                             @click-top-menu="handleTopMenu"
                         ></Menu>
@@ -29,6 +30,7 @@
         </a-layout-header>
         <a-layout>
             <a-layout-sider
+                v-if="subMenuItems.length > 0"
                 width="200"
                 :collapsed="menuStore.isCollapsed"
                 class="layout-sider !bg-white dark:!bg-bg-darkLayout"
@@ -37,8 +39,7 @@
             >
                 <suspense>
                     <Menu
-                        v-model:open-keys="menuOpenKeys"
-                        v-model:selected-keys="menuSelectedKeys"
+                        v-model:selected-keys="state.selectedKeys"
                         mode="inline"
                         class="!bg-transparent border-0"
                         :items="subMenuItems"
@@ -56,13 +57,13 @@
     </a-layout>
 </template>
 <script lang="ts" setup>
-import Logo from '@/layout/components/logo/index.vue';
-import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
+import { useMenu } from '@/composables/common/useMenu.ts';
 import { LayoutPage } from '@/layout/components';
-import { useMenuStore } from '@/store/module';
-import type { MenuOptions } from '@/service/interface/menu';
+import HeaderRightBar from '@/layout/components/header-right-bar/index.vue';
+import Logo from '@/layout/components/logo/index.vue';
 import router from '@/router';
-import { useMenu } from '@/composables/business/useMenu';
+import type { MenuOptions } from '@/service/interface/menu';
+import { useMenuStore } from '@/store/module';
 
 defineOptions({
     name: 'MixLayout',
@@ -77,11 +78,11 @@ enum MenuLayoutMode {
 }
 
 const menuStore = useMenuStore();
-const { getMenuTreeData } = useMenu();
+const { getMenuTreeData, state } = useMenu({ mode: 'horizontal', layout: 'mix' });
 
-const menuOpenKeys = ref<string[]>([]);
-const menuSelectedKeys = ref<string[]>([]);
-const subMenuList = ref<MenuOptions[]>([]);
+const subMenuList = ref<MenuOptions[]>(
+    state.openKeys ? (menuStore.subMenuList.get(state.openKeys[0] as unknown as string) as MenuOptions[]) : [],
+);
 
 const topMenuItems = computed(() => getMenuTreeData({ isTopMenu: true }));
 const subMenuItems = computed(() => getMenuTreeData({ isMixMenu: true, mixMenuList: subMenuList.value }));
@@ -90,7 +91,7 @@ onMounted(() => {
     menuStore.setCollapsed({ isCollapsed: true });
 });
 
-const handleTopMenu = (item: MenuOptions) => {
+const handleTopMenu = (item: MenuOptions & { meta: { path: string } }) => {
     if (item.id && menuStore.subMenuList.has(item.id as unknown as string)) {
         subMenuList.value = menuStore.subMenuList.get(item.id as unknown as string) as MenuOptions[];
         // 如果有子菜单，展开侧边栏
@@ -98,8 +99,10 @@ const handleTopMenu = (item: MenuOptions) => {
     } else {
         subMenuList.value = [];
         menuStore.setCollapsed({ isCollapsed: true });
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        item.path && router.push({ path: item.path });
+        console.log('item', item);
+        if (item.meta.path) {
+            router.push({ path: item.meta.path });
+        }
     }
 };
 </script>

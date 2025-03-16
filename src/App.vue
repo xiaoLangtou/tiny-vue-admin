@@ -1,6 +1,6 @@
 <template>
     <div ref="appRef" class="app">
-        <loading :visible="loading" />
+        <Loading :visible="loading" />
         <a-config-provider :theme="themeConfig" :locale="locale === 'en' ? enUS : zhCN">
             <a-app>
                 <router-view />
@@ -9,6 +9,7 @@
     </div>
 </template>
 <script lang="ts" setup>
+import Loading from '@/components/loading/index.vue';
 import { useAppStore } from '@/store/module';
 import { isDark } from '@/store/module/app';
 import enUS from 'ant-design-vue/es/locale/en_US';

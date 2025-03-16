@@ -38,7 +38,7 @@ export const getRoleList = (params: IRoleParams) => {
  * @returns
  */
 export const removeRole = (id: number) => {
-    return xltRequest.Delete(`/role/remove/${id}`);
+    return xltRequest.Post(`/role/remove/${id}`);
 };
 
 /**
@@ -99,9 +99,12 @@ export const changeUserRole = (data: IRoleUsers) => {
  * @description 移除角色用户
  * @param {IRoleUsers} data
  * @param {number} data.roleId 角色ID
- * @param {number[]} data.userIds 用户ID
+ * @param {number[]} data.users 用户ID
  * @returns
  */
 export const removeUserRole = (data: IRoleUsers) => {
     return xltRequest.Put(`/role/remove/users`, data);
 };
+
+
+

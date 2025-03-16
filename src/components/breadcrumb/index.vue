@@ -44,7 +44,7 @@ const breadcrumbList = computed(() => {
     const matched = route.matched;
 
     // 默认的面包屑，通常是首页
-    const defaultBreadcrumb: Route = { path: '/main', breadcrumbName: '首页' };
+    const defaultBreadcrumb: Route = { path: '/dashboard', breadcrumbName: '首页' };
 
     // 将 matched 处理为面包屑列表
     const breadcrumbItems = matched

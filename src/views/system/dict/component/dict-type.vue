@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-04 16:54:16
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-12 17:18:14
+ * @LastEditTime: 2025-03-15 23:59:32
  * @FilePath: src/views/system/dict/component/dict-type.vue
  * @Description: 字典类型列表页
  -->
@@ -38,6 +38,12 @@
                 v-for="item in dictList"
                 :key="item.id"
                 class="dict-item group"
+                :style="{
+                    '--dark-bg-active': token.colorPrimary,
+                    '--light-bg-active': token.colorPrimaryBg,
+                    '--dark-border-active': token.colorPrimaryActive,
+                    '--light-border-active': token.colorPrimaryHover,
+                }"
                 :class="{ active: activeId === item.id }"
                 @click="handleCurrentChange(item)"
             >
@@ -69,12 +75,12 @@
 </template>
 
 <script setup lang="ts">
-import type { IDictType } from '@/service/interface/dict';
-import { getDictDetail, getDictList, removeDict } from '@/service/apis/dict';
-import { Download, Edit, Plus, Search, Trash2 } from 'lucide-vue-next';
 import { useMessage } from '@/composables';
 import { useAntdToken } from '@/composables/common/useAntdToken';
+import { getDictDetail, getDictList, removeDict } from '@/service/apis/dict';
+import type { IDictType } from '@/service/interface/dict';
 import DictTypeAdd from '@/views/system/dict/component/dict-type-add.vue';
+import { Download, Edit, Plus, Search, Trash2 } from 'lucide-vue-next';
 
 const emits = defineEmits(['currentRow']);
 

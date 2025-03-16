@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-12 14:32:17
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-13 11:25:35
+ * @LastEditTime: 2025-03-16 19:47:04
  * @FilePath: src/composables/common/useModalMessage.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -24,7 +24,7 @@ export const useModalMessage = (
     params: any = {},
     refresh?: () => void,
 ) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         Modal.confirm({
             title: '温馨提示',
             icon: createVNode(ExclamationCircleOutlined),
@@ -32,8 +32,7 @@ export const useModalMessage = (
             okText: '确认',
             cancelText: '取消',
             async onOk() {
-                const res = await api(params);
-                if (!res) return reject(false);
+                await api(params);
                 if (refresh) refresh();
                 resolve(true);
             },

@@ -1,7 +1,7 @@
 <template>
     <teleport to="body" :disabled="!isFullscreen">
         <FadeDown>
-            <div :class="isFullscreen ? 'teleport-container' : ''">
+            <div :class="isFullscreen ? 'teleport-container' : ''" v-bind="$attrs">
                 <slot></slot>
             </div>
         </FadeDown>
@@ -25,6 +25,6 @@ defineOptions({
 
 <style lang="scss" scoped>
 .teleport-container {
-    @apply fixed w-[100vw] h-[100vh] z-[9999] top-0 left-0  w-full h-full p-5 bg-white dark:bg-black;
+    @apply fixed w-[100vw] h-[100vh] z-[9999] top-0 left-0  p-5 bg-white dark:bg-black;
 }
 </style>

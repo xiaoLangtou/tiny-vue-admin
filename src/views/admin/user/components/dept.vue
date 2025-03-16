@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-13 11:00:35
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-13 17:54:09
+ * @LastEditTime: 2025-03-16 00:43:13
  * @FilePath: src/views/admin/user/components/dept.vue
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  -->
@@ -28,6 +28,7 @@
         <div class="tree-data mt-4">
             <a-tree
                 v-if="deptTreeList.length"
+                class="xlt-ant-tree"
                 show-line
                 show-icon
                 default-expand-all

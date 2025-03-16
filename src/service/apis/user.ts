@@ -1,5 +1,5 @@
-import xltRequest from '@/service/request/alova';
 import type { IUser, IUserParams, TUserListResult } from '@/service/interface/user';
+import xltRequest from '@/service/request/alova';
 
 /**
  * @description 获取用户列表
@@ -106,6 +106,25 @@ export const changeUserStatus = (data: { id: number; status: string }) => {
  */
 export const getUsersByRoleId = (params: IUserParams) => {
     return xltRequest.Get<any>('/user/role/list', { params: { ...params } });
+};
+
+
+/**
+ * @description 获取非当前角色的用户列表
+ * @param {number} params.current 页码
+ * @param {number} params.size 每页数量
+ * @param {number} params.roleId 角色ID
+ * @param {IUserParams} params
+ * @param {string} [params.username] 用户名
+ * @param {string} [params.nickname] 昵称
+ * @param {string} [params.email] 邮箱
+ * @param {string} [params.phone] 手机号
+ * @param {string} [params.status] 状态 NORMAL：正常，FROZEN：冻结
+ * @method get
+ * @returns
+ */
+export const getUserNotListByRoleId = (params: IUserParams) => {
+    return xltRequest.Get('/user/role/not/list', { params: { ...params } });
 };
 
 /**

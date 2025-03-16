@@ -1,9 +1,9 @@
-import { computed, h } from 'vue';
-import { useMenuStore } from '@/store/module';
-import { useDeepClone } from '@/composables/common/useDeepClone';
-import type { MenuOptions } from '@/service/interface/menu';
 import { IconView } from '@/components';
+import { useDeepClone } from '@/composables/common/useDeepClone.ts';
 import router from '@/router';
+import type { MenuOptions } from '@/service/interface/menu.ts';
+import { useMenuStore } from '@/store/module';
+import { computed, h } from 'vue';
 
 export interface IMenuOptions {
     key: string | number;
@@ -22,7 +22,7 @@ export interface MenuState {
     preOpenKeys: string[];
 }
 
-export function useMenu() {
+export function useMenu({ mode = 'inline', layout = 'default' }) {
     const menuStore = useMenuStore();
     const state = reactive<MenuState>({
         collapsed: true,
@@ -89,6 +89,37 @@ export function useMenu() {
             router.push(path);
         }
     };
+
+    const initMenuState = () => {
+        const currentRoute = useRoute().fullPath;
+        const routeItem = menuStore.flatMeuList.find((item) => item.path === currentRoute);
+
+        state.openKeys = [];
+        state.selectedKeys = [];
+        // 三种菜单模式
+        if (routeItem) {
+            state.selectedKeys = [routeItem.id.toString()];
+            if (
+                routeItem.parentId !== undefined &&
+                (routeItem.parentId as unknown as string) !== '-1' &&
+                mode === 'inline'
+            ) {
+                console.log('initMenuState', routeItem);
+                state.openKeys = [routeItem.parentId.toString()];
+            }
+        }
+        if (['mix'].includes(layout)) {
+            // 另外一种形式
+            if (routeItem) {
+                state.selectedKeys = [routeItem.id.toString()];
+                if (routeItem.parentId !== undefined && (routeItem.parentId as unknown as number) !== -1) {
+                    state.openKeys = [routeItem.parentId.toString()];
+                }
+            }
+        }
+    };
+
+    initMenuState();
 
     return {
         state,

@@ -15,7 +15,9 @@
                     :data-source="tableData"
                     :loading="loading"
                     v-bind="{ ...tableConfig, ...toolbarConfig, pagination }"
+                    :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: handleSelectChange }"
                     @refresh="send"
+                    @page-change="handlePageChange"
                 >
                     <template #toolbar-buttons>
                         <a-button v-auth="['user:add:btn']" type="primary" class="xlt-btn !gap-0" @click="handleAdd">
@@ -67,7 +69,6 @@
                                     v-auth="['user:status:btn']"
                                     class="xlt-btn !gap-0"
                                     type="link"
-                                    danger
                                     @click="handleChangeStatus(record)"
                                 >
                                     <template #icon>
@@ -83,7 +84,7 @@
                                     @click="handleDelete(record)"
                                 >
                                     <template #icon>
-                                        <sync-outlined />
+                                        <DeleteOutlined />
                                     </template>
                                     删除
                                 </a-button>
@@ -97,17 +98,6 @@
                                         <sync-outlined />
                                     </template>
                                     重置密码
-                                </a-button>
-                                <a-button
-                                    v-auth="['user:role:btn']"
-                                    type="link"
-                                    class="xlt-btn !gap-0"
-                                    @click="handleSetRole(record)"
-                                >
-                                    <template #icon>
-                                        <setting-outlined />
-                                    </template>
-                                    设置角色
                                 </a-button>
                             </div>
                         </template>
@@ -124,7 +114,7 @@ import { SplitPane } from '@/components';
 import { useModalMessage, useTableConfig } from '@/composables';
 import { changeUserStatus, deleteUser, getUserDetail, getUserList, resetPassword } from '@/service/apis/user';
 import type { IUser, IUserParams } from '@/service/interface/user';
-import { DeleteOutlined, EditOutlined, SyncOutlined } from '@ant-design/icons-vue';
+import { DeleteOutlined, EditOutlined, LockOutlined, SyncOutlined, UnlockOutlined } from '@ant-design/icons-vue';
 import { usePagination } from 'alova/client';
 import { message } from 'ant-design-vue';
 import { Plus } from 'lucide-vue-next';
@@ -136,6 +126,7 @@ const userAddRef = ref();
 
 const searchForm = reactive<IUserParams>({});
 const checkboxData = ref<IUser[]>([]);
+const selectedRowKeys = ref([]);
 
 const { toolbarConfig, tableConfig, pagination } = useTableConfig({
     showPagination: true,
@@ -145,7 +136,7 @@ const { toolbarConfig, tableConfig, pagination } = useTableConfig({
         pageSize: 10,
     },
     columns: [
-        { dataIndex: 'username', title: '用户名', width: 120 },
+        { dataIndex: 'username', title: '用户名', width: 120, fixed: 'left' },
         { dataIndex: 'nickname', title: '用户昵称', width: 120 },
         { dataIndex: 'deptName', title: '归属部门', width: 120 },
         {
@@ -160,6 +151,7 @@ const { toolbarConfig, tableConfig, pagination } = useTableConfig({
         { dataIndex: 'phone', title: '手机号', width: 150 },
     ],
     controlsWidth: 340,
+    showIndex: false,
 });
 
 const {
@@ -167,11 +159,11 @@ const {
     send,
     loading,
 } = usePagination(
-    (page, pageSize) =>
+    () =>
         getUserList({
             ...searchForm,
-            current: page,
-            size: pageSize,
+            current: pagination.value.current,
+            size: pagination.value.pageSize,
         }),
     {
         force: true,
@@ -256,39 +248,24 @@ const handleBatchOperation = (command: string) => {
     }
 };
 
-// const handleCheckboxChange = (selectedRowKeys: any[], selectedRows: IUser[]) => {
-//     checkboxData.value = selectedRows;
-// };
-
-const handleSetRole = async (row: IUser) => {
-    try {
-        if (!row.id) return;
-        const { data } = await getUserDetail(row.id);
-        console.log(userAddRef.value);
-        userAddRef.value?.openDialog('edit', { ...data, setRole: true });
-    } catch (e) {
-        console.log(e);
-    }
+const handlePageChange = ({ current, size }: { current: number; size: number }) => {
+    pagination.value.current = current;
+    pagination.value.pageSize = size;
+    send();
 };
-
-// const handleCommand = (command: string, row: IUser) => {
-//     const commands: Record<string, any> = {
-//         handleDelete: handleDelete,
-//         handleResetPassword: handleResetPassword,
-//         handleSetRole: handleSetRole,
-//     };
-//     commands[command] && commands[command](row);
-// };
-
-// const handlePageChange = ({ current, size }: { current: number; size: number }) => {
-//     page.value = current;
-//     pageSize.value = size;
-// };
+const handleSelectChange = (e) => {
+    console.log(e);
+    selectedRowKeys.value = e;
+};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .hidden-btn {
     background-color: #dedede;
     border-radius: 20px;
+}
+
+:deep(.ca-split-panel__main-content) {
+    height: 100%;
 }
 </style>

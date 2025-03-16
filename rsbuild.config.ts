@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2024-12-05 10:47:02
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-14 10:17:25
+ * @LastEditTime: 2025-03-14 10:45:09
  * @FilePath: rsbuild.config.ts
  * @Description: https://rsbuild.dev/zh/guide/start/index
  */
@@ -57,6 +57,7 @@ export default defineConfig(() => {
             liveReload: false,
         },
         output: {
+            polyfill: 'off',
             target: 'web', // 默认 environment
             minify: false,
             sourceMap: {
@@ -65,7 +66,7 @@ export default defineConfig(() => {
                         ? // 生产模式使用高质量的 source map 格式
                           'source-map'
                         : // 开发模式使用性能更好的 source map 格式
-                          'source-map',
+                          'cheap-module-source-map',
             },
             assetPrefix: process.env.VITE_PUBLIC_PATH,
             dataUriLimit: {
@@ -78,25 +79,25 @@ export default defineConfig(() => {
                 appendPlugins(rspackPlugins);
             },
         },
-        // optimization: {
-        //     splitChunks: {
-        //         cacheGroups: {
-        //             vendors: {
-        //                 name: 'vendors',
-        //                 test: /[\\/]node_modules[\\/]/,
-        //                 priority: -10,
-        //                 chunks: 'initial',
-        //             },
-        //             common: {
-        //                 name: 'common',
-        //                 minChunks: 2,
-        //                 priority: -20,
-        //                 chunks: 'initial',
-        //                 reuseExistingChunk: true,
-        //             },
-        //         },
-        //     },
-        // },
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    vendors: {
+                        name: 'vendors',
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10,
+                        chunks: 'initial',
+                    },
+                    common: {
+                        name: 'common',
+                        minChunks: 2,
+                        priority: -20,
+                        chunks: 'initial',
+                        reuseExistingChunk: true,
+                    },
+                },
+            },
+        },
         performance: {
             /**
              * 代码拆包策略

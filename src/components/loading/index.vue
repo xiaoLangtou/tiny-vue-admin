@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+ defineProps({
     visible: {
         type: Boolean,
         default: true,
@@ -27,73 +27,50 @@ defineProps({
 });
 
 defineOptions({
-    name: 'LoadingSpinner',
+    name: 'Loading',
 });
 </script>
 
 <style lang="scss" scoped>
 .loading-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @apply fixed top-0 left-0 w-full h-full bg-white z-50 flex justify-center items-center;
+
+    /* 暗黑模式 */
+    @apply dark:bg-gray-900 dark:text-white;
 }
 
 .loading-content {
-    text-align: center;
+    @apply text-center;
 }
 
 .loading-spinner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @apply flex flex-col items-center gap-4;
 }
 
 .loading-logo {
-    margin-bottom: 16px;
-}
+    @apply w-16 h-16 animate-spin;
 
-.loading-icon {
-    width: 48px;
-    height: 48px;
-    animation: spin 1s linear infinite;
+    .loading-icon {
+        @apply w-full h-full fill-indigo-600; /* 默认主色 */
+        /* 暗黑模式下的颜色 */
+        @apply dark:fill-indigo-400;
+    }
 }
 
 .loading-progress {
-    width: 200px;
-    height: 4px;
-    background-color: #f0f0f0;
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 8px;
+    @apply w-48 h-1 bg-indigo-200 rounded-full overflow-hidden;
 }
 
 .loading-bar {
-    width: 40%;
-    height: 100%;
-    background-color: #1890ff;
-    border-radius: 2px;
-    animation: progress 1.5s ease-in-out infinite;
+    @apply w-2/5 h-full bg-indigo-600 rounded-full animate-[progress_1.5s_ease-in-out_infinite];
+    /* 暗黑模式下的进度条颜色 */
+    @apply dark:bg-indigo-400;
 }
 
 .loading-text {
-    color: #666;
-    font-size: 14px;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    @apply text-black text-sm;
+    /* 暗黑模式下的文本颜色 */
+    @apply dark:text-white;
 }
 
 @keyframes progress {
