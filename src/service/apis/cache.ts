@@ -6,5 +6,5 @@ import type { ICache } from '../interface/cache';
  * @param {number} id id
  */
 export const getCacheDetail = () => {
-  return xltRequest.Get<ICache>(`/redis-cache/info`);
+    return xltRequest.Get<ICache>(`/redis-cache/info`);
 };

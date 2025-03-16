@@ -6,10 +6,10 @@
  * @FilePath: src/views/admin/role/components/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
-export {default as ApiPermission} from "./api-permission.vue"
-export {default as MenuPermission} from "./menu-permission.vue"
-export {default as RoleAdd} from "./role-add.vue"
-export {default as EmptyData} from "./empty-data.vue"
-export {default as DataPermission} from "./data-permission.vue"
-export {default as UserPermission} from "./user-permission.vue"
-export {default as AddUserRole} from "./add-user-role.vue"
+export { default as ApiPermission } from './api-permission.vue';
+export { default as MenuPermission } from './menu-permission.vue';
+export { default as RoleAdd } from './role-add.vue';
+export { default as EmptyData } from './empty-data.vue';
+export { default as DataPermission } from './data-permission.vue';
+export { default as UserPermission } from './user-permission.vue';
+export { default as AddUserRole } from './add-user-role.vue';

@@ -105,6 +105,3 @@ export const changeUserRole = (data: IRoleUsers) => {
 export const removeUserRole = (data: IRoleUsers) => {
     return xltRequest.Put(`/role/remove/users`, data);
 };
-
-
-

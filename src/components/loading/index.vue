@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
- defineProps({
+defineProps({
     visible: {
         type: Boolean,
         default: true,

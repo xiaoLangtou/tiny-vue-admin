@@ -34,9 +34,7 @@ const breadcrumbHeight = computed(() => {
     //--page-footer-height: theme('height.16');
     --page-header-height: 64px;
     --breadcrumnb-height: v-bind(breadcrumbHeight);
-    --page-content-height: calc(
-        100vh - var(--page-header-height) - var(--breadcrumnb-height)
-    );
+    --page-content-height: calc(100vh - var(--page-header-height) - var(--breadcrumnb-height));
     height: var(--page-content-height);
     @apply w-full overflow-auto p-3;
 }
