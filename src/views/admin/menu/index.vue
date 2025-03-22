@@ -67,13 +67,13 @@
 </template>
 
 <script setup lang="ts">
-import { h } from 'vue';
-import { PencilLine, Plus, Trash2 } from 'lucide-vue-next';
-import type { IMenu } from '@/service/interface/menu';
-import { deleteMenu, getMenuDetail, getMenuTreeList } from '@/service/apis/menu';
-import MenuAdd from './components/add.vue';
 import { useMessage, useTableConfig } from '@/composables';
+import { deleteMenu, getMenuDetail, getMenuTreeList } from '@/service/apis/menu';
+import type { IMenu } from '@/service/interface/menu';
 import { useRequest } from 'alova/client';
+import { PencilLine, Plus, Trash2 } from 'lucide-vue-next';
+import { h } from 'vue';
+import MenuAdd from './components/add.vue';
 
 const { message } = useMessage();
 const addDialog = useTemplateRef<typeof MenuAdd>('addDialog');
@@ -98,6 +98,7 @@ const { tableConfig, toolbarConfig } = useTableConfig({
 const tableData = ref<IMenu[]>([]);
 
 const removeChildrenAttr = (data: any[]) => {
+    if (!data) return [];
     data.forEach((item) => {
         if (item.children && item.children.length <= 0) {
             delete item.children;
@@ -110,6 +111,7 @@ const removeChildrenAttr = (data: any[]) => {
 const { send, loading } = useRequest(() => getMenuTreeList(), {
     focus: true,
 }).onSuccess(({ data }) => {
+    console.log(data?.data, '菜单数据');
     tableData.value = removeChildrenAttr(data?.data ?? []);
 });
 

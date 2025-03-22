@@ -17,12 +17,16 @@
                 </div>
                 <div class="flex gap-3">
                     <a-button type="primary" class="action-button">
-                        <template #icon><icon-view icon="plus" /></template>
+                        <template #icon>
+                            <icon-view icon="plus" />
+                        </template>
                         新建项目
                     </a-button>
                     <a-tooltip title="查看所有报告">
                         <a-button class="icon-only-btn">
-                            <template #icon><icon-view icon="file-text" /></template>
+                            <template #icon>
+                                <icon-view icon="file-text" />
+                            </template>
                         </a-button>
                     </a-tooltip>
                 </div>
@@ -63,45 +67,9 @@
             <!-- 左侧内容区域 -->
             <div class="lg:col-span-4 space-y-6">
                 <!-- 最新动态 - 清爽的时间轴设计 -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-5">
-                    <div class="flex items-center justify-between mb-5">
-                        <div class="flex items-center">
-                            <icon-view icon="activity" class="text-primary mr-2" />
-                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">最新动态</h3>
-                        </div>
-                        <a-dropdown>
-                            <a-button type="text" class="px-2">
-                                <template #icon><icon-view icon="more-horizontal" /></template>
-                            </a-button>
-                            <template #overlay>
-                                <a-menu>
-                                    <a-menu-item key="1">查看全部</a-menu-item>
-                                    <a-menu-item key="2">仅看重要</a-menu-item>
-                                    <a-menu-item key="3">标记全部已读</a-menu-item>
-                                </a-menu>
-                            </template>
-                        </a-dropdown>
-                    </div>
-
-                    <div class="activity-timeline">
-                        <div v-for="(activity, index) in activities" :key="index" class="activity-item">
-                            <div v-if="index !== activities.length - 1" class="timeline-connector"></div>
-                            <div class="flex">
-                                <div class="activity-icon" :class="activity.iconBg">
-                                    <icon-view :icon="activity.icon" />
-                                </div>
-                                <div class="ml-4">
-                                    <div class="flex justify-between">
-                                        <p class="text-gray-900 dark:text-gray-100 font-medium">{{ activity.title }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ activity.time }}</p>
-                                    </div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                        {{ activity.description }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="latest-updates bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">最新动态</h3>
+                    <timeline></timeline>
                 </div>
 
                 <!-- 项目进度 - 新增的卡片 -->
@@ -193,8 +161,8 @@
                                             v-if="announcement.tag"
                                             :color="announcement.tagColor"
                                             class="text-xs py-0 px-1"
-                                            >{{ announcement.tag }}</a-tag
-                                        >
+                                            >{{ announcement.tag }}
+                                        </a-tag>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +178,8 @@
                             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">团队成员</h3>
                         </div>
                         <a-button type="text" class="text-sm flex items-center">
-                            <icon-view icon="user-plus" class="mr-1 text-xs" /> 添加
+                            <icon-view icon="user-plus" class="mr-1 text-xs" />
+                            添加
                         </a-button>
                     </div>
 
@@ -237,7 +206,9 @@
                                         size="small"
                                         class="h-6 w-6 flex items-center justify-center"
                                     >
-                                        <template #icon><icon-view icon="message-circle" class="text-xs" /></template>
+                                        <template #icon>
+                                            <icon-view icon="message-circle" class="text-xs" />
+                                        </template>
                                     </a-button>
                                 </a-tooltip>
                                 <a-tooltip title="查看资料">
@@ -247,7 +218,9 @@
                                         size="small"
                                         class="h-6 w-6 flex items-center justify-center"
                                     >
-                                        <template #icon><icon-view icon="info" class="text-xs" /></template>
+                                        <template #icon>
+                                            <icon-view icon="info" class="text-xs" />
+                                        </template>
                                     </a-button>
                                 </a-tooltip>
                             </div>
@@ -260,8 +233,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import Timeline from '@/views/dashboard/components/timeline.vue';
 import dayjs from 'dayjs';
+import { computed, ref } from 'vue'; // 格式化当前日期
 
 // 格式化当前日期
 const formattedDate = computed(() => {
@@ -305,38 +279,6 @@ const statistics = ref([
         bgColor: 'bg-orange-50 dark:bg-orange-900/30',
         iconColor: 'text-orange-500 dark:text-orange-400',
         change: -2,
-    },
-]);
-
-// 最新动态数据
-const activities = ref([
-    {
-        title: '完成了项目方案设计',
-        description: '已上传最终版设计方案到项目文件夹',
-        time: '10分钟前',
-        icon: 'check-circle',
-        iconBg: 'bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400',
-    },
-    {
-        title: '开始新项目开发',
-        description: '创建了"智能客服系统"项目并分配了团队成员',
-        time: '1小时前',
-        icon: 'play-circle',
-        iconBg: 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400',
-    },
-    {
-        title: '团队会议总结',
-        description: '讨论了Q2季度规划和项目进度',
-        time: '2小时前',
-        icon: 'users',
-        iconBg: 'bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400',
-    },
-    {
-        title: '更新项目文档',
-        description: '更新了API文档和使用说明',
-        time: '3小时前',
-        icon: 'file-text',
-        iconBg: 'bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400',
     },
 ]);
 

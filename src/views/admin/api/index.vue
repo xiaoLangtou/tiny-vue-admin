@@ -30,6 +30,7 @@
                             v-auth="['role:add:btn']"
                             class="flex items-center justify-center gap-1"
                             :icon="LucideBookmark({ size: 14 }, {} as any)"
+                            @click="lookApiDocument"
                         >
                             查看文档
                         </a-button>
@@ -43,13 +44,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ApiSearch, ApiSynchronous } from './component';
-import { CompassIcon, LucideBookmark, RefreshCw } from 'lucide-vue-next';
+import { useTableConfig } from '@/composables';
+import { useWindowOpen } from '@/composables/common/useWindowOpen.ts';
+import { HTTP_METHOD, HttpMethodCN } from '@/global/enums';
 import { getApiList } from '@/service/apis/api';
 import type { IApi, IApiParams } from '@/service/interface/api';
-import { useTableConfig } from '@/composables';
 import { usePagination } from 'alova/client';
-import { HTTP_METHOD, HttpMethodCN } from '@/global/enums';
+import { CompassIcon, LucideBookmark, RefreshCw } from 'lucide-vue-next';
+import { ApiSearch, ApiSynchronous } from './component';
 
 const queryForm = ref<IApiParams>({});
 
@@ -122,5 +124,12 @@ const handlePageChange = ({ current, size }: { current: number; size: number }) 
 
 const handleSynchronousApi = () => {
     apiSynchronousRef.value?.open();
+};
+
+const lookApiDocument = () => {
+    useWindowOpen({
+        url: 'https://xiaolangtou.apifox.cn',
+        target: '_blank',
+    });
 };
 </script>

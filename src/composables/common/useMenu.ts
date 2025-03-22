@@ -1,6 +1,5 @@
 import { IconView } from '@/components';
 import { useDeepClone } from '@/composables/common/useDeepClone.ts';
-import router from '@/router';
 import type { MenuOptions } from '@/service/interface/menu.ts';
 import { useMenuStore } from '@/store/module';
 import { computed, h } from 'vue';
@@ -80,16 +79,6 @@ export function useMenu({ mode = 'inline', layout = 'default' }) {
         return filterRawMenuData(rawMenuList.value);
     };
 
-    const handleMenuClick = (item: IMenuOptions, isTopMenu = false) => {
-        const { path } = item.meta;
-        if (isTopMenu) {
-            return item;
-        }
-        if (path) {
-            router.push(path);
-        }
-    };
-
     const initMenuState = () => {
         const currentRoute = useRoute().fullPath;
         const routeItem = menuStore.flatMeuList.find((item) => item.path === currentRoute);
@@ -124,7 +113,6 @@ export function useMenu({ mode = 'inline', layout = 'default' }) {
     return {
         state,
         getMenuTreeData,
-        handleMenuClick,
         menuStore,
     };
 }

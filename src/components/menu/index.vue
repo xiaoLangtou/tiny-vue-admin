@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import type { IMenuOptions } from '@/composables/common/useMenu.ts';
+import { useWindowOpen } from '@/composables/common/useWindowOpen.ts';
 import { MenuLayoutMode } from '@/global/enums';
 import router from '@/router';
 import type { MenuProps } from 'ant-design-vue';
@@ -59,6 +60,14 @@ watch(
 
 // 处理菜单点击
 const handleClick = ({ item }: { item: IMenuOptions }) => {
+    if (item.meta.isIframe) {
+        console.log('item', item.meta.path);
+        useWindowOpen({
+            url: item.meta.path,
+            target: '_blank',
+        });
+        return;
+    }
     if (props.layoutMode === MenuLayoutMode.TOP) {
         emit('clickTopMenu', item);
     } else if (item.meta?.path) {
