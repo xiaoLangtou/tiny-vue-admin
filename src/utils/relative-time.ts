@@ -42,38 +42,38 @@ export class RelativeTimeFormatter {
         // 根据时间差大小选择合适的时间单位
         switch (true) {
             case absDiffInSecs < 60: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
-                return formatter.format(diffInSecs, "second");
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
+                return formatter.format(diffInSecs, 'second');
             }
             case absDiffInSecs >= 60 && absDiffInSecs < 3600: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
                 const minutes = Math.trunc(diffInSecs / 60);
-                return formatter.format(minutes, "minute");
+                return formatter.format(minutes, 'minute');
             }
             case absDiffInSecs >= 3600 && absDiffInSecs < 86400: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
                 const hours = Math.trunc(diffInSecs / 3600);
-                return formatter.format(hours, "hour");
+                return formatter.format(hours, 'hour');
             }
             case absDiffInSecs >= 86400 && absDiffInSecs < 604800: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
                 const days = Math.trunc(diffInSecs / 86400);
-                return formatter.format(days, "day");
+                return formatter.format(days, 'day');
             }
             case absDiffInSecs >= 604800 && absDiffInSecs < 2592000: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
                 const weeks = Math.trunc(diffInSecs / 604800);
-                return formatter.format(weeks, "week");
+                return formatter.format(weeks, 'week');
             }
             case absDiffInSecs >= 2592000 && absDiffInSecs < 31536000: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
                 const months = Math.trunc(diffInSecs / 2592000);
-                return formatter.format(months, "month");
+                return formatter.format(months, 'month');
             }
             default: {
-                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+                const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
                 const years = Math.trunc(diffInSecs / 31536000);
-                return formatter.format(years, "year");
+                return formatter.format(years, 'year');
             }
         }
     }
@@ -88,7 +88,7 @@ export class RelativeTimeFormatter {
      */
     public static formatByUnit(diffInSecs: number, unit: Intl.RelativeTimeFormatUnit, locale?: string): string {
         const userLocale = locale || (typeof navigator !== 'undefined' ? navigator.language : 'zh-CN');
-        const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: "auto" });
+        const formatter = new Intl.RelativeTimeFormat(userLocale, { numeric: 'auto' });
         return formatter.format(diffInSecs, unit);
     }
 }
