@@ -1,11 +1,11 @@
 {
     "name": "tiny-vue-admin",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
     "type": "module",
     "scripts": {
         "dev:rsbuild": "rsbuild dev",
-        "build:rsbuild": "vue-tsc && rsbuild build --mode production",
+        "build:pro": "vue-tsc && rsbuild build --mode production",
         "build:pro:rsdoctor": "cross-env RSDOCTOR=true rsbuild build --mode production",
         "prettier": "prettier --write .",
         "lint": "oxlint . --fix -D correctness --ignore-path .oxlintignore  && eslint . --max-warnings=0",

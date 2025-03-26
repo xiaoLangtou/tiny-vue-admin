@@ -2,10 +2,16 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-20 22:48:08
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-12 20:14:49
+ * @LastEditTime: 2025-03-25 15:28:22
  * @FilePath: config/utils/index.ts
  * @Description: 格式化环境变量
  */
+
+import type { ProxyOptions } from '@rsbuild/core';
+
+type ProxyItem = [string, string];
+type ProxyList = ProxyItem[];
+type ProxyTargetList = Record<string, ProxyOptions>;
 export function wrapperEnv(envConf: Record<string, string>): Record<string, any> {
     const ret: Record<string, any> = {};
 
@@ -46,11 +52,7 @@ export function isReportMode(): boolean {
     return process.env.REPORT === 'true';
 }
 
-import type { ProxyOptions } from '@rsbuild/core';
 
-type ProxyItem = [string, string];
-type ProxyList = ProxyItem[];
-type ProxyTargetList = Record<string, ProxyOptions>;
 
 export const createProxy = (list: ProxyList) => {
     const ret: ProxyTargetList = {};

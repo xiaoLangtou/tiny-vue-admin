@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2024-12-05 10:47:02
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-14 10:45:09
+ * @LastEditTime: 2025-03-25 15:34:32
  * @FilePath: rsbuild.config.ts
  * @Description: https://rsbuild.dev/zh/guide/start/index
  */
@@ -20,9 +20,13 @@ const __APP_INFO__ = {
     lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 };
 
+
+
+
 export default defineConfig(() => {
     // 将环境变量的值转换并注入到项目中
     const __APP_ENV__ = wrapperEnv(publicVars);
+    console.log(__APP_ENV__)
     const { rspackPlugins, rsbuildPlugins } = createPluginsTs();
 
     return {
@@ -49,7 +53,7 @@ export default defineConfig(() => {
             host: '0.0.0.0',
             port: __APP_ENV__['import.meta.env.VITE_PORT'],
             open: __APP_ENV__['import.meta.env.VITE_OPEN'],
-            proxy: createProxy(__APP_ENV__['import.meta.env.VITE_PROXY']),
+            proxy: createProxy(__APP_ENV__['import.meta.env.VITE_PROXY']??[]),
         },
         dev: {
             lazyCompilation: true,
