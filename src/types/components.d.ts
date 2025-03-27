@@ -64,6 +64,7 @@ declare module 'vue' {
     ATransfer: typeof import('ant-design-vue/es')['Transfer']
     ATree: typeof import('ant-design-vue/es')['Tree']
     ATreeSelect: typeof import('ant-design-vue/es')['TreeSelect']
+    ATypographyLink: typeof import('ant-design-vue/es')['TypographyLink']
     ATypographyText: typeof import('ant-design-vue/es')['TypographyText']
     Breadcrumb: typeof import('./../components/breadcrumb/index.vue')['default']
     ColumnSetting: typeof import('./../components/data-table/column-setting/index.vue')['default']

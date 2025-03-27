@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-09 11:55:18
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-11 23:11:43
+ * @LastEditTime: 2025-03-27 15:33:40
  * @FilePath: src/views/admin/dept/components/add.vue
  * @Description: 部门新增/编辑表单
  -->
@@ -15,7 +15,7 @@
         @confirm="handleSave"
         @cancel="closeDialog"
     >
-        <a-form ref="formRef" :model="formData" :rules="rules" :label-col="{ span: 3 }" :wrapper-col="{ span: 21 }">
+        <a-form ref="formRef" :model="formData" :rules="rules" layout="vertical">
             <a-row :gutter="16">
                 <a-col :span="12">
                     <a-form-item label="上级部门" name="parentId">
@@ -88,12 +88,14 @@
                 </a-col>
             </a-row>
             <a-row :gutter="16">
-                <a-col :span="12">
+                <a-col :span="24">
                     <a-form-item label="电子邮箱" name="email">
                         <a-input v-model:value="formData.email" allow-clear />
                     </a-form-item>
                 </a-col>
-                <a-col :span="12">
+            </a-row>
+            <a-row :gutter="16">
+                <a-col :span="24">
                     <a-form-item label="备注" name="remark">
                         <a-textarea v-model:value="formData.remark" :rows="6" :auto-size="false" allow-clear />
                     </a-form-item>
@@ -104,12 +106,12 @@
 </template>
 
 <script setup lang="ts">
-import { message } from 'ant-design-vue';
+import { useAntdForm } from '@/composables';
+import { addDept, getDeptConst, getDeptTree, updateDept } from '@/service/apis/dept';
 import { getDictDataListByType } from '@/service/apis/dict';
 import { IDept } from '@/service/interface/dept';
-import { addDept, getDeptConst, getDeptTree, updateDept } from '@/service/apis/dept';
 import { IDictData } from '@/service/interface/dict';
-import { useAntdForm } from '@/composables';
+import { message } from 'ant-design-vue';
 
 const emits = defineEmits(['close']);
 

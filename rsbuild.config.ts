@@ -20,13 +20,10 @@ const __APP_INFO__ = {
     lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 };
 
-
-
-
 export default defineConfig(() => {
     // 将环境变量的值转换并注入到项目中
     const __APP_ENV__ = wrapperEnv(publicVars);
-    console.log(__APP_ENV__)
+    console.log(__APP_ENV__);
     const { rspackPlugins, rsbuildPlugins } = createPluginsTs();
 
     return {
@@ -53,7 +50,7 @@ export default defineConfig(() => {
             host: '0.0.0.0',
             port: __APP_ENV__['import.meta.env.VITE_PORT'],
             open: __APP_ENV__['import.meta.env.VITE_OPEN'],
-            proxy: createProxy(__APP_ENV__['import.meta.env.VITE_PROXY']??[]),
+            proxy: createProxy(__APP_ENV__['import.meta.env.VITE_PROXY'] ?? []),
         },
         dev: {
             lazyCompilation: true,

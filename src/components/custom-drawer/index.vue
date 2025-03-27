@@ -40,7 +40,7 @@
         <slot></slot>
 
         <!-- 底部内容 -->
-        <template #footer>
+        <template v-if="showFooter" #footer>
             <slot name="footer"></slot>
         </template>
     </a-drawer>
@@ -64,7 +64,8 @@ const props = withDefaults(defineProps<Props>(), {
     cancelButtonText: '取消',
     confirmButtonIcon: '',
     cancelButtonIcon: '',
-    getContainer: false,
+    getContainer: 'body',
+    showFooter: false,
 });
 
 const emit = defineEmits<{
@@ -102,6 +103,9 @@ interface Props extends Partial<DrawerProps> {
     confirmButtonIcon?: string;
     /** 取消按钮图标 */
     cancelButtonIcon?: string;
+    /** 是否显示底部内容 */
+    showFooter?: boolean;
+    getContainer?: string | HTMLElement | (() => HTMLElement);
 }
 
 // 抽屉属性

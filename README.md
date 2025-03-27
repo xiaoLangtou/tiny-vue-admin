@@ -7,7 +7,7 @@ Tiny Vue Admin 是一个轻量级的前后端分离中后台管理系统框架�
 ## 技术栈
 
 - **核心框架：** Vue3.5 + TypeScript + RSBuild
-- **UI 组件：** Ant Design Vue 4.2 + @ant-design/icons-vue  + ludice-vue
+- **UI 组件：** Ant Design Vue 4.2 + @ant-design/icons-vue + ludice-vue
 - **状态管理：** Pinia + 持久化存储
 - **路由管理：** Vue Router 4.5
 - **HTTP 请求：** Alova + Axios
@@ -111,7 +111,6 @@ pnpm build
 - [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
-
 
 ### 特别鸣谢
 

@@ -52,8 +52,6 @@ export function isReportMode(): boolean {
     return process.env.REPORT === 'true';
 }
 
-
-
 export const createProxy = (list: ProxyList) => {
     const ret: ProxyTargetList = {};
 
