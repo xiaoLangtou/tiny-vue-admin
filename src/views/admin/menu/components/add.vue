@@ -114,12 +114,6 @@
                 </template>
                 添加常用按钮
             </a-button>
-            <a-button type="primary" class="xlt-btn mb-3" @click="handleAddControllableBtn">
-                <template #icon>
-                    <Edit3Icon :size="16" />
-                </template>
-                添加自定义按钮
-            </a-button>
         </div>
 
         <a-table :columns="columns" :data-source="buttonSource" size="middle" :bordered="false" :pagination="false">
@@ -151,6 +145,12 @@
                 </template>
             </template>
         </a-table>
+        <a-button type="dashed" class="xlt-btn mt-3 w-full" @click="handleAddControllableBtn">
+            <template #icon>
+                <Plus :size="16" />
+            </template>
+            添加自定义按钮
+        </a-button>
     </custom-drawer>
 </template>
 
@@ -161,7 +161,7 @@ import { createMenu, getMenuTreeList, updateMenu } from '@/service/apis/menu';
 import type { IMenu, MenuOptions } from '@/service/interface/menu';
 import { generateUUID } from '@/utils';
 import { FileTextOutlined } from '@ant-design/icons-vue';
-import { Edit3Icon } from 'lucide-vue-next';
+import { Plus } from 'lucide-vue-next';
 import type { UnwrapRef } from 'vue';
 
 const emits = defineEmits(['close']);
