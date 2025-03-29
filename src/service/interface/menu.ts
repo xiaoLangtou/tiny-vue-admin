@@ -2,7 +2,7 @@
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-02-22 15:32:17
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-12 12:39:15
+ * @LastEditTime: 2025-03-27 16:45:26
  * @FilePath: src/service/interface/menu.ts
  * @Description: 菜单相关的类型
  */
@@ -35,6 +35,11 @@ export interface MenuOptions {
 
 export type TMenuServiceResult = ServiceResult<MenuOptions[]>;
 
+export interface IButtonItem {
+    name: string;
+    permission: string;
+}
+
 export interface IMenu {
     id?: number;
     parentId: number;
@@ -49,6 +54,7 @@ export interface IMenu {
     permission?: string;
     sortOrder: number;
     enName?: string;
+    buttons?: IButtonItem[];
 }
 
 export interface IMenuParams {

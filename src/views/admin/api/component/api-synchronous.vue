@@ -55,14 +55,14 @@
 
                 <a-table-column key="action" title="操作" :width="200">
                     <template #default="{ record }">
-                        <div class="flex gap-2">
-                            <a-button type="link" class="xlt-btn" @click="handleAddApi(record)">
+                        <div class="flex">
+                            <a-button type="link" class="xlt-btn !gap-0" @click="handleAddApi(record)">
                                 <template #icon>
                                     <Plus :size="14" />
                                 </template>
                                 单条新增
                             </a-button>
-                            <a-button type="link" class="xlt-btn" @click="handleIgnoreApi(record, 1)">
+                            <a-button type="link" class="xlt-btn !gap-0" @click="handleIgnoreApi(record, 1)">
                                 <template #icon>
                                     <CircleMinus :size="14" />
                                 </template>
@@ -132,7 +132,7 @@
 
                 <a-table-column key="action" title="操作" :width="200">
                     <template #default="{ record }">
-                        <a-button type="link" class="xlt-btn" @click="handleIgnoreApi(record, 0)">
+                        <a-button type="link" class="xlt-btn !gap-0" @click="handleIgnoreApi(record, 0)">
                             <template #icon>
                                 <CircleMinus :size="14" />
                             </template>
@@ -146,12 +146,12 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, CircleMinus } from 'lucide-vue-next';
-import type { IApiSync, IApi } from '@/service/interface/api';
-import { to } from '@/utils/result-handler';
-import { addApi, batchCreateApi, ignoreApi, syncApi } from '@/service/apis/api';
-import { HttpMethodCN, HTTP_METHOD } from '@/global/enums';
 import { useMessage } from '@/composables';
+import { HTTP_METHOD, HttpMethodCN } from '@/global/enums';
+import { addApi, batchCreateApi, ignoreApi, syncApi } from '@/service/apis/api';
+import type { IApi, IApiSync } from '@/service/interface/api';
+import { to } from '@/utils/result-handler';
+import { CircleMinus, Plus } from 'lucide-vue-next';
 
 const { message } = useMessage();
 

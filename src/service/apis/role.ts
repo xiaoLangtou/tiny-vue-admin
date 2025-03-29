@@ -77,6 +77,7 @@ export const changeRoleStatus = (id: number, status: number) => {
  * @description 修改角色菜单
  * @param {IRole} data
  * @param {number[]} data.menus 菜单ID
+ * @param {number[]} data.buttons 按钮ID
  * @param {number} data.id 角色ID
  * @returns
  */

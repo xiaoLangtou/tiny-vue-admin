@@ -1,11 +1,11 @@
-import type { ServiceResult } from '@/service/request/config/handle.ts';
 import type { ReqPage, ResPage } from '@/service/interface/type.ts';
+import type { ServiceResult } from '@/service/request/config/handle.ts';
 
 /**
  * @Author: weipc 755197142@qq.com
  * @Date: 2025-03-12 14:11:48
  * @LastEditors: weipc 755197142@qq.com
- * @LastEditTime: 2025-03-12 14:16:34
+ * @LastEditTime: 2025-03-28 16:48:20
  * @FilePath: src/service/interface/role.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -19,6 +19,7 @@ export interface IRole {
     isEnable?: number;
     createTime?: string;
     menus?: number[];
+    buttons?: number[];
     deptIds?: number[];
 }
 

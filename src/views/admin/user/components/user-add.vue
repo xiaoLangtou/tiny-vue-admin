@@ -7,14 +7,7 @@
         @confirm="handleSave(formRef)"
         @cancel="closeDialog(formRef)"
     >
-        <a-form
-            ref="formRef"
-            :model="formData"
-            :rules="rules"
-            :label-col="{ span: 6 }"
-            :wrapper-col="{ span: 18 }"
-            :disabled="setRoleDisabled"
-        >
+        <a-form ref="formRef" :model="formData" :rules="rules" layout="vertical" :disabled="setRoleDisabled">
             <a-row :gutter="16">
                 <a-col :span="12">
                     <a-form-item label="归属部门" name="deptId">
@@ -97,13 +90,6 @@
                 </a-col>
             </a-row>
         </a-form>
-
-        <a-divider orientation="left">用户分配角色</a-divider>
-        <a-table :data-source="roleList" row-key="id" :row-selection="{ onChange: handleSelectionChange }">
-            <a-table-column key="id" title="序号" data-index="id" />
-            <a-table-column key="roleName" title="角色名称" data-index="roleName" />
-            <a-table-column key="roleCode" title="角色编码" data-index="roleCode" />
-        </a-table>
     </custom-drawer>
 </template>
 
@@ -151,7 +137,6 @@ const rules = {
 };
 
 const deptTreeData = ref<IDept[]>([]);
-const roleList = ref<IRole[]>([]);
 const postList = ref<IPost[]>([]);
 
 const openDialog = async (type = 'add', item: any = {}) => {
@@ -205,10 +190,6 @@ const handleSave = async () => {
     } finally {
         submitLoading.value = false;
     }
-};
-
-const handleSelectionChange = (selectedRowKeys: any[]) => {
-    formData.value.roles = selectedRowKeys;
 };
 
 const closeDialog = () => {
